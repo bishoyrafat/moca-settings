@@ -1,0 +1,23 @@
+.linksContainer {
+  width: 100%;
+  display: flex;
+  padding-left: 65px;
+}
+.links {
+  display: flex;
+}
+.navLink {
+  margin: 10px 15px;
+}
+
+.navLink a{
+  text-decoration: none;
+  color: #00000099;
+}
+.navLink.active a{
+  color: var(--mainPurbleColor);
+}
+.navLink.active{
+  padding-bottom: 5px;
+  border-bottom:4px solid var(--mainPurbleColor);
+}

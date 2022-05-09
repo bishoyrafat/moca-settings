@@ -1,0 +1,20 @@
+<div class="form-group ">
+    <label for="">{{ labelText }}</label>
+    <div class="relativePosition">
+      <input
+        [type]="inputType"
+        [formControl]="control"
+        [min]="inputMin"
+        [max]="inputMax"
+        [class]="inputextraClass"
+        class="customForm"
+        [placeholder]="labelText"
+        [class]="errMsg!==''?'outline-danger':''"
+
+      />
+      <span class="currency"><i class="fa fa-{{imgPath}}"></i></span>
+    </div>
+    <p *ngIf="errMsg !== ''" class="text-red">
+      {{ errMsg }}
+    </p>
+  </div>

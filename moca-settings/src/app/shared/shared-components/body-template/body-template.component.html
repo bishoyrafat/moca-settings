@@ -1,0 +1,39 @@
+<div class="bodyContainer">
+  <div class="bodyContent">
+    <ng-content></ng-content>
+  </div>
+  <div class="optionsContainer" *ngIf="!hideBtns">
+    <div class="p-0 px-2 reportBtns">
+      <div *ngIf="hasEdit">
+        <button class="pointer" (click)="editClicked()">
+          <img
+            src="./../../../../assets/images/editIcon.svg"
+            class="w-75 m-auto"
+            alt="edit"
+           
+          />
+        </button>
+      </div>
+      <div *ngIf="hasAdd">
+        <button class="pointer" (click)="saveClicked()">
+          <img
+            src="./../../../../assets/images/saveDiskIcon.svg"
+            class="w-75 m-auto "
+            alt="save"
+            
+          />
+        </button>
+      </div>
+      <div *ngIf="hasReset">
+        <button  (click)="deleteClicked()">
+          <img
+            src="./../../../../assets/images/cancel (1).svg"
+            class="w-75 m-auto"
+            alt="close"
+           
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

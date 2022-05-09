@@ -1,0 +1,15 @@
+<div class="d-flex my-2">
+  <label class="switch">
+    <input
+      [class]="inputextraClass"
+      [readonly]="disabled"
+      (change)="emitValue($event)"
+      [checked]="value"
+      class="form-control"
+      type="checkbox"
+      [id]="labelText"
+    />
+    <span class="slider round"></span>
+  </label>
+  <label *ngIf="!hideLabel" [for]="labelText" class="mx-2">{{ labelText }} </label>
+</div>

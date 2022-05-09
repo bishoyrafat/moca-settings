@@ -1,0 +1,21 @@
+.title h1 {
+  font-size: 26px;
+  font-family: gtMeduim;
+
+}
+.title{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.title p,.title h1{
+  color: var(--mainPurbleColor);
+  margin: 22px 0;
+  font-family: gtMeduim;
+}
+
+.title p{
+  font-size: 18px;
+  margin-left: 10px;
+}

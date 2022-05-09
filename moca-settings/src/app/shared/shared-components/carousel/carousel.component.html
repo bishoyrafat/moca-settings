@@ -1,0 +1,34 @@
+<ngx-slick-carousel
+  class="carousel"
+  #slickModal="slick-carousel"
+  [config]="slideConfig"
+>
+  <div
+    ngxSlickItem
+    *ngFor="let slide of slides; trackBy: identify"
+    class="slide"
+  >
+    <ng-container *ngIf="slide.visible">
+      <div
+        class="navLink pointer"
+        [class]="slide.active ? 'active' : ''"
+        (click)="makeActive(slide)"
+        *ngIf="!slide.editMode"
+      >
+        <a>
+          {{ slide.name }}
+        </a>
+      </div>
+      <div
+        class="navLink pointer"
+        [class]="slide.active ? 'active' : ''"
+        (click)="makeActive(slide)"
+        *ngIf="slide.editMode"
+      >
+        <a>
+          {{ slide.name }}
+        </a>
+      </div>
+    </ng-container>
+  </div>
+</ngx-slick-carousel>

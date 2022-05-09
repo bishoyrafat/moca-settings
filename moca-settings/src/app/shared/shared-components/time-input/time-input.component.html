@@ -1,0 +1,22 @@
+<form [formGroup]="form">
+  <div class="row">
+    <div class="col-12 form-group">
+      <select
+        formControlName="hrs"
+        [class]="err||(form.controls['hrs'].touched&& form.controls['hrs'].errors?.['required'])?'outline-danger':''"
+        (change)="timeChanaged()"
+        class="form-control"
+      >
+        <option *ngFor="let item of hours" [value]="item.value">
+          {{ item.name }}
+        </option>
+      </select>
+      <p
+        *ngIf="err||(form.controls['hrs'].touched&& form.controls['hrs'].errors?.['required'])"
+        class="text-red"
+      >
+        Hours Is Required
+      </p>
+    </div>
+  </div>
+</form>

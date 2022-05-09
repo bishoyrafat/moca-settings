@@ -1,0 +1,27 @@
+<div [class]="errMsg !== '' ? 'text-red' : ''" class="form-group">
+  <label *ngIf="!hideLabel" for=""
+    >{{ labelText }}
+    <span *ngIf="inputRequired" class="text-red">*</span>
+  </label>
+
+  <label for="field" class="relativePosition">
+    <input
+      id="field"
+      [ngModel]="fieldValue"
+      (ngModelChange)="fieldValue = $event"
+      [disabled]="disabled"
+      type="number"
+      [formControl]="control"
+      [class]="inputextraClass"
+      [placeholder]="hideLabel ? '' : placeholder ? placeholder : labelText"
+      [class]="errMsg !== '' ? 'outline-danger' : ''"
+      class="customForm"
+      minlength="1"
+      maxlength="21"
+    />
+    <span class="currency">{{ currency }}</span>
+  </label>
+  <p *ngIf="errMsg !== ''" class="text-red">
+    {{ errMsg }}
+  </p>
+</div>

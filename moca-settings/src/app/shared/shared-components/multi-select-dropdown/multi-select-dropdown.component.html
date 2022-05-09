@@ -1,0 +1,58 @@
+<div class="form-group" [class]="errMsg !== '' ? 'text-red' : ''">
+  <label *ngIf="!hideLabel" for="">
+    {{ labelText }} <span *ngIf="inputRequired" class="text-red">*</span>
+  </label>
+  <mat-select
+    class="form-control"
+    [formControl]="control"
+    multiple
+    [placeholder]="labelText"
+    [class]="inputextraClass"
+    [class]="errMsg !== '' ? 'outline-danger' : ''"
+    (selectionChange)="valueChange()"
+  >
+    <!-- <mat-option #allSelected (click)="toggleAllSelection()" [value]="'AllChoices'"
+      >All</mat-option
+    > -->
+    <!-- <mat-select-trigger>
+      {{
+        this.control.value
+          ? this.control.value[0] + this.control.value[1]
+            ? "," + this.control.value[1]
+            : this.control.value[2]
+            ? "," + this.control.value[2]
+            : ""
+          : ""
+      }}
+
+      <span *ngIf="this.control.value?.length > 2" class="additional-selection">
+        (+{{ this.control.value.length - 2 }}
+        {{ this.control.value?.length === 2 ? "other" : "others" }})
+      </span>
+    </mat-select-trigger> -->
+    <mat-optgroup>
+      <input
+        #search
+        autocomplete="off"
+        placeholder="Search"
+        aria-label="Search"
+        matInput
+        class="searchControl"
+        (keyup)="filter($event)"
+      />
+    </mat-optgroup>
+    <mat-option *ngFor="let item of options" [value]="item.item_id">
+      <span>{{ item.item_text }}</span>
+      <img
+        *ngIf="item.images"
+        [src]=" item.images"
+        alt="icon"
+        class="imageIcon"
+      />
+    </mat-option>
+  </mat-select>
+
+  <p *ngIf="errMsg !== ''" class="text-red">
+    {{ errMsg }}
+  </p>
+</div>

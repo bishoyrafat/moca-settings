@@ -1,1 +1,404 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --mocaPurbleColor: #ba43ff;
+  --mainPurbleColor: #7028ce;
+  --deleteRedColor: #f33901;
+  --mainPurbleShadedColor: #7028ceb0;
+  --mainWhiteColor: #fff;
+  --mainGrayColor: #f7f7f7;
+  --secondaryGrayColor: #747474;
+  --placeHolderColor: #00000080;
+  --borderColor: #d2d2d2;
+  --fadedBlack: rgba(0, 0, 0, 0.6);
+  --paginationTextColor: #787878;
+  --cancelBtnBg: #aaaeb8;
+}
+
+@font-face {
+  font-family: gtRegular;
+  src: url("./assets/fonts/GT-Walsheim-Pro-Regular.ttf");
+}
+
+@font-face {
+  font-family: gtLight;
+  src: url("./assets/fonts/GT-Walsheim-Pro-Light.ttf");
+}
+
+@font-face {
+  font-family: gtBold;
+  src: url("./assets/fonts/GT-Walsheim-Pro-Bold.ttf");
+}
+
+@font-face {
+  font-family: gtMeduim;
+  src: url("./assets/fonts/GT-Walsheim-Pro-Medium.ttf");
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--mainGrayColor) !important;
+  font-family: gtMeduim !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.active {
+  color: var(--mainPurbleColor);
+}
+.active2 a {
+  width: 200px;
+  height: 34px;
+  padding: 5px 20px;
+  background: var(--unnamed-color-7028ce) 0% 0% no-repeat padding-box;
+  background: hsla(266, 67%, 48%, 0.103) 0% 0% no-repeat padding-box;
+  border-radius: 5px;
+  color: var(--mainPurbleColor) !important;
+}
+
+.links {
+  gap: 30px;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+/* expansion panel header */
+.mat-expansion-panel-header-title,
+.mat-expansion-indicator::after {
+  color: var(--mainWhiteColor);
+}
+.mat-expansion-panel-body{
+  padding: 20px !important;
+}
+.mat-expansion-panel{
+  margin: 20px 0 !important;
+}
+/* css */
+.colorPurple {
+  color: var(--mainPurbleColor);
+}
+
+.titles {
+  color: var(--mainPurbleColor);
+  font-size: 29px;
+  font-family: gtMeduim;
+}
+
+.outlinePurbleBtn {
+  background-color: var(--mainWhiteColor);
+  border: 1px solid var(--mainPurbleColor);
+  border-radius: 5px;
+  color: var(--mainPurbleColor);
+  padding: 5px 20px;
+  transition: all 0.5s ease-in-out;
+  height: 40px;
+}
+
+.outlinePurbleBtn:hover {
+  background-color: var(--mainPurbleColor);
+  color: var(--mainWhiteColor);
+}
+
+.purbleBtn {
+  background-color: var(--mainPurbleColor);
+  border: 1px solid var(--mainPurbleColor);
+  border-radius: 5px;
+  color: var(--mainWhiteColor);
+  padding: 5px 20px;
+  transition: all 0.5s ease-in-out;
+  height: 40px;
+}
+
+.purbleBtn:hover {
+  background-color: var(--mainWhiteColor);
+  color: var(--mainPurbleColor);
+}
+
+.deleteBtn {
+  background-color: var(--deleteRedColor);
+  border: 1px solid var(--deleteRedColor);
+  border-radius: 5px;
+  color: var(--mainWhiteColor);
+  padding: 5px 20px;
+  transition: all 0.5s ease-in-out;
+  height: 40px;
+}
+.delete:hover {
+  background-color: var(--mainWhiteColor);
+  color: var(--deleteRedColor);
+}
+.cancelBtn {
+  background-color: var(--cancelBtnBg);
+  border: 1px solid var(--cancelBtnBg);
+  border-radius: 5px;
+  color: #575962;
+  padding: 5px 20px;
+  transition: all 0.5s ease-in-out;
+  height: 40px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.hr {
+  width: 100%;
+  background-color: #ddd;
+  border-top: 1px solid #ddd;
+  margin: 8px 0;
+}
+
+.subTitle {
+  color: var(--mainPurbleColor);
+  font-size: 20px;
+  margin: 15px 0;
+}
+
+input.form-control,
+select.form-control {
+  height: 50px;
+  appearance: auto !important;
+}
+select::-ms-expand {
+  display: none;
+}
+.iti {
+  width: 100%;
+}
+
+.form {
+  padding: 10px 0 50px 0;
+}
+
+.text-red {
+  color: red;
+}
+
+.outline-danger {
+  border: 1px solid red !important;
+}
+
+input.outline-danger::placeholder {
+  color: red;
+}
+
+.text-center {
+  text-align: center;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.page-link {
+  background-color: transparent !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  width: 27px !important;
+  height: 27px !important;
+  padding: 4px !important;
+  text-align: center !important;
+  margin: 0 !important;
+  color: var(--paginationTextColor) !important;
+  vertical-align: middle !important;
+  font-size: 12px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.page-item.active .page-link {
+  background-color: var(--mainPurbleColor) !important;
+  color: var(--mainWhiteColor) !important;
+}
+
+.page-link:focus {
+  box-shadow: 0 0 0 !important;
+}
+
+.page-link[aria-label="Previous"],
+.page-link[aria-label="First"],
+.page-link[aria-label="Next"],
+.page-link[aria-label="Last"] {
+  background-color: #ebedf2 !important;
+  color: #363636 !important;
+  font-size: 15px !important;
+  border-radius: 50% !important;
+}
+
+.page-item:last-child .page-link,
+.page-item:first-child .page-link {
+  border-radius: 50% !important;
+}
+
+.page-item {
+  margin: 0 2px !important;
+}
+.multiselect-dropdown .dropdown-btn {
+  display: flex !important;
+  width: 100% !important;
+  height: 50px;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #74777d;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  align-items: center;
+}
+.dropdown-multiselect__caret {
+  display: none !important;
+}
+.selected-item {
+  max-width: 1000px !important;
+}
+.multiselect-dropdown .dropdown-list {
+  width: 350px !important;
+}
+select option {
+  width: 350px !important;
+  padding: 5px 10px;
+  margin: 5px 10px;
+}
+.p-0-75 {
+  padding: 0 75px;
+}
+.alignMiddle {
+  vertical-align: middle;
+}
+.dashedLines {
+  width: 100%;
+  height: 3px;
+  border-top: 1px dashed var(--borderColor);
+}
+
+.toast-container {
+  min-width: 250px;
+  width: 500px;
+}
+.toast-container .ngx-toastr {
+  width: 100%;
+}
+.toast-title {
+  margin-bottom: 15px;
+  width: 100%;
+  word-break: break-word;
+}
+.exportExcelModalDimensions {
+  width: 40% !important;
+  height: 40% !important;
+}
+.emailConfirmationModalDimensions {
+  width: 506px !important;
+  height: 405px !important;
+}
+.createEventspaceModalForm {
+  width: 65% !important;
+  height: 100% !important;
+}
+.deleteModalDimensions {
+  width: 535px !important;
+  height: 307px !important;
+}
+.transferToWhite {
+  filter: invert(100%) sepia(0%) saturate(1286%) hue-rotate(143deg)
+    brightness(109%) contrast(101%);
+}
+.form-control:disabled,
+.form-control[readonly] {
+  background-color: #fff !important;
+}
+.bgPurble {
+  background-color: var(--mocaPurbleColor);
+  /* color: #fff!important; */
+}
+.bgPurble h4,
+.bgPurble i {
+  color: #fff !important;
+}
+.collapseBtn.pointer {
+  background-color: var(--mocaPurbleColor)!important;
+  color: white !important;
+}
+
+.collapseBtn h4 {
+  color: white!important;
+}
+.mat-select {
+  display: inline-block;
+  width: 100%;
+  outline: none;
+  height: 50px!important;
+  display: flex !important;
+  align-items: center;
+}
+
+.mat-option-text {
+  display: flex !important;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-items: center;
+  justify-content: space-between;
+}
+.slick-prev:before,
+.slick-next:before {
+  color: var(--mainPurbleColor);
+}
+.slick-slider {
+  width: 100%;
+  margin: 0 !important;
+  background: white;
+}
+.slick-track {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+.innerNavWithNoPadding {
+  padding-left: 0 !important;
+}
+.slide.slick-slide {
+  width: auto !important;
+  min-width: 20px !important;
+  max-width: 320px !important;
+}
+.slick-list {
+  margin-left: 10px !important;
+}
+.slick-prev {
+  left: 0 !important;
+}
+.relativePosition {
+  position: relative;
+}
+.dropdown-menu.show {
+  transform: none !important;
+}
+.bgGray tbody tr{
+  border-bottom: 2px solid #ddd;
+
+}

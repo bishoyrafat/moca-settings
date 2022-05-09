@@ -1,0 +1,75 @@
+<div [class]="errMsg !== '' ? 'text-red' : ''" class="form-group">
+  <label *ngIf="!hideLabel" for=""
+    >{{ labelText }}
+    <span *ngIf="inputRequired" class="text-red">*</span>
+  </label>
+  <form class="row">
+    <div class="col-lg-6 col-12">
+      <div class="dp-hidden position-absolute">
+        <div class="input-group">
+          <input
+            name="datepicker"
+            class="form-control d-none"
+            ngbDatepicker
+            #datepicker="ngbDatepicker"
+            [autoClose]="'outside'"
+            (dateSelect)="onDateSelection($event)"
+            [displayMonths]="2"
+            [dayTemplate]="t"
+            outsideDays="hidden"
+            [startDate]="fromDate!"
+            tabindex="-1"
+            [placement]="bottom"
+          />
+          <ng-template #t let-date let-focused="focused">
+            <span
+              class="custom-day"
+              [class.focused]="focused"
+              [class.range]="isRange(date)"
+              [class.faded]="isHovered(date) || isInside(date)"
+              (mouseenter)="hoveredDate = date"
+              (mouseleave)="hoveredDate = null"
+            >
+              {{ date.day }}
+            </span>
+          </ng-template>
+        </div>
+      </div>
+      <div class="input-group">
+        <input
+          #dpFromDate
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="dpFromDate"
+          [(ngModel)]="fromModel"
+          [value]="fromDate ? formatter.format(fromDate) : ''"
+          (input)="
+            fromDate
+              ? (fromDate = validateInput(fromDate, dpFromDate.value))
+              : null
+          "
+          (click)="datepicker.toggle()"
+        />
+      </div>
+    </div>
+    <div class="col-lg-6 col-12">
+      <div class="input-group">
+        <input
+          #dpToDate
+          class="form-control"
+          placeholder="yyyy-mm-dd"
+          name="dpToDate"
+          [(ngModel)]="toModel"
+          [value]="toDate ? formatter.format(toDate) : ''"
+          (input)="
+            toDate ? (toDate = validateInput(toDate, dpToDate.value)) : null
+          "
+          (click)="datepicker.toggle()"
+        />
+      </div>
+    </div>
+  </form>
+  <p *ngIf="errMsg !== ''" class="text-red">
+    {{ errMsg }}
+  </p>
+</div>

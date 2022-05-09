@@ -1,0 +1,15 @@
+<div class=" ">
+  <div class="relativePosition">
+    <input
+      #searchVal
+      type="text"
+      [class]="inputextraClass"
+      class="customForm"
+      [placeholder]="labelText"
+      (keyup.enter)="searchClicked($event.target)"
+    />
+    <span class="currency pointer" (click)="searchClicked(searchVal)"
+      ><i class="fas fa-search"></i
+    ></span>
+  </div>
+</div>

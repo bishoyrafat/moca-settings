@@ -1,0 +1,125 @@
+.iconImg{
+    width: 50px;
+}
+.bodyContainer {
+  display: flex;
+  width: 100%;
+  padding: 0 75px;
+}
+.tableContainer {
+  width: 98%;
+}
+.tableBody {
+  width: 100%;
+  background-color: #fff;
+  padding: 30px;
+  border: 1px solid #f1f1f1;
+  box-shadow: 0px 0px 8px #7474741c;
+  border-radius: 10px;
+  margin-bottom: 55px;
+}
+.SearchInput {
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  margin: 15px 0;
+  font-family: gtLight;
+}
+td {
+  border: 0;
+  font-size: 14px;
+  white-space: normal;
+  min-width: 120px;
+  width: auto;
+}
+thead tr {
+  border-top: 0;
+}
+thead tr td {
+  color: var(--mainPurbleColor);
+  border-bottom: 2px solid #ddd;
+  font-family: gtRegular;
+  font-size: 16px;
+}
+
+tbody tr td span {
+  font-family: gtLight;
+}
+.reportBtns button {
+  background-color: var(--mainPurbleColor);
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  margin: 5px 0;
+  width: 36px;
+  height: 36px;
+}
+.displayingRecords {
+  font-family: gtLight;
+}
+
+nav {
+  margin: 10px 0;
+}
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+span a {
+  text-decoration: none;
+  color: #383838;
+}
+span.colorPurple a {
+  color: var(--mainPurbleColor);
+}
+.modalText {
+  font-size: 25px;
+}
+.iconImg {
+  width: 30px;
+}
+.submitFiltersBtns {
+  background-color: #e164ff !important;
+}
+.editicon {
+  background-color: #00a393;
+}
+.publishIcon {
+  background-color: var(--mainPurbleColor);
+}
+.publishIcon.disabled {
+  background-color: #89868645;
+}
+.deleteicon {
+  background-color: #f33901;
+}
+.actionsContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.actionsContHeader{
+  width: 50px;
+
+}
+.editicon,
+.deleteicon {
+  padding: 4px;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deleteicon img {
+  width: 13px;
+}
+.editicon img{
+  width: 16px;
+}
+.bgGray{
+  background-color: #8986861a;
+}

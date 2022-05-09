@@ -1,0 +1,32 @@
+<app-main-modal [customClass]="'deleteModalDimensions'">
+  <div class="d-flex justify-content-center">
+    <div class="circle">
+      <img src="./../../../../assets/images/deleteIcon.svg" alt="delete" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10 col-12 mx-auto text-center">
+      <p class="deleteTitle">Delete {{ deleteTitle }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-10 col-12 mx-auto text-center">
+      <p class="deleteContent">
+        Are you sure you want to <br />
+        Delete {{ deleteBody }}?
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-12 mx-auto">
+      <div class="row">
+        <div class="col-lg-6 col-12">
+          <button class="deleteBtn" (click)="buttonClicked('delete')">Delete</button>
+        </div>
+        <div class="col-lg-6 col-12">
+          <button class="cancelBtn" (click)="buttonClicked('cancel')">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-main-modal>

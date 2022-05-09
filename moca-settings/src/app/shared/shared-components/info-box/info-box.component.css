@@ -1,0 +1,17 @@
+.collapseBtn {
+  height: 70px;
+  font-size: 25px;
+  font-family: gtRegular;
+  color: var(--mainPurbleColor);
+  background: transparent;
+  border: 0;
+}
+
+.innertitle{
+  height: 70px;
+  font-size: 22px;
+  font-family: gtRegular;
+  color: var(--mainPurbleColor);
+  background: transparent;
+  border: 0;
+}

@@ -1,0 +1,32 @@
+.linksContainer {
+  padding: 30px 50px;
+  background-color: #f1f1f1;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+}
+
+.mainParent p {
+  font-family: gtBold;
+}
+.parents p {
+  font-family: gtRegular;
+  font-size: 15px;
+  color: var(--fadedBlack);
+  cursor: pointer;
+}
+.parents {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+.children {
+  margin-left: 5px;
+  margin-top: 5px;
+}
+.children p {
+  font-size: 14px;
+  font-family: gtRegular;
+  color: var(--mainPurbleColor);
+  cursor: pointer;
+}

@@ -1,0 +1,20 @@
+<div class="collapseContainer"  [class]="customClass">
+  <div
+    (click)="toggleCollapse()"
+    class="collapseBtn pointer"
+  >
+    <h4>
+      {{ title }}
+    </h4>
+    <i
+      *ngIf="showIcon && !showEditIcon"
+      [class]="opened ? 'fas fa-chevron-down' : 'fas fa-chevron-up'"
+    >
+    </i>
+    <i [routerLink]="url?url:'#'" *ngIf="showEditIcon && !showIcon" [class]="'fas fa-pen'"> </i>
+  </div>
+  <div class="borderBottom"></div>
+  <div class="collapseContent" *ngIf="opened">
+    <ng-content></ng-content>
+  </div>
+</div>

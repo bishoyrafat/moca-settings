@@ -1,0 +1,56 @@
+<div class="table-responsive mt-3">
+  <table class="table table-borderless bgGray">
+    <thead>
+      <tr>
+        <ng-container *ngFor="let item of tableHeader">
+          <td *ngIf="item.show">
+            {{ item.name }}
+          </td>
+        </ng-container>
+        <td *ngIf="calltoAction"></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of tableBody; let i = index">
+        <ng-container *ngFor="let data of tableHeader">
+          <td *ngIf="data.show">
+            <span *ngIf="isDate(item[data.key])">
+              {{ item[data.key] | date: "dd-MM-yyyy" }}
+            </span>
+
+            <span *ngIf="!isDate(item[data.key])">
+              <img
+                *ngIf="data.imgUrl && item[data.imgUrl]"
+                [src]="imgUrl + item[data.imgUrl]"
+                alt="icon"
+                class="iconImg"
+              />
+              <span *ngIf="!data.imgUrl">
+                {{ item[data.key] }}
+              </span>
+            </span>
+          </td>
+        </ng-container>
+        <td *ngIf="calltoAction" class="text-right actionsContainer">
+          <div
+            *ngIf="hadEdit"
+            class="mx-2 editicon pointer"
+            (click)="edit(item, i)"
+          >
+            <img src="./../../../../assets/images/editPen.svg" alt="edit" />
+          </div>
+          <div
+            *ngIf="hadDelete"
+            class="mx-2 deleteicon pointer"
+            (click)="del(item, i)"
+          >
+            <img
+              src="./../../../../assets/images/deleteIcon.svg"
+              alt="delete"
+            />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

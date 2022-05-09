@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row p-0-75">
+    <div class="col-12">
+      <button
+      *ngIf="showOutertitle"
+       class="collapseBtn w-100 text-left" type="button">
+        {{outertitle}}
+      </button>
+      <div>
+        <div class="card card-body px-3">
+
+          <h5
+          class="innertitle"
+          *ngIf="showinnertitle"
+          >
+            {{ innertitle }}
+          </h5>
+          <ng-content></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

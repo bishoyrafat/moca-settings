@@ -1,0 +1,11 @@
+textarea {
+  border: 1px solid rgba(0, 0, 0, 0.082);
+  width: 100%; max-width: 100%;
+  border-radius: 4px;
+}
+textarea:focus {
+  outline: 2px solid rgb(0, 0, 0);
+}
+textarea::placeholder {
+padding: 10px;
+}

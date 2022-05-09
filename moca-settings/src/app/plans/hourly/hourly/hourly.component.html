@@ -1,0 +1,37 @@
+<app-body-template>
+  <form [formGroup]="form">
+  <app-dropdown-material expansionHeader="plans">
+    <div class="row">
+      <div class="col-5">
+        <app-text-area
+          placeholder="Enter description"
+          textLabel="Description *"
+          formControlName="description"
+        ></app-text-area>
+      </div>
+      <div class="col-7">
+        <app-rich-text-field
+          [labelText]="'Points *'"
+          [disabled]="false"
+        ></app-rich-text-field>
+      </div>
+    </div>
+  </app-dropdown-material>
+  <app-dropdown-material expansionHeader="Bookings">
+    <div class="row">
+      <div class="col-6">
+        <app-text-area
+          placeholder="Enter What you get"
+          textLabel="What you get *"
+        ></app-text-area>
+      </div>
+      <div class="col-6">
+        <app-text-area
+          placeholder="Enter Terms of Use"
+          textLabel="Terms of Use *"
+        ></app-text-area>
+      </div>
+    </div>
+  </app-dropdown-material>
+</form>
+</app-body-template>

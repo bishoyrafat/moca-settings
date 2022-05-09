@@ -1,0 +1,22 @@
+.circle {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background-color: var(--deleteRedColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.circle img{
+    width: 40%;
+}
+.deleteTitle{
+    color: var(--deleteRedColor);
+    margin-bottom: 24px;
+    font-size: 20px;
+}
+.deleteContent{
+    color: #A9ADBE;
+    font-size: 16px;
+}

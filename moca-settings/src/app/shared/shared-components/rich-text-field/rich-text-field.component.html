@@ -1,0 +1,15 @@
+<div [class]="errMsg !== '' ? 'text-red' : ''" class="form-group">
+  <label class="mb-2" *ngIf="!hideLabel" for=""
+    >{{ labelText }}
+    <span *ngIf="inputRequired" class="text-red">*</span>
+  </label>
+  <angular-editor
+    [placeholder]="'Enter text here...'"
+    [(ngModel)]="content"
+    [config]="editorConfig"
+    (ngModelChange)="changeEditor()"
+  ></angular-editor>
+  <p *ngIf="errMsg !== ''" class="text-red">
+    {{ errMsg }}
+  </p>
+</div>

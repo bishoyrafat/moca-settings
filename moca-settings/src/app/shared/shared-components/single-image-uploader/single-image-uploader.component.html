@@ -1,0 +1,75 @@
+<label class="form-control-label"
+  >{{ label }} <span *ngIf="inputRequired" class="text-red">*</span></label
+>
+<div class="imgContainer">
+  <img
+    *ngIf="
+      imgUrl !== './../../../../assets/images/upload.png' &&
+      imgUrl !== '' &&
+      !disabled &&
+      imgUrl
+    "
+    src="./../../../../assets/images/timesIcon.svg"
+    [class]="label ? 'noImg' : 'deleteImg'"
+    (click)="DeleteFileAv()"
+  />
+
+  <ng-container *ngIf="disabled">
+    <label class="imgUploaderReplacment">
+      <img
+        *ngIf="
+          imgUrl === './../../../../assets/images/upload.png' ||
+          imgUrl === '' ||
+          !imgUrl
+        "
+        src="./../../../../assets/images/upload.png"
+        alt="img"
+        class="w-25 altImg"
+      />
+      <img
+        *ngIf="
+          imgUrl !== './../../../../assets/images/upload.png' &&
+          imgUrl !== '' &&
+          imgUrl
+        "
+        [src]="this.assetsUrl + imgUrl"
+        alt="img"
+        class="w-100 h-100"
+      />
+    </label>
+  </ng-container>
+  <ng-container *ngIf="!disabled">
+    <label for="wrkSpace" class="imgUploaderReplacment">
+      <img
+        *ngIf="
+          imgUrl === './../../../../assets/images/upload.png' ||
+          imgUrl === '' ||
+          !imgUrl
+        "
+        src="./../../../../assets/images/upload.png"
+        alt="img"
+        class="w-25 altImg"
+      />
+      <img
+        *ngIf="
+          imgUrl !== './../../../../assets/images/upload.png' &&
+          imgUrl !== '' &&
+          imgUrl
+        "
+        [src]="this.assetsUrl + imgUrl"
+        alt="img"
+        class="w-100 h-100"
+      />
+    </label>
+  </ng-container>
+</div>
+<input
+  type="file"
+  id="wrkSpace"
+  class="d-none"
+  accept="image/*"
+  (change)="uploadLegalDocuments($event)"
+/>
+<p *ngIf="errMsg !== ''" class="text-danger">
+  {{ errMsg }}
+</p>

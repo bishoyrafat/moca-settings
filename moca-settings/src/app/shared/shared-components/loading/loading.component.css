@@ -1,0 +1,17 @@
+.spinner-border{
+  width: 10rem;
+  height: 10rem;
+  border: 1em solid var(--mainPurbleColor);
+  border-right-color: transparent;
+}
+.overlay{
+  min-height: 800px;
+  height:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  width: 100%;
+  z-index: 8;
+}

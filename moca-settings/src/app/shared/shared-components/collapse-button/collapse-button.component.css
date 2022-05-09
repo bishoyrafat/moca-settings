@@ -1,0 +1,26 @@
+.collapseBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--borderColor);
+  margin: 15px 0;
+  margin-bottom: 25px;
+  border-radius: 5px;
+}
+.collapseBtn h4 {
+  color: var(--mainPurbleColor);
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  font-size: 20px;
+  padding: 22px 0;
+}
+.collapseContent,
+.collapseBtn {
+  padding: 19px 35px;
+}
+.collapseContainer {
+  box-shadow: 0 0 8px #7474741c;
+  margin: 10px 30px;
+  border-radius: 10px;
+}

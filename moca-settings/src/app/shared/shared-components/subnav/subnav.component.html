@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="row linksContainer">
+    <div class="col" *ngFor="let mainParent of navs">
+      <div class="mainParent">
+        <p class="mb-0">
+          {{ mainParent.name }}
+        </p>
+        <div class="parents" *ngFor="let item of mainParent.parent">
+          <p *ngIf="item.route" (click)="route(item)" class="mb-0">
+            {{ item.name }}
+          </p>
+          <p *ngIf="!item.route" class="mb-0">{{ item.name }}</p>
+          <div class="children" *ngFor="let child of item.children">
+            <p (click)="route(child)" class="mb-0">
+              {{ child.name }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

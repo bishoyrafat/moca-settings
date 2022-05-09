@@ -1,0 +1,9 @@
+.imageIcon{
+    width: 30px;
+}
+.searchControl{
+    height: 30px;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+}

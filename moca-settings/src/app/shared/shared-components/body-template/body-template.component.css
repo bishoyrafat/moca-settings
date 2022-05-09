@@ -1,0 +1,22 @@
+.bodyContainer {
+  display: flex;
+  width: 100%;
+  padding: 0 75px;
+}
+.bodyContent {
+  width: 98%;
+  background-color: var(--mainWhiteColor);
+  padding: 15px 25px;
+  min-height: 500px;
+  height: auto;
+  box-shadow: 0 0 8px #7474741C;
+}
+.reportBtns button {
+  background-color: var(--mainPurbleColor);
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  margin: 5px 0;
+  width: 36px;
+  height: 36px;
+}

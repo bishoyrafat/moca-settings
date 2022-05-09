@@ -1,0 +1,21 @@
+<div [class]="errMsg !== '' ? 'text-red' : ''" class="form-group">
+  <label *ngIf="!hideLabel" for=""
+    >{{ labelText }}
+    <span *ngIf="inputRequired" class="text-red">*</span>
+  </label>
+
+  <input
+    (keyup)="checkSpaces($event)"
+    [readonly]="disabled"
+    [type]="inputType"
+    [formControl]="control"
+    [class]="inputextraClass"
+    [min]="inputType === 'date' ? minDate : inputMin"
+    [placeholder]="placeholder ? placeholder : labelText ? labelText : ''"
+    class="form-control"
+    [class]="errMsg !== '' ? 'outline-danger' : ''"
+  />
+  <p *ngIf="errMsg !== ''" class="text-red">
+    {{ errMsg }}
+  </p>
+</div>

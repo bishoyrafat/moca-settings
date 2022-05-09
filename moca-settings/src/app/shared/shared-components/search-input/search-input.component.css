@@ -1,0 +1,20 @@
+.currency {
+    color: var(--placeHolderColor);
+    font-size: 12px;
+  }
+  .customForm {
+      width: 100%;
+    border: 0;
+    border-bottom: 2px solid var(--borderColor);
+  }
+  .customForm:focus {
+    outline: 0;
+  }
+  .relativePosition {
+    display: flex;
+    align-items: center;
+    padding: 5px 0px;
+    justify-content: space-around;
+    border-radius: 5px;
+  }
+  
