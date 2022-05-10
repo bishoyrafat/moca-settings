@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QuillModule } from 'ngx-quill';
-import { InputFieldComponent } from './input-field/input-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyInputComponent } from './currency-input/currency-input.component';
 import { MainModalComponent } from './main-modal/main-modal.component';
@@ -39,10 +38,11 @@ import { DeleteModalComponent } from './delete-modal/delete-modal.component';
 import { DropdownMaterialComponent } from './dropdown-material/dropdown-material.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { TextAreaComponent } from './text-area/text-area.component';
+import { SelectOptionFieldComponent } from './select-option-field/select-option-field.component';
+import { InputFieldComponent } from './input-field/input-field.component';
 
 @NgModule({
   declarations: [
-    InputFieldComponent,
     CurrencyInputComponent,
     MainModalComponent,
     InfoModalComponent,
@@ -69,6 +69,8 @@ import { TextAreaComponent } from './text-area/text-area.component';
     DeleteModalComponent,
     DropdownMaterialComponent,
     TextAreaComponent,
+    SelectOptionFieldComponent,
+    InputFieldComponent,
   ],
   imports: [
     CommonModule,
@@ -86,7 +88,6 @@ import { TextAreaComponent } from './text-area/text-area.component';
     MatExpansionModule,
   ],
   exports: [
-    InputFieldComponent,
     CurrencyInputComponent,
     InfoModalComponent,
     PromptModalComponent,
@@ -113,6 +114,8 @@ import { TextAreaComponent } from './text-area/text-area.component';
     DeleteModalComponent,
     DropdownMaterialComponent,
     TextAreaComponent,
+    SelectOptionFieldComponent,
+    InputFieldComponent,
   ],
 })
 export class SharedComponentsModule {}

@@ -1,1 +1,59 @@
 <p>bundle works!</p>
+<app-body-template
+  (save)="saveAndSubmitForm()"
+  (edit)="editForm()"
+  [hasEdit]="inEditMode"
+  [hasAdd]="!inEditMode"
+  [hasReset]="false"
+>
+  <form [formGroup]="form">
+    <app-dropdown-material expansionHeader="plans">
+      <div class="row">
+        <div class="col-5">
+          <app-text-area
+            placeholder="Enter description"
+            textLabel="Description"
+            [control]="form.get('description')"
+            [required]="true"
+            [disableInput]="disableInput"
+          ></app-text-area>
+        </div>
+        <div class="col-7">
+          <app-rich-text-field
+            labelText="Points"
+            [disabled]="disableInput"
+            (bodyContent)="content($event, 'points')"
+            [inputRequired]="disableInput"
+            errMsg=""
+          ></app-rich-text-field>
+        </div>
+      </div>
+    </app-dropdown-material>
+
+    <app-dropdown-material expansionHeader="Bookings">
+      <div class="row">
+        <div class="col-6">
+          <app-rich-text-field
+            labelText="Enter What you get"
+            [disabled]="disableInput"
+
+            (bodyContent)="content($event, 'whatYouGet')"
+            [inputRequired]="disableInput"
+            errMsg=""
+          ></app-rich-text-field>
+        </div>
+
+        <div class="col-6">
+          <app-rich-text-field
+            labelText="Enter Terms of Use"
+            [disabled]="disableInput"
+
+            (bodyContent)="content($event, 'termsOfUse')"
+            [inputRequired]="disableInput"
+            errMsg=""
+          ></app-rich-text-field>
+        </div>
+      </div>
+    </app-dropdown-material>
+  </form>
+</app-body-template>

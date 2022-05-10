@@ -9,7 +9,12 @@
     [config]="editorConfig"
     (ngModelChange)="changeEditor()"
   ></angular-editor>
-  <p *ngIf="errMsg !== ''" class="text-red">
+  <!-- <p *ngIf="errMsg !== ''" class="text-red">
     {{ errMsg }}
-  </p>
+  </p> -->
+  <small
+  class="text-danger"
+  *ngIf="errMsg !== ''"
+  >* Field is required</small
+>
 </div>

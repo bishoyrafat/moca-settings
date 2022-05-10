@@ -1,1 +1,26 @@
-<p>faqs works!</p>
+<form [formGroup]="form" >
+<app-body-template>
+  <div class="btn-container d-flex justify-content-end">
+    <button class="purbleBtn mx-2">Add Faq</button>
+    <button class="outlinePurbleBtn">Add Category</button>
+  </div>
+
+  <app-dropdown-material [expansionHeader]="'Add FAQs'">
+    <!-- <div class="w-25 mb-4">
+      <app-select-option-field
+        textLabel="Category"
+        defaultOption="-- Select Category --"
+        [control]="form.get('spaceId')"
+      ></app-select-option-field>
+    </div> -->
+    <div class="mb-4">
+      <app-input-field
+        labelText="Question"
+        inputPlaceholder="Add Question"
+        [control]="form.get('question')"
+      ></app-input-field>
+    </div>
+    <app-rich-text-field [disabled]="false" (bodyContent)="bodyContent($event)"></app-rich-text-field>
+  </app-dropdown-material>
+</app-body-template>
+</form>

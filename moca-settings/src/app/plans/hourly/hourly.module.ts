@@ -1,3 +1,4 @@
+import { PlansModule } from './../plans.module';
 import { SharedComponentsModule } from './../../shared/shared-components/shared-components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -6,14 +7,14 @@ import { HourlyRoutingModule } from './hourly-routing.module';
 import { HourlyComponent } from './hourly/hourly.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @NgModule({
-  declarations: [
-    HourlyComponent
-  ],
+  declarations: [HourlyComponent],
   imports: [
     CommonModule,
-    HourlyRoutingModule,SharedComponentsModule,ReactiveFormsModule
-  ]
+    HourlyRoutingModule,
+    SharedComponentsModule,
+    ReactiveFormsModule,
+    PlansModule,
+  ],
 })
-export class HourlyModule { }
+export class HourlyModule {}

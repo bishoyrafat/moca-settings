@@ -100,27 +100,30 @@ body {
 
 .outlinePurbleBtn {
   background-color: var(--mainWhiteColor);
-  border: 1px solid var(--mainPurbleColor);
+  border: 1px solid var(--mocaPurbleColor);
   border-radius: 5px;
   color: var(--mainPurbleColor);
   padding: 5px 20px;
   transition: all 0.5s ease-in-out;
   height: 40px;
+  width: 150px;
+
 }
 
 .outlinePurbleBtn:hover {
-  background-color: var(--mainPurbleColor);
+  background-color: var(--mocaPurbleColor);
   color: var(--mainWhiteColor);
 }
 
 .purbleBtn {
-  background-color: var(--mainPurbleColor);
-  border: 1px solid var(--mainPurbleColor);
+  background-color: var(--mocaPurbleColor);
+  border: 1px solid var(--mocaPurbleColor);
   border-radius: 5px;
   color: var(--mainWhiteColor);
   padding: 5px 20px;
   transition: all 0.5s ease-in-out;
   height: 40px;
+  width: 150px;
 }
 
 .purbleBtn:hover {
