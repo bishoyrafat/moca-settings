@@ -1,26 +1,142 @@
-<form [formGroup]="form" >
-<app-body-template>
-  <div class="btn-container d-flex justify-content-end">
-    <button class="purbleBtn mx-2">Add Faq</button>
-    <button class="outlinePurbleBtn">Add Category</button>
+<app-body-template (save)="saveAndSubmitForm()">
+  <div *ngIf="!inFaqsMode">
+    <div class="btn-container d-flex justify-content-end">
+      <button class="purbleBtn mx-2" (click)="showFaqs()">Add Faq</button>
+      <button class="outlinePurbleBtn" (click)="openModal()">
+        Add Category
+      </button>
+    </div>
+  </div>
+  <!-- faqs mode -->
+  <form [formGroup]="form">
+    <div *ngIf="inFaqsMode">
+      <app-dropdown-material [expansionHeader]="'Add FAQs'">
+        <div class="w-25 mb-4">
+          <app-select-option-field
+            textLabel="Category"
+            defaultOption="Select Category"
+            [control]="form.get('spaceId')"
+          ></app-select-option-field>
+        </div>
+        <div class="mb-4">
+          <app-input-field
+            labelText="Question"
+            inputPlaceholder="Add Question"
+            [control]="form.get('question')"
+          ></app-input-field>
+        </div>
+        <app-rich-text-field
+          labelText="Answer"
+          errMsg=""
+          [disabled]="false"
+          (bodyContent)="bodyContent($event)"
+        ></app-rich-text-field>
+      </app-dropdown-material>
+    </div>
+  </form>
+
+  <!-- category modal -->
+  <div *ngIf="inModalMode">
+    <app-prompt-modal
+      modalTitle="FAQs"
+      imgSrc="./../../../assets/images/Artwork.svg"
+      (dismissModal)="closeModal()"
+      (modalSubmit)="submitModel()"
+    >
+      <app-input-field
+        labelText="Category"
+        inputPlaceholder="Add Category"
+        required="true"
+      ></app-input-field>
+    </app-prompt-modal>
   </div>
 
-  <app-dropdown-material [expansionHeader]="'Add FAQs'">
-    <!-- <div class="w-25 mb-4">
-      <app-select-option-field
-        textLabel="Category"
-        defaultOption="-- Select Category --"
-        [control]="form.get('spaceId')"
-      ></app-select-option-field>
-    </div> -->
-    <div class="mb-4">
-      <app-input-field
-        labelText="Question"
-        inputPlaceholder="Add Question"
-        [control]="form.get('question')"
-      ></app-input-field>
+  <!-- drag and drop -->
+  <!-- <div cdkDropListGroup>
+    <div class="example-container">
+      <div
+        cdkDropList
+        [cdkDropListData]="todo"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of categories.name" cdkDrag>
+          <app-dropdown-material [expansionHeader]="'category 1'">
+
+
+            <div cdkDropListGroup>
+              <div class="example-container">
+                <div
+                  cdkDropList
+                  [cdkDropListData]="todo"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+                >
+                  <div class="example-box" *ngFor="let item of categories.subCategory" cdkDrag>
+                      <p>
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                        Architecto impedit fugit sed ea animi eos totam, saepe, officia
+                        rem hic aperiam voluptas numquam. Culpa adipisci mollitia, quidem
+                        nihil dignissimos ab?
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </app-dropdown-material>
+        </div>
+      </div>
     </div>
-    <app-rich-text-field [disabled]="false" (bodyContent)="bodyContent($event)"></app-rich-text-field>
-  </app-dropdown-material>
+  </div> -->
+
+  <div #dropListContainer class="example-container" cdkDropListGroup>
+    <div
+      *ngFor="let item of items; let i = index"
+      cdkDropList
+      [cdkDropListData]="i"
+    >
+      <div
+        cdkDrag
+        [cdkDragData]="i"
+        (cdkDragEntered)="dragEntered($event)"
+        (cdkDragMoved)="dragMoved($event)"
+        (cdkDragDropped)="dragDropped($event)"
+        class="example-box"
+      >
+        <app-dropdown-material [expansionHeader]="item.name">
+          <ul *ngFor="let item of item.subCategory; let i = index">
+
+
+
+
+
+            <div #dropListContainer class="example-container" cdkDropListGroup>
+              <div
+                cdkDropList
+                [cdkDropListData]="i"
+              >
+                <div
+                  cdkDrag
+                  [cdkDragData]="i"
+                  (cdkDragEntered)="dragEntered($event)"
+                  (cdkDragMoved)="dragMoved($event)"
+                  (cdkDragDropped)="dragDropped($event)"
+                  class="example-box"
+                >
+            <div>item {{i+1}}</div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+          </ul>
+        </app-dropdown-material>
+      </div>
+    </div>
+  </div>
 </app-body-template>
-</form>

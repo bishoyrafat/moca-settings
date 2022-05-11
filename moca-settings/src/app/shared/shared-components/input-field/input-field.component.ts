@@ -9,6 +9,7 @@ export class InputFieldComponent implements OnInit {
 @Input() labelText :string;
 @Input() inputPlaceholder :string;
 @Input() control :any;
+@Input() required :any;
   constructor() { }
 
   ngOnInit(): void {

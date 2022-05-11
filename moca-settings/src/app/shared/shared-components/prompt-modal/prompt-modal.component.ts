@@ -8,7 +8,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class PromptModalComponent implements OnInit {
   @Input() modalTitle: string;
   @Input() customClass: string;
-  @Input() submitText: string = 'Submit';
+  @Input() imgSrc: string;
+  @Input() submitText: string = 'Add';
 
   @Output() dismissModal: EventEmitter<string> = new EventEmitter();
   @Output() modalSubmit: EventEmitter<string> = new EventEmitter();

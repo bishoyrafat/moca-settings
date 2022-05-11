@@ -5,7 +5,22 @@
     height: 100%;
   }
   .modalHeader {
-    border-bottom: 1px solid var(--borderColor);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+  }
+  .modalHeader div:first-child{
+    align-self: flex-end;
+  }
+
+  .closeBtn img{
+    height: 20px;
+  }
+  .img img{
+    height: 20px;
+    width: 200px;
   }
   .modalBody {
     padding-top: 20px;
@@ -15,6 +30,6 @@
   }
   .modalFooter{
       text-align: right;
-      border-top: 1px solid var(--borderColor);
       padding-top: 10px;
   }
+

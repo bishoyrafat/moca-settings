@@ -2,14 +2,10 @@
   <div class="mb-2">
     <label for="selection">{{ textLabel }}</label>
   </div>
-  <select class="form-control" name="" id="selection">
-    <option value="" readonly>{{ defaultOption }}</option>
-    <option
-      [formControl]="control"
-      *ngFor="let item of optionsValue"
-      [value]="item"
-      >
-      {{ item }}
+  <select  [formControl]="control" class="form-control" name="" id="selection">
+    <option [ngValue]="null" [disabled]="true" >{{ defaultOption }}</option>
+    <option *ngFor="let item of optionsValue" [ngValue]="item.value">
+      {{ item.name }}
     </option>
   </select>
 </div>

@@ -1,6 +1,8 @@
 <div class="form-group">
   <div class="mb-2">
-    <label for="">{{ labelText }}</label>
+    <label for="">{{ labelText }}
+      <span *ngIf="required" class="text-danger">*</span>
+    </label>
   </div>
   <input
     [formControl]="control"
@@ -8,4 +10,5 @@
     [placeholder]="inputPlaceholder"
     type="text"
   />
+  <small *ngIf="control.touched || control.invalid">*Field is require</small>
 </div>

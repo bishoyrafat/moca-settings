@@ -4,14 +4,15 @@ import { SharedComponentsModule } from '../shared/shared-components/shared-compo
 import { FaqsRoutingModule } from './faqs-routing.module';
 import { FaqsComponent } from './faqs/faqs.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
-  declarations: [
-    FaqsComponent
-  ],
+  declarations: [FaqsComponent],
   imports: [
     CommonModule,
-    FaqsRoutingModule,SharedComponentsModule,ReactiveFormsModule
-  ]
+    FaqsRoutingModule,
+    SharedComponentsModule,
+    ReactiveFormsModule,DragDropModule
+  ],
 })
-export class FaqsModule { }
+export class FaqsModule {}

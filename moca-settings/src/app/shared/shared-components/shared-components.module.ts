@@ -40,6 +40,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { TextAreaComponent } from './text-area/text-area.component';
 import { SelectOptionFieldComponent } from './select-option-field/select-option-field.component';
 import { InputFieldComponent } from './input-field/input-field.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { InputFieldComponent } from './input-field/input-field.component';
     TextAreaComponent,
     SelectOptionFieldComponent,
     InputFieldComponent,
+    ModalComponent,
   ],
   imports: [
     CommonModule,
@@ -116,6 +118,7 @@ import { InputFieldComponent } from './input-field/input-field.component';
     TextAreaComponent,
     SelectOptionFieldComponent,
     InputFieldComponent,
+    ModalComponent
   ],
 })
 export class SharedComponentsModule {}

@@ -21,8 +21,8 @@
 }
 
 .jw-modal {
-  width: 80%;
-  height: 80%;
+  width: 500px;
+  height: 400px;
   max-height: 80%;
   overflow-y: auto;
   background-color: white;
