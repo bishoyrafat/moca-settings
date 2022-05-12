@@ -5,8 +5,14 @@
     [expanded]="true"
   >
     <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ expansionHeader }}
+      <mat-panel-title class="d-flex justify-content-between">
+        <div>
+          {{ expansionHeader }}
+        </div>
+        <div class="icons-container" *ngIf="hasEditable">
+          <span><img class="text-danger" src="../../../../assets/images/editPen.svg" alt=""></span>
+          <span><img class="text-danger" src="../../../../assets/images/deleteIcon white.svg" alt=""></span>
+        </div>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <ng-content></ng-content>

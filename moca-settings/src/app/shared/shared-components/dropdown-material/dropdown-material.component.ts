@@ -8,6 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class DropdownMaterialComponent implements OnInit {
  @Input() panelOpenState = false;
  @Input() expansionHeader:string;
+ @Input() hasEditable=false;
+
   constructor() { }
 
   ngOnInit(): void {

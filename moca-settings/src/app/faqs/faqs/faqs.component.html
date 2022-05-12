@@ -1,7 +1,7 @@
-<app-body-template (save)="saveAndSubmitForm()">
+<app-body-template (save)="saveAndSubmitForm()"[hasReset]="false">
   <div *ngIf="!inFaqsMode">
     <div class="btn-container d-flex justify-content-end">
-      <button class="purbleBtn mx-2" (click)="showFaqs()">Add Faq</button>
+      <button class="purbleBtn mx-2" (click)="showFaqs()">Add FAQ</button>
       <button class="outlinePurbleBtn" (click)="openModal()">
         Add Category
       </button>
@@ -47,96 +47,51 @@
         labelText="Category"
         inputPlaceholder="Add Category"
         required="true"
+        class="m-3"
       ></app-input-field>
     </app-prompt-modal>
   </div>
 
   <!-- drag and drop -->
-  <!-- <div cdkDropListGroup>
-    <div class="example-container">
-      <div
-        cdkDropList
-        [cdkDropListData]="todo"
-        class="example-list"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <div class="example-box" *ngFor="let item of categories.name" cdkDrag>
-          <app-dropdown-material [expansionHeader]="'category 1'">
+  <div
+    cdkDropList
+    [cdkDropListData]="groups"
+    (cdkDropListDropped)="dropGroup($event)"
+    *ngIf="listMode"
 
-
-            <div cdkDropListGroup>
-              <div class="example-container">
-                <div
-                  cdkDropList
-                  [cdkDropListData]="todo"
-                  class="example-list"
-                  (cdkDropListDropped)="drop($event)"
-                >
-                  <div class="example-box" *ngFor="let item of categories.subCategory" cdkDrag>
-                      <p>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                        Architecto impedit fugit sed ea animi eos totam, saepe, officia
-                        rem hic aperiam voluptas numquam. Culpa adipisci mollitia, quidem
-                        nihil dignissimos ab?
-                      </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-          </app-dropdown-material>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-  <div #dropListContainer class="example-container" cdkDropListGroup>
+  >
     <div
-      *ngFor="let item of items; let i = index"
-      cdkDropList
-      [cdkDropListData]="i"
+      cdkDropListGroup
+      class="example-container"
+      *ngFor="let group of groups"
+      cdkDrag
+      [cdkDragData]="group"
     >
-      <div
-        cdkDrag
-        [cdkDragData]="i"
-        (cdkDragEntered)="dragEntered($event)"
-        (cdkDragMoved)="dragMoved($event)"
-        (cdkDragDropped)="dragDropped($event)"
-        class="example-box"
-      >
-        <app-dropdown-material [expansionHeader]="item.name">
-          <ul *ngFor="let item of item.subCategory; let i = index">
-
-
-
-
-
-            <div #dropListContainer class="example-container" cdkDropListGroup>
-              <div
-                cdkDropList
-                [cdkDropListData]="i"
-              >
-                <div
-                  cdkDrag
-                  [cdkDragData]="i"
-                  (cdkDragEntered)="dragEntered($event)"
-                  (cdkDragMoved)="dragMoved($event)"
-                  (cdkDragDropped)="dragDropped($event)"
-                  class="example-box"
-                >
-            <div>item {{i+1}}</div>
-                </div>
-              </div>
+      <app-dropdown-material [hasEditable]="true" [expansionHeader]="group.title">
+        <!-- childreen -->
+        <div
+          cdkDropList
+          class="example-list"
+          id="{{ group.id }}"
+          [cdkDropListData]="group.items"
+          (cdkDropListDropped)="dropItem($event)"
+          [cdkDropListConnectedTo]="getConnectedList()"
+        >
+          <div
+            class="example-box"
+            *ngFor="let item of group.items"
+            cdkDrag
+            [cdkDragData]="item"
+          >
+            <div>{{': :  '+ item.name }}</div>
+            <div class="icons-container">
+              <span><img class="text-danger" src="../../../assets/images/Group 24.svg" alt=""></span>
+              <span><img class="text-danger" src="../../../assets/images/deleteIcon.svg" alt=""></span>
+              <span><img class="text-danger" src="../../../assets/images/Down-arrow.svg" alt=""></span>
             </div>
-
-
-
-
-
-          </ul>
-        </app-dropdown-material>
-      </div>
+          </div>
+        </div>
+      </app-dropdown-material>
     </div>
   </div>
 </app-body-template>
