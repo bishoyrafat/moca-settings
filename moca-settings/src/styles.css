@@ -81,10 +81,14 @@ body {
 .mat-expansion-indicator::after {
   color: var(--mainWhiteColor);
 }
-.mat-expansion-panel-body{
+.mat-expansion-panel-body {
   padding: 20px !important;
 }
-.mat-expansion-panel{
+
+.mat-expansion-panel-content {
+  background-color: transparent;
+}
+.mat-expansion-panel {
   margin: 20px 0 !important;
 }
 /* css */
@@ -107,7 +111,6 @@ body {
   transition: all 0.5s ease-in-out;
   height: 40px;
   width: 150px;
-
 }
 
 .outlinePurbleBtn:hover {
@@ -344,18 +347,18 @@ select option {
   color: #fff !important;
 }
 .collapseBtn.pointer {
-  background-color: var(--mocaPurbleColor)!important;
+  background-color: var(--mocaPurbleColor) !important;
   color: white !important;
 }
 
 .collapseBtn h4 {
-  color: white!important;
+  color: white !important;
 }
 .mat-select {
   display: inline-block;
   width: 100%;
   outline: none;
-  height: 50px!important;
+  height: 50px !important;
   display: flex !important;
   align-items: center;
 }
@@ -401,7 +404,10 @@ select option {
 .dropdown-menu.show {
   transform: none !important;
 }
-.bgGray tbody tr{
+.bgGray tbody tr {
   border-bottom: 2px solid #ddd;
-
+}
+.custom-richText .angular-editor-textarea {
+  height: 600px !important;
+  max-height: 600px !important;
 }

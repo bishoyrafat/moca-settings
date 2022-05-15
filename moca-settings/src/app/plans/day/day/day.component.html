@@ -1,4 +1,4 @@
-day
+
 <app-body-template
   (save)="saveAndSubmitForm()"
   (edit)="editForm()"
@@ -36,7 +36,6 @@ day
           <app-rich-text-field
             labelText="Enter What you get"
             [disabled]="disableInput"
-
             (bodyContent)="content($event, 'whatYouGet')"
             [inputRequired]="disableInput"
             errMsg=""
@@ -47,7 +46,6 @@ day
           <app-rich-text-field
             labelText="Enter Terms of Use"
             [disabled]="disableInput"
-
             (bodyContent)="content($event, 'termsOfUse')"
             [inputRequired]="disableInput"
             errMsg=""

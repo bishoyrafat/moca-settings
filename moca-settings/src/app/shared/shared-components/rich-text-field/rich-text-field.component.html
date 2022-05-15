@@ -3,12 +3,14 @@
     >{{ labelText }}
     <span *ngIf="inputRequired" class="text-red">*</span>
   </label>
-  <angular-editor
-    [placeholder]="'Enter text here...'"
-    [(ngModel)]="content"
-    [config]="editorConfig"
-    (ngModelChange)="changeEditor()"
-  ></angular-editor>
+  <div [class]="customClass">
+    <angular-editor
+      [placeholder]="'Enter text here...'"
+      [(ngModel)]="content"
+      [config]="editorConfig"
+      (ngModelChange)="changeEditor()"
+    ></angular-editor>
+  </div>
   <!-- <p *ngIf="errMsg !== ''" class="text-red">
     {{ errMsg }}
   </p> -->

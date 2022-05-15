@@ -1,0 +1,16 @@
+
+<app-body-template
+  [hasEdit]="hasEdit"
+  [hasReset]="false"
+  [hasAdd]="hasAdd"
+  (edit)="edit()"
+  (save)="saveAndSubmit()"
+>
+  <form action="" [formGroup]="form">
+    <app-rich-text-field
+    [customClass]="'custom-richText'"
+      [disabled]="isInputRequired"
+      (bodyContent)="content($event)"
+    ></app-rich-text-field>
+  </form>
+</app-body-template>

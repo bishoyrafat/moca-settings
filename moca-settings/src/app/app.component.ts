@@ -34,7 +34,7 @@ export class AppComponent {
     },
     {
       name: 'Wifi',
-      url: 'assets/list',
+      url: 'wifi',
       active: true,
       visible:true
     }

@@ -21,6 +21,7 @@ export class RichTextFieldComponent implements OnInit, OnChanges {
   editorText = '';
   @Input() labelText: string;
   @Input() errMsg: string;
+  @Input() customClass: string;
   @Input() content: string = '';
   @Input() hideLabel: boolean = false;
   @Input() inputRequired: boolean = false;

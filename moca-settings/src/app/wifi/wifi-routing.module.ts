@@ -1,7 +1,13 @@
+import { WifiComponent } from './wifi/wifi.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path:'',component:WifiComponent
+  }
+];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
