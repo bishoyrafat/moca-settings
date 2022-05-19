@@ -1,4 +1,8 @@
-<app-body-template (save)="saveAndSubmitForm()"[hasReset]="false">
+<app-body-template
+  (save)="saveAndSubmitForm()"
+  [hasAdd]="inFaqsMode"
+  [hasReset]="false"
+>
   <div *ngIf="!inFaqsMode">
     <div class="btn-container d-flex justify-content-end">
       <button class="purbleBtn mx-2" (click)="showFaqs()">Add FAQ</button>
@@ -7,17 +11,36 @@
       </button>
     </div>
   </div>
-  <!-- faqs mode -->
+  <!-- ***************************** -->
+  <!-- Add faqs  -->
+  <!-- ***************************** -->
   <form [formGroup]="form">
     <div *ngIf="inFaqsMode">
       <app-dropdown-material [expansionHeader]="'Add FAQs'">
-        <div class="w-25 mb-4">
+        <!-- <div class="w-25 mb-4">
           <app-select-option-field
             textLabel="Category"
             defaultOption="Select Category"
             [control]="form.get('spaceId')"
+            [optionsValue]="item"
           ></app-select-option-field>
+        </div> -->
+        <div class="form-group" class="w-25 mb-4">
+          <div class="w-25 mb-2">
+            <label for="">Category</label>
+          </div>
+          <select
+            formControlName="categoryId"
+            class="form-control"
+            name=""
+            id=""
+          >
+            <option *ngFor="let group of groups" [value]="group.id">
+              {{ group.name }}
+            </option>
+          </select>
         </div>
+
         <div class="mb-4">
           <app-input-field
             labelText="Question"
@@ -35,30 +58,42 @@
     </div>
   </form>
 
-  <!-- category modal -->
-  <div *ngIf="inModalMode">
-    <app-prompt-modal
-      modalTitle="FAQs"
-      imgSrc="./../../../assets/images/Artwork.svg"
-      (dismissModal)="closeModal()"
-      (modalSubmit)="submitModel()"
-    >
-      <app-input-field
+  <!-- ***************************** -->
+  <!-- Add category modal -->
+  <!-- ***************************** -->
+  <form [formGroup]="CategoryForm">
+    <div *ngIf="inModalMode">
+      <app-prompt-modal
+        modalTitle="FAQs"
+        imgSrc="./../../../assets/images/Artwork.svg"
+        (dismissModal)="closeCategory()"
+        (modalSubmit)="submitCategory()"
+        [textContent]=""
+      >
+        <!-- <app-input-field
         labelText="Category"
         inputPlaceholder="Add Category"
         required="true"
         class="m-3"
-      ></app-input-field>
-    </app-prompt-modal>
-  </div>
+        [control]="form.get('category')"
+      ></app-input-field> -->
+        <div class="form-group p-1">
+          <label for="" class="mb-2">Category</label>
+          <input class="form-control" type="text" formControlName="category" />
+        </div>
+      </app-prompt-modal>
+    </div>
+  </form>
 
+  <!-- ***************************** -->
   <!-- drag and drop -->
+  <!-- ***************************** -->
+
   <div
     cdkDropList
     [cdkDropListData]="groups"
     (cdkDropListDropped)="dropGroup($event)"
     *ngIf="listMode"
-
   >
     <div
       cdkDropListGroup
@@ -67,28 +102,58 @@
       cdkDrag
       [cdkDragData]="group"
     >
-      <app-dropdown-material [hasEditable]="true" [expansionHeader]="group.title">
+      <app-dropdown-material
+        [hasDot]="true"
+        [dotImgSrc]="'../../../assets/images/drag-white.svg'"
+        customClass="custom-faq"
+        [hasEditable]="true"
+        [expansionHeader]="group.name"
+        [deleteImgSrc]="'../../../assets/images/delete-whiite.svg'"
+        [editImgSrc]="'../../../assets/images/edit-white.svg'"
+        (editBtn)="editBtn(group.name, group.id)"
+        (deleteBtn)="deleteBtn(group.id)"
+      >
         <!-- childreen -->
+
         <div
           cdkDropList
           class="example-list"
           id="{{ group.id }}"
-          [cdkDropListData]="group.items"
+          [cdkDropListData]="group.faqs"
           (cdkDropListDropped)="dropItem($event)"
           [cdkDropListConnectedTo]="getConnectedList()"
         >
+        <form [formGroup]="addQuestion" (ngSubmit)="submitAddQuestion(group.id)">
+          <input
+            *ngIf="!group.faqs[0]"
+            class="form-control text-center add-question"
+            type="text"
+            placeholder="Questions Can be added here"
+            formControlName="question"
+
+          />
+        </form>
           <div
             class="example-box"
-            *ngFor="let item of group.items"
+            *ngFor="let item of group.faqs"
             cdkDrag
             [cdkDragData]="item"
           >
-            <div>{{': :  '+ item.name }}</div>
-            <div class="icons-container">
-              <span><img class="text-danger" src="../../../assets/images/Group 24.svg" alt=""></span>
-              <span><img class="text-danger" src="../../../assets/images/deleteIcon.svg" alt=""></span>
-              <span><img class="text-danger" src="../../../assets/images/Down-arrow.svg" alt=""></span>
-            </div>
+            <app-dropdown-material
+              [expansionHeader]="item.question"
+              customClass="custom-faq"
+              [customClass]="'custom-dropDown'"
+              [hasDot]="true"
+              [dotImgSrc]="'../../../assets/images/drag-purple.svg'"
+              [hasEditable]="true"
+              [deleteImgSrc]="'../../../assets/images/deleteIcon.svg'"
+              [editImgSrc]="'../../../assets/images/edit-purple.svg'"
+              [expanded]="false"
+              (editBtn)="editQuestion(group.name, item.question, item.answer)"
+              (deleteBtn)="deleteQuestion(item.id)"
+            >
+              <h6 [innerHTML]="item.answer"></h6>
+            </app-dropdown-material>
           </div>
         </div>
       </app-dropdown-material>

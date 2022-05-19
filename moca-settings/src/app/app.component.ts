@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'moca-settings';
   innerNavs=[
     {
-      name: 'plans',
+      name: 'Plans',
       url: 'plans',
       active: true,
       visible:true

@@ -8,6 +8,10 @@ mat-expansion-panel{
   display: flex;
   gap: 10px;
 }
+
+.add-question{
+  border: 1px dashed rgba(0, 0, 0, 0.322);
+}
 /* drag and drop */
 .cdk-drop-list{
   display: flex;
@@ -32,8 +36,8 @@ mat-expansion-panel{
 }
 
 .example-box {
-  padding: 20px 10px;
-  border: solid 1px #f5eded;
+  /* padding: 20px 10px; */
+  /* border: solid 1px #f5eded; */
   color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
@@ -43,8 +47,10 @@ mat-expansion-panel{
   cursor: move;
   background: white;
   font-size: 14px;
-  border-left: 6px solid var(--mocaPurbleColor);
-  margin: 18px 0;
+  margin: -15px 0;
+}
+.mat-expansion-panel-header{
+
 }
 
 .cdk-drag-preview {

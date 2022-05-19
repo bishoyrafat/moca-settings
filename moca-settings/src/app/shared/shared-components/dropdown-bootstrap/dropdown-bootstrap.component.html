@@ -1,0 +1,22 @@
+<div class="form-group" [class]="errMsg !== '' ? 'text-red' : ''">
+  <label *ngIf="!hideLabel" for=""
+    >{{ labelText }} <span *ngIf="inputRequired" class="text-red">*</span>
+  </label>
+
+  <select
+    [formControl]="control"
+    [class]="inputextraClass"
+    class="form-control"
+    [class]="errMsg !== '' ? 'outline-danger' : ''"
+  >
+    <option *ngIf="!inputRequired" > {{labelText?labelText:''}}</option>
+    <option class="my-2" *ngFor="let item of options" [value]="item.value">
+      {{ item.name }}
+      <img class="optionImg" *ngIf="item.images" [src]="item.images" alt="icon">
+    </option>
+  </select>
+
+  <p *ngIf="errMsg !== ''" class="text-red">
+    {{ errMsg }}
+  </p>
+</div>

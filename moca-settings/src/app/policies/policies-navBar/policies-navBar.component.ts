@@ -1,3 +1,5 @@
+import { DateRangePickerComponent } from './../../shared/shared-components/date-range-picker/date-range-picker.component';
+import { PoliciesService } from './../policies.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -45,9 +47,23 @@ export class PoliciesNavBarComponent implements OnInit {
     },
 
   ]
-  constructor() { }
-
+  constructor(private PoliciesService:PoliciesService) { }
   ngOnInit() {
+    this.getPoliciesTypes()
   }
+getPoliciesTypes(){
+  this.PoliciesService.getPoliciesTypes().subscribe((data:any)=>{
+   let x =  data.data.map((element:any) => {
+
+    ({ ...element, Active: 'false' })
+  });
+  console.log(data.DateRangePickerComponent)
+
+  })
+
+
+}
+
+
 
 }

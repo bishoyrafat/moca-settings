@@ -1,26 +1,29 @@
+import { getLocaleEraNames } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { WifiService } from './wifi.service';
 
 @Component({
   selector: 'app-wifi',
   templateUrl: './wifi.component.html',
-  styleUrls: ['./wifi.component.css']
+  styleUrls: ['./wifi.component.css'],
 })
 export class WifiComponent implements OnInit {
-
   form: FormGroup;
   isInputRequired = false;
   hasEdit = false;
   hasAdd = true;
-  constructor() {}
+  wifiBody: any;
+  constructor(private WifiService: WifiService) {}
 
   ngOnInit() {
+    this.getWifi();
     this.form = new FormGroup({
-      control: new FormControl('',Validators.required),
+      description: new FormControl('', Validators.required),
     });
   }
   content(e: any) {
-    this.form.get('control')?.setValue(e);
+    this.form.get('description')?.setValue(e);
   }
 
   helper() {
@@ -32,6 +35,7 @@ export class WifiComponent implements OnInit {
     if (this.form.invalid) return;
     else {
       console.log(this.form.value);
+      this.postWifi(this.form.value.description);
     }
     this.helper();
   }
@@ -40,4 +44,18 @@ export class WifiComponent implements OnInit {
     this.helper();
   }
 
+  getWifi() {
+    this.WifiService.getWifi().subscribe((data: any) => {
+      console.log(data);
+      this.wifiBody = data.data.description;
+    });
+  }
+
+  postWifi(body:any) {
+    this.WifiService.postWifi({
+      description: body,
+    }).subscribe((data: any) => {
+      console.log(data);
+    });
+  }
 }

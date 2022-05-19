@@ -10,6 +10,7 @@
     [customClass]="'custom-richText'"
       [disabled]="isInputRequired"
       (bodyContent)="content($event)"
+      [content]="bodyContent"
     ></app-rich-text-field>
   </form>
 </app-body-template>

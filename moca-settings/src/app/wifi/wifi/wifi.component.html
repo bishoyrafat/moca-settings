@@ -1,4 +1,3 @@
-
 <app-body-template
   [hasEdit]="hasEdit"
   [hasReset]="false"
@@ -8,9 +7,11 @@
 >
   <form action="" [formGroup]="form">
     <app-rich-text-field
-    [customClass]="'custom-richText'"
+      [hideToolbar]="hasEdit"
+      [customClass]="'custom-richText'"
       [disabled]="isInputRequired"
       (bodyContent)="content($event)"
+      [content]="wifiBody"
     ></app-rich-text-field>
   </form>
 </app-body-template>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { PoliciesService } from '../policies.service';
 @Component({
   selector: 'app-cookie-policy',
   templateUrl: './cookie-policy.component.html',
@@ -12,15 +12,17 @@ export class CookiePolicyComponent implements OnInit {
   isInputRequired = false;
   hasEdit = false;
   hasAdd = true;
-  constructor() {}
+  bodyContent:string
+  constructor(private PoliciesService: PoliciesService) {}
 
   ngOnInit() {
+    this.getPolicyById(6,1);
     this.form = new FormGroup({
-      control: new FormControl('',Validators.required),
+      description: new FormControl('', Validators.required),
     });
   }
   content(e: any) {
-    this.form.get('control')?.setValue(e);
+    this.form.get('description')?.setValue(e);
   }
 
   helper() {
@@ -32,11 +34,27 @@ export class CookiePolicyComponent implements OnInit {
     if (this.form.invalid) return;
     else {
       console.log(this.form.value);
+      this.postPolicyById(6,this.form.value.description);
     }
     this.helper();
   }
 
   edit() {
     this.helper();
+  }
+  getPolicyById(PolicyTypes:number,id: number) {
+    this.PoliciesService.getPoliciesById(PolicyTypes,id).subscribe((data: any) => {
+      console.log(data);
+      this.bodyContent=data.data.description
+    });
+  }
+
+  postPolicyById(id: number, body: any) {
+    this.PoliciesService.postPoliciesById(id, {
+      lobSpaceTypeId: 1,
+      description: body,
+    }).subscribe((data: any) => {
+      console.log(data);
+    });
   }
 }

@@ -75,15 +75,22 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  font: normal normal 600 16px/25px !important;
 }
+
+/* ******************************** */
 /* expansion panel header */
+/* ******************************** */
 .mat-expansion-panel-header-title,
 .mat-expansion-indicator::after {
   color: var(--mainWhiteColor);
 }
+
+
 .mat-expansion-panel-body {
   padding: 20px !important;
 }
+
 
 .mat-expansion-panel-content {
   background-color: transparent;
@@ -91,7 +98,42 @@ body {
 .mat-expansion-panel {
   margin: 20px 0 !important;
 }
+.mat-expansion-panel-header {
+  padding: 5px 20px !important;
+  border-left: 6px solid var(--mocaPurbleColor) !important;
+}
+
+
+.custom-faq .mat-expansion-panel-header {
+  padding: 5px 20px 5px 5px !important;
+  border-left: 6px solid var(--mainPurbleColor) !important;
+}
+.custom-faq .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+}
+
+.custom-dropDown  .mat-expansion-panel-header-title,
+.custom-dropDown  .mat-expansion-indicator::after {
+  color: var(--secondaryGrayColor) !important;
+}
+.custom-dropDown .mat-expansion-panel-header {
+  background-color: var(--mainWhiteColor) !important;
+  border: 1px solid #e3e3e3;
+}
+.custom-dropDown .mat-expansion-panel-header-title {
+  color: var(--mainPurbleColor) !important;
+}
+.custom-dropDown .mat-expansion-panel-body {
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  margin-top: 6px;
+}
+
+
+
+/* ******************************** */
 /* css */
+/* ******************************** */
 .colorPurple {
   color: var(--mainPurbleColor);
 }
@@ -410,4 +452,9 @@ select option {
 .custom-richText .angular-editor-textarea {
   height: 600px !important;
   max-height: 600px !important;
+}
+/* bootstrap dropdown */
+.accordion-button:not(.collapsed)::after,
+.accordion-button::after{
+  display: none;
 }

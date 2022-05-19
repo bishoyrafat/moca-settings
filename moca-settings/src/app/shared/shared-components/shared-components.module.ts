@@ -41,6 +41,7 @@ import { TextAreaComponent } from './text-area/text-area.component';
 import { SelectOptionFieldComponent } from './select-option-field/select-option-field.component';
 import { InputFieldComponent } from './input-field/input-field.component';
 import { ModalComponent } from './modal/modal.component';
+import { DropdownBootstrapComponent } from './dropdown-bootstrap/dropdown-bootstrap.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { ModalComponent } from './modal/modal.component';
     SelectOptionFieldComponent,
     InputFieldComponent,
     ModalComponent,
+    DropdownBootstrapComponent
   ],
   imports: [
     CommonModule,
@@ -118,7 +120,7 @@ import { ModalComponent } from './modal/modal.component';
     TextAreaComponent,
     SelectOptionFieldComponent,
     InputFieldComponent,
-    ModalComponent
+    ModalComponent,DropdownBootstrapComponent
   ],
 })
 export class SharedComponentsModule {}

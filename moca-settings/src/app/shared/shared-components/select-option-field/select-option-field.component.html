@@ -4,8 +4,8 @@
   </div>
   <select  [formControl]="control" class="form-control" name="" id="selection">
     <option [ngValue]="null" [disabled]="true" >{{ defaultOption }}</option>
-    <option *ngFor="let item of optionsValue" [ngValue]="item.value">
-      {{ item.name }}
+    <option *ngFor="let item of [optionsValue]" [ngValue]="item">
+      {{ item }}
     </option>
   </select>
 </div>

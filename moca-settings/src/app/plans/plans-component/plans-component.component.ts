@@ -8,25 +8,25 @@ import { Component, OnInit } from '@angular/core';
 export class PlansComponentComponent implements OnInit {
   innerNavs=[
     {
-      name: 'hourly',
+      name: 'Hourly',
       url: 'hourly',
       active: true,
       visible:true
     },
     {
-      name: 'day',
+      name: 'Day',
       url: 'day',
       active: true,
       visible:true
     },
     {
-      name: 'tailored',
+      name: 'Tailored',
       url: 'tailored',
       active: true,
       visible:true
     },
     {
-      name: 'bundle',
+      name: 'Bundle',
       url: 'bundle',
       active: true,
       visible:true

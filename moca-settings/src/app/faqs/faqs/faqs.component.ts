@@ -7,7 +7,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-
+import { FaqService } from '../faq.service';
 @Component({
   selector: 'app-faqs',
   templateUrl: './faqs.component.html',
@@ -17,110 +17,251 @@ export class FaqsComponent implements OnInit {
   inFaqsMode = false;
   inModalMode = false;
   listMode = true;
+  categoryEditMode = false;
+  faqsEditMode = false;
+  categoryName = '';
+  categoryId = 0;
+  FaqId = 0;
   form: FormGroup;
-  constructor() {}
+  CategoryForm: FormGroup;
+  addQuestion: FormGroup;
+  constructor(private FaqService: FaqService) {}
 
   ngOnInit(): void {
+    this.getAllFaqs();
+    console.log('groups', this.groups);
+
     this.form = new FormGroup({
-      spaceId: new FormControl(),
+      categoryId: new FormControl(),
       question: new FormControl(),
       answer: new FormControl(),
     });
+
+    this.CategoryForm = new FormGroup({
+      category: new FormControl(''),
+    });
+
+    this.addQuestion=new FormGroup({
+      question:new FormControl('')
+    })
+
   }
+
+  reloadPage(){
+    setTimeout(() => {
+      window.location.reload()
+    }, 500)
+  }
+
+  submitAddQuestion(id:number){
+    console.log(this.addQuestion.value.question,id)
+    this.postCategoryById(id,{
+      "lobSpaceTypeId": null,
+      "question": this.addQuestion.value.question,
+      "answer": ""
+    })
+    this.reloadPage()
+
+  }
+
   bodyContent(e: any) {
     this.form.get('answer')?.setValue(e);
   }
   saveAndSubmitForm() {
-    console.log(this.form.value);
-    this.inFaqsMode = !this.inFaqsMode;
-    this.listMode = !this.listMode
 
+    if(this.faqsEditMode){
+      this.updateQuestionById(44444444,this.form.value)
+    }
+    else{
+      let categoryId = this.form.value.categoryId;
+      this.postCategoryById(categoryId, {
+        lobSpaceTypeId: null,
+        question: this.form.value.question,
+        answer: this.form.value.answer,
+      });
+      console.log(this.form.value);
+      this.inFaqsMode = !this.inFaqsMode;
+      this.listMode = !this.listMode;
+      this.reloadPage()
+    }
   }
   showFaqs() {
     this.inFaqsMode = !this.inFaqsMode;
-    this.listMode = !this.listMode
+    this.listMode = !this.listMode;
   }
 
   openModal() {
     this.inModalMode = !this.inModalMode;
   }
 
-  closeModal() {
+  closeCategory() {
     this.inModalMode = !this.inModalMode;
   }
-  submitModel() {
-    this.inModalMode = !this.inModalMode;
+
+
+  submitCategory() {
+    if (this.categoryEditMode) {
+      console.log('after')
+      this.updateCategoryById(
+        this.categoryId,
+        this.CategoryForm.get('category')?.value
+      );
+      this.inModalMode = !this.inModalMode;
+      this.reloadPage()
+
+
+    }
+    else{
+      this.postCategory(this.CategoryForm.value.category);
+      console.log(this.CategoryForm.value.category);
+      this.inModalMode = !this.inModalMode;
+      this.reloadPage()
+
+    }
   }
   // drag and drop
-  groups = [{
-    id: 1,
-    title: 'Group 1',
-    items: [{
-      name: 'Item 1 - Group 1'
-    },
-    {
-      name: 'Item 2 - Group 1'
-    },
-    {
-      name: 'Item 3 - Group 1'
-    },
-    {
-      name: 'Item 4 - Group 1'
-    }]
-  },
-  {
-    id: 2,
-    title: 'Group 2',
-    items: [{
-      name: 'Item 1 - Group 2'
-    },
-    {
-      name: 'Item 2 - Group 2'
-    },
-    {
-      name: 'Item 3 - Group 2'
-    },
-    {
-      name: 'Item 4 - Group 2'
-    }]
-  },
-  {
-    id: 3,
-    title: 'Group 3',
-    items: [{
-      name: 'Item 1 - Group 3'
-    },
-    {
-      name: 'Item 2 - Group 3'
-    },
-    {
-      name: 'Item 3 - Group 3'
-    },
-    {
-      name: 'Item 4 - Group 3'
-    }]
-  }];
+
+  groups: any[] = [];
+  //   groups :any[]= [{
+  //     id: 1,
+  //     title: 'Category 1',
+  //     items: [
+  //     //   {
+  //     //     question: 'Item 1 - Group 1',
+  //     //   answer:'answer 1 - G 1'
+  //     // },
+  //     // {
+  //     //   question: 'Item 2 - Group 1',
+  //     //   answer:'answer 2 - G 1'
+  //     // },
+  //   ]
+  //   },
+  // {
+  //   name: "string2",
+  //   displayOrder: 1,
+  //   faqs: [{id: 1, question: 'how are you?', answer: 'fine', displayOrder: 1},{id: 1, question: 'how are you?', answer: 'fine', displayOrder: 1}],
+  //   id: 2,
+  // }
+  // ];
 
   dropItem(event: any) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      console.log(this.groups, event.previousIndex, event.currentIndex)
-
-    } else {
-      transferArrayItem(event.previousContainer.data,
+      moveItemInArray(
         event.container.data,
         event.previousIndex,
-        event.currentIndex);
+        event.currentIndex
+      );
+      console.log(this.groups);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
   }
 
   getConnectedList(): any[] {
-    return this.groups.map(x => `${x.id}`);
+    return this.groups.map((x: any) => `${x.id}`);
   }
 
   dropGroup(event: any) {
     moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
-    console.log(this.groups, event.previousIndex, event.currentIndex)
+    console.log(this.groups);
+  }
+
+
+  editBtn(categoryName: any, categoryId: any) {
+    this.categoryName = categoryName;
+    this.categoryId = categoryId;
+    console.log('edit', categoryName, categoryId);
+    this.inModalMode = !this.inModalMode;
+    this.categoryEditMode = true;
+    this.CategoryForm.get('category')?.setValue(categoryName);
 
   }
+
+  deleteBtn(id: any) {
+    console.log(id);
+    this.deleteCategoryById(id, {
+      lobSpaceTypeId: null,
+      deleteRelatedFaqs: true,
+    });
+    this.reloadPage()
+      }
+
+
+      editQuestion(id:string,question:string,answer:string){
+        console.log(id,question,answer)
+        this.inFaqsMode=!this.inFaqsMode
+        this.listMode=!this.listMode
+        this.form.get('categoryId')?.setValue(id)
+        this.form.get('question')?.setValue(question)
+        this.bodyContent(answer)
+        this.faqsEditMode=true
+
+
+
+
+      }
+      deleteQuestion(id:number){
+        this.deleteQuestionById(id)
+        this.reloadPage()
+      }
+
+
+
+  getAllFaqs() {
+    this.FaqService.getAllFaqs().subscribe((data: any) => {
+      console.log(data.data.categories);
+      this.groups.push(...data.data.categories);
+    });
+  }
+
+  postCategory(categoryName: any) {
+    this.FaqService.postCategory({
+      lobSpaceTypeId: null,
+      name: categoryName,
+    }).subscribe((data: any) => {
+      console.log(data);
+    });
+  }
+
+  postCategoryById(id: number, body: any) {
+    this.FaqService.postCategoryById(id, body).subscribe((data: any) => {
+      console.log(data);
+    });
+  }
+
+  deleteCategoryById(id: number, body: any) {
+    this.FaqService.deleteCategoryById(id).subscribe((data: any) => {
+      console.log(data);
+    });
+  }
+
+  updateCategoryById(id: number, body: any) {
+    this.FaqService.updateCategoryById(id, {
+      lobSpaceTypeId: null,
+      name: body,
+    }).subscribe((data: any) => {
+      console.log(data);
+    });
+  }
+
+
+  deleteQuestionById(id:Number){
+    this.FaqService.deleteQuestionById(id).subscribe((data:any)=>{
+      console.log(data)
+    })
+  }
+  updateQuestionById(id: number, body: any) {
+    this.FaqService.updateQuestionById(id,{
+      "lobSpaceTypeId": null,
+      ...body
+    }).subscribe((data:any)=>{
+      console.log(data)
+    })
+  }
+
 }

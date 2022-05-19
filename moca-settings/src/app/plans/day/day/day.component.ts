@@ -1,18 +1,21 @@
+import { PlansService } from './../../plans.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
 @Component({
   selector: 'app-day',
   templateUrl: './day.component.html',
-  styleUrls: ['./day.component.css']
+  styleUrls: ['./day.component.css'],
 })
 export class DayComponent implements OnInit {
-
   inEditMode = false;
   disableInput = false;
   form: any;
-  constructor() {}
+  pointsContent=''
+whatYouGetContent=''
+termsOfUseContent=''
+  constructor(private PlansService:PlansService) {}
   ngOnInit(): void {
+    this.getPlansById(7,0)
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
       points: new FormControl('', Validators.required),
@@ -25,7 +28,7 @@ export class DayComponent implements OnInit {
     this.inEditMode = true;
     this.disableInput = true;
     if (this.form.invalid) return;
-    else console.log(this.form.value);
+    else this.postPlansById(7, this.form.value);
   }
   editForm() {
     this.inEditMode = false;
@@ -42,5 +45,24 @@ export class DayComponent implements OnInit {
     if (type === 'whatYouGet') {
       this.form.get('whatYouGet').setValue(e);
     }
+  }
+
+  postPlansById(planType: number, body: any) {
+    this.PlansService.postPlansById(planType, {
+      "lobSpaceTypeId": 0,
+      ...body
+    }).subscribe((data: any) => {
+      console.log(data);
+    });
+  }
+
+  getPlansById(planType: number, id: number) {
+    this.PlansService.getPlansById(planType, id).subscribe((data: any) => {
+      console.log(data.data.plan);
+      this.pointsContent =data.data.plan.points ;
+      this.whatYouGetContent=data.data.plan.whatYouGet
+      this.termsOfUseContent =data.data.plan.termsOfUse
+      this.form.get('description').setValue(data.data.plan.description)
+    });
   }
 }
