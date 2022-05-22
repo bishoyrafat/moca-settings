@@ -1,7 +1,9 @@
 <app-body-template
   (save)="saveAndSubmitForm()"
+  (delete)="closeFaqs()"
   [hasAdd]="inFaqsMode"
-  [hasReset]="false"
+  [hasReset]="faqsEditMode && !listMode"
+
 >
   <div *ngIf="!inFaqsMode">
     <div class="btn-container d-flex justify-content-end">
@@ -34,6 +36,7 @@
             class="form-control"
             name=""
             id=""
+            [innerText]=""
           >
             <option *ngFor="let group of groups" [value]="group.id">
               {{ group.name }}
@@ -53,6 +56,7 @@
           errMsg=""
           [disabled]="false"
           (bodyContent)="bodyContent($event)"
+          [content]="answerBody"
         ></app-rich-text-field>
       </app-dropdown-material>
     </div>
@@ -87,6 +91,7 @@
 
   <!-- ***************************** -->
   <!-- drag and drop -->
+  <!--  question asnd answer -->
   <!-- ***************************** -->
 
   <div
@@ -113,7 +118,7 @@
         (editBtn)="editBtn(group.name, group.id)"
         (deleteBtn)="deleteBtn(group.id)"
       >
-        <!-- childreen -->
+        <!-- Nested question asnd answer -->
 
         <div
           cdkDropList
@@ -123,16 +128,18 @@
           (cdkDropListDropped)="dropItem($event)"
           [cdkDropListConnectedTo]="getConnectedList()"
         >
-        <form [formGroup]="addQuestion" (ngSubmit)="submitAddQuestion(group.id)">
-          <input
-            *ngIf="!group.faqs[0]"
-            class="form-control text-center add-question"
-            type="text"
-            placeholder="Questions Can be added here"
-            formControlName="question"
-
-          />
-        </form>
+          <form
+            [formGroup]="addQuestion"
+            (ngSubmit)="submitAddQuestion(group.id)"
+          >
+            <input
+              *ngIf="!group.faqs[0]"
+              class="form-control text-center add-question"
+              type="text"
+              placeholder="Questions Can be added here"
+              formControlName="question"
+            />
+          </form>
           <div
             class="example-box"
             *ngFor="let item of group.faqs"
@@ -149,7 +156,7 @@
               [deleteImgSrc]="'../../../assets/images/deleteIcon.svg'"
               [editImgSrc]="'../../../assets/images/edit-purple.svg'"
               [expanded]="false"
-              (editBtn)="editQuestion(group.name, item.question, item.answer)"
+              (editBtn)="editQuestion(item.id,item.id, item.question, item.answer,group.id)"
               (deleteBtn)="deleteQuestion(item.id)"
             >
               <h6 [innerHTML]="item.answer"></h6>

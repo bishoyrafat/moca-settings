@@ -40,4 +40,16 @@ export class FaqService {
   updateQuestionById(id: number, body: any) {
     return this.http.put(this.url + `Faqs/${id}`, body);
   }
+
+  updateFaqsOrder(body:any){
+    return this.http.put(this.url + `Faqs`, body);
+  }
+
+
+  updateCategoryOrder(id:number ,body:any){
+    return this.http.put(this.url + `Categories/LobSpaceType/${id}`, body);
+  }
+
+
+
 }

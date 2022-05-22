@@ -22,6 +22,7 @@ export class FaqsComponent implements OnInit {
   categoryName = '';
   categoryId = 0;
   FaqId = 0;
+  answerBody: any;
   form: FormGroup;
   CategoryForm: FormGroup;
   addQuestion: FormGroup;
@@ -41,38 +42,39 @@ export class FaqsComponent implements OnInit {
       category: new FormControl(''),
     });
 
-    this.addQuestion=new FormGroup({
-      question:new FormControl('')
-    })
-
+    this.addQuestion = new FormGroup({
+      question: new FormControl(''),
+    });
   }
 
-  reloadPage(){
+  reloadPage() {
     setTimeout(() => {
-      window.location.reload()
-    }, 500)
+      window.location.reload();
+    }, 500);
   }
 
-  submitAddQuestion(id:number){
-    console.log(this.addQuestion.value.question,id)
-    this.postCategoryById(id,{
-      "lobSpaceTypeId": null,
-      "question": this.addQuestion.value.question,
-      "answer": ""
-    })
-    this.reloadPage()
-
+  submitAddQuestion(id: number) {
+    console.log(this.addQuestion.value.question, id);
+    this.postCategoryById(id, {
+      lobSpaceTypeId: null,
+      question: this.addQuestion.value.question,
+      answer: 'Answer can be added here...',
+    });
+    this.reloadPage();
   }
 
   bodyContent(e: any) {
     this.form.get('answer')?.setValue(e);
   }
   saveAndSubmitForm() {
-
-    if(this.faqsEditMode){
-      this.updateQuestionById(44444444,this.form.value)
-    }
-    else{
+    if (this.faqsEditMode) {
+      this.updateQuestionById(this.FaqId, {
+        categoryId: this.categoryId,
+        question: this.form.value.question,
+        answer: this.form.value.answer,
+      });
+      console.log(this.form.value);
+    } else {
       let categoryId = this.form.value.categoryId;
       this.postCategoryById(categoryId, {
         lobSpaceTypeId: null,
@@ -82,9 +84,14 @@ export class FaqsComponent implements OnInit {
       console.log(this.form.value);
       this.inFaqsMode = !this.inFaqsMode;
       this.listMode = !this.listMode;
-      this.reloadPage()
+      this.reloadPage();
     }
   }
+  closeFaqs() {
+    this.inFaqsMode = !this.inFaqsMode;
+    this.listMode = !this.listMode;
+  }
+
   showFaqs() {
     this.inFaqsMode = !this.inFaqsMode;
     this.listMode = !this.listMode;
@@ -98,25 +105,20 @@ export class FaqsComponent implements OnInit {
     this.inModalMode = !this.inModalMode;
   }
 
-
   submitCategory() {
     if (this.categoryEditMode) {
-      console.log('after')
+      console.log('after');
       this.updateCategoryById(
         this.categoryId,
         this.CategoryForm.get('category')?.value
       );
       this.inModalMode = !this.inModalMode;
-      this.reloadPage()
-
-
-    }
-    else{
+      this.reloadPage();
+    } else {
       this.postCategory(this.CategoryForm.value.category);
       console.log(this.CategoryForm.value.category);
       this.inModalMode = !this.inModalMode;
-      this.reloadPage()
-
+      this.reloadPage();
     }
   }
   // drag and drop
@@ -143,6 +145,7 @@ export class FaqsComponent implements OnInit {
   //   id: 2,
   // }
   // ];
+  newBody: any = [];
 
   dropItem(event: any) {
     if (event.previousContainer === event.container) {
@@ -151,7 +154,23 @@ export class FaqsComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-      console.log(this.groups);
+      event.container.data.forEach((element: any, index: any) => {
+        element.displayOrder = index + 1;
+
+        this.newBody.push({
+          faqId: element.id,
+          displayOrder: element.displayOrder,
+        });
+
+      });
+
+      this.updateFaqsOrder({
+        lobSpaceTypeId: null,
+        categoryFaqsDisplayOrderDto: {
+          categoryId: event.container.id,
+          faqsDisplayOrder: this.newBody
+        },
+      });
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -169,8 +188,13 @@ export class FaqsComponent implements OnInit {
   dropGroup(event: any) {
     moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
     console.log(this.groups);
+    // updateCategoryOrder(44444444444,[
+    //   {
+    //     "id": 0,
+    //     "displayOrder": 0
+    //   }
+    // ])
   }
-
 
   editBtn(categoryName: any, categoryId: any) {
     this.categoryName = categoryName;
@@ -179,7 +203,6 @@ export class FaqsComponent implements OnInit {
     this.inModalMode = !this.inModalMode;
     this.categoryEditMode = true;
     this.CategoryForm.get('category')?.setValue(categoryName);
-
   }
 
   deleteBtn(id: any) {
@@ -188,29 +211,34 @@ export class FaqsComponent implements OnInit {
       lobSpaceTypeId: null,
       deleteRelatedFaqs: true,
     });
-    this.reloadPage()
-      }
+    this.reloadPage();
+  }
 
+  editQuestion(
+    id: number,
+    categoryName: string,
+    question: string,
+    answer: string,
+    categoryId: number
+  ) {
+    console.log(id, question, answer, categoryId);
+    this.categoryId = categoryId;
+    this.FaqId = id;
+    this.inFaqsMode = !this.inFaqsMode;
+    this.listMode = !this.listMode;
 
-      editQuestion(id:string,question:string,answer:string){
-        console.log(id,question,answer)
-        this.inFaqsMode=!this.inFaqsMode
-        this.listMode=!this.listMode
-        this.form.get('categoryId')?.setValue(id)
-        this.form.get('question')?.setValue(question)
-        this.bodyContent(answer)
-        this.faqsEditMode=true
-
-
-
-
-      }
-      deleteQuestion(id:number){
-        this.deleteQuestionById(id)
-        this.reloadPage()
-      }
-
-
+    this.form.patchValue({
+      categoryId: categoryId,
+      question: question,
+    });
+    this.answerBody = answer;
+    this.bodyContent(answer);
+    this.faqsEditMode = true;
+  }
+  deleteQuestion(id: number) {
+    this.deleteQuestionById(id);
+    this.reloadPage();
+  }
 
   getAllFaqs() {
     this.FaqService.getAllFaqs().subscribe((data: any) => {
@@ -249,19 +277,30 @@ export class FaqsComponent implements OnInit {
     });
   }
 
-
-  deleteQuestionById(id:Number){
-    this.FaqService.deleteQuestionById(id).subscribe((data:any)=>{
-      console.log(data)
-    })
+  deleteQuestionById(id: Number) {
+    this.FaqService.deleteQuestionById(id).subscribe((data: any) => {
+      console.log(data);
+    });
   }
   updateQuestionById(id: number, body: any) {
-    this.FaqService.updateQuestionById(id,{
-      "lobSpaceTypeId": null,
-      ...body
-    }).subscribe((data:any)=>{
-      console.log(data)
-    })
+    this.FaqService.updateQuestionById(id, {
+      lobSpaceTypeId: null,
+      ...body,
+    }).subscribe((data: any) => {
+      console.log(data);
+    });
+  }
+
+  updateFaqsOrder(body: any) {
+    this.FaqService.updateFaqsOrder(body).subscribe((data: any) => {
+      console.log(data);
+    });
+  }
+
+  updateCategoryOrder(id:number ,body:any){
+    this.FaqService.updateCategoryOrder(id,body).subscribe((data: any) => {
+      console.log(data);
+    });
   }
 
 }
