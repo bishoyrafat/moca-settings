@@ -184,16 +184,21 @@ export class FaqsComponent implements OnInit {
   getConnectedList(): any[] {
     return this.groups.map((x: any) => `${x.id}`);
   }
+   categoryBody :any=[]
 
   dropGroup(event: any) {
     moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
-    console.log(this.groups);
-    // updateCategoryOrder(44444444444,[
-    //   {
-    //     "id": 0,
-    //     "displayOrder": 0
-    //   }
-    // ])
+    event.container.data.forEach((el:any,index:any)=>{
+      el.displayOrder = index + 1;
+      this.categoryBody.push({
+        id:el.id,
+        displayOrder:el.displayOrder
+      })
+
+      console.log(this.categoryBody)
+    })
+
+    this.updateCategoryOrder(0,this.categoryBody)
   }
 
   editBtn(categoryName: any, categoryId: any) {
@@ -297,7 +302,7 @@ export class FaqsComponent implements OnInit {
     });
   }
 
-  updateCategoryOrder(id:number ,body:any){
+  updateCategoryOrder(id:any ,body:any){
     this.FaqService.updateCategoryOrder(id,body).subscribe((data: any) => {
       console.log(data);
     });
