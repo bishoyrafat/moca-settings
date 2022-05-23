@@ -26,6 +26,7 @@ export class FaqsComponent implements OnInit {
   groups: any[] = [];
   faqsBody: any = [];
   categoryBody: any = [];
+  expandedCategory=true
   faqsForm: FormGroup;
   CategoryForm: FormGroup;
   addQuestion: FormGroup;

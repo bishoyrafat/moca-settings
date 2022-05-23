@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import {  Router, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
+import { Subject } from 'rxjs';
+import { CoreAppService } from './shared/service/core-app/coreApp.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +9,38 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+constructor(
+  private loaderService: CoreAppService,
+  private router: Router,
+  private readonly changeDetectorRef: ChangeDetectorRef
+) {
+
+}
+
+isLoading: Subject<boolean> = this.loaderService.isLoading;
+loading: boolean;
+ngOnInit(): void {
+  this.router.events.subscribe((event) => {
+    if (event instanceof RouteConfigLoadStart) {
+      this.loaderService.show();
+    } else if (event instanceof RouteConfigLoadEnd) {
+      this.loaderService.hide();
+    }
+  });
+  this.isLoading.subscribe((data) => {
+    this.loading = data;
+  });
+}
+
+
+ngAfterViewInit(): void {
+  this.changeDetectorRef.detectChanges();
+}
+
+
+
+
   title = 'moca-settings';
   innerNavs=[
     {

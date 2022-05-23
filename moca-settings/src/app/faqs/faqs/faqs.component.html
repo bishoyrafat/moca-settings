@@ -88,7 +88,7 @@
 
   <!-- ***************************** -->
   <!-- drag and drop -->
-  <!--  question asnd answer -->
+  <!--  Category -->
   <!-- ***************************** -->
   <div
     cdkDropList
@@ -113,6 +113,7 @@
         [editImgSrc]="'../../../assets/images/edit-white.svg'"
         (editBtn)="editCategory(group.name, group.id)"
         (deleteBtn)="deleteCategory(group.id)"
+        [expanded]="expandedCategory"
       >
         <!-- Nested question asnd answer -->
 

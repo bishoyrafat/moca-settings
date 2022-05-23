@@ -66,7 +66,6 @@ export class HourlyComponent implements OnInit {
 
   getPlansById(planType: number, id: number) {
     this.PlansService.getPlansById(planType, id).subscribe((data: any) => {
-
       this.pointsContent =data.data.plan.points ;
       this.whatYouGetContent=data.data.plan.whatYouGet
       this.termsOfUseContent =data.data.plan.termsOfUse
