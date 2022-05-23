@@ -14,6 +14,8 @@ export class EnterpriseTermsComponent implements OnInit {
   hasEdit = false;
   hasAdd = true;
   bodyContent:string
+  inEditMode=false
+
   constructor(private PoliciesService: PoliciesService) {}
 
   ngOnInit() {
@@ -39,8 +41,10 @@ export class EnterpriseTermsComponent implements OnInit {
     this.helper();
   }
 
-  edit() {
+  edit(inEditMode:any) {
     this.helper();
+    if(inEditMode)
+    this.inEditMode=!this.inEditMode
   }
   getPolicyById(PolicyTypes:number,id: number) {
     this.PoliciesService.getPoliciesById(PolicyTypes,id).subscribe((data: any) => {

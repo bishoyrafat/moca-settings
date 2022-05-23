@@ -10,8 +10,8 @@ export class TailoredComponent implements OnInit {
 
   form: FormGroup;
   isInputRequired = false;
-  hasEdit = false;
-  hasAdd = true;
+  hasEdit = true;
+  hasAdd = false;
   contentBody: any;
   constructor(private TopUpService: TopUpService) {}
 

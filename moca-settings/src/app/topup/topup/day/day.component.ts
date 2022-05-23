@@ -10,8 +10,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class DayComponent implements OnInit {
   form: FormGroup;
   isInputRequired = false;
-  hasEdit = false;
-  hasAdd = true;
+  hasEdit = true;
+  hasAdd = false;
   contentBody: any;
   constructor(private TopUpService: TopUpService) {}
 

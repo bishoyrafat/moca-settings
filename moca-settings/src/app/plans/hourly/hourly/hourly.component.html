@@ -1,6 +1,7 @@
+
 <app-body-template
   (save)="saveAndSubmitForm()"
-  (edit)="editForm()"
+  (edit)="editForm(form.value,pointsContent,whatYouGetContent,termsOfUseContent)"
   [hasEdit]="inEditMode"
   [hasAdd]="!inEditMode"
   [hasReset]="false"
@@ -24,6 +25,7 @@
             [disabled]="disableInput"
             (bodyContent)="content($event, 'points')"
             [inputRequired]="disableInput"
+            [hideToolbar]="disableInput"
             errMsg=""
             [content]="pointsContent"
           ></app-rich-text-field>
@@ -38,7 +40,8 @@
             labelText="Enter What you get"
             [disabled]="disableInput"
             (bodyContent)="content($event, 'whatYouGet')"
-            [inputRequired]="disableInput"
+            [inputRequired]="!disableInput"
+            [hideToolbar]="disableInput"
             errMsg=""
             [content]="whatYouGetContent"
 
@@ -51,6 +54,7 @@
             [disabled]="disableInput"
             (bodyContent)="content($event, 'termsOfUse')"
             [inputRequired]="disableInput"
+            [hideToolbar]="disableInput"
             errMsg=""
             [content]="termsOfUseContent"
 

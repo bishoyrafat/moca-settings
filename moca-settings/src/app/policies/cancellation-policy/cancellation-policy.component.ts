@@ -10,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 export class CancellationPolicyComponent implements OnInit {
   form: FormGroup;
   isInputRequired = false;
-  hasEdit = false;
-  hasAdd = true;
+  hasEdit = true;
+  hasAdd = false;
   bodyContent:string
+  inEditMode=false
   constructor(private PoliciesService: PoliciesService) {}
 
   ngOnInit() {
@@ -31,6 +32,8 @@ export class CancellationPolicyComponent implements OnInit {
     this.hasAdd = !this.hasAdd;
   }
   saveAndSubmit() {
+    console.log(this.form.value)
+    this.inEditMode=!this.inEditMode
     if (this.form.invalid) return;
     else {
       console.log(this.form.value);
@@ -39,9 +42,12 @@ export class CancellationPolicyComponent implements OnInit {
     this.helper();
   }
 
-  edit() {
+  edit(inEditMode:any) {
     this.helper();
+    if(inEditMode)
+    this.inEditMode=!this.inEditMode
   }
+
   getPolicyById(id: number,PolicyTypes:any) {
     this.PoliciesService.getPoliciesById(id,PolicyTypes).subscribe((data: any) => {
       this.bodyContent=data.data.description
@@ -50,9 +56,10 @@ export class CancellationPolicyComponent implements OnInit {
 
   postPolicyById(id: number, body: any) {
     this.PoliciesService.postPoliciesById(id, {
-      lobSpaceTypeId: null,
+      lobSpaceTypeId: 1,
       description: body,
     }).subscribe((data: any) => {
+      console.log(data)
     });
   }
 }

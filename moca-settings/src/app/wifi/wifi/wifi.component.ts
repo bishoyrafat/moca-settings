@@ -11,8 +11,8 @@ import { WifiService } from './wifi.service';
 export class WifiComponent implements OnInit {
   form: FormGroup;
   isInputRequired = false;
-  hasEdit = false;
-  hasAdd = true;
+  hasEdit = true;
+  hasAdd = false;
   wifiBody: any;
   constructor(private WifiService: WifiService) {}
 

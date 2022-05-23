@@ -8,12 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./hourly.component.css'],
 })
 export class HourlyComponent implements OnInit {
-  inEditMode = false;
-  disableInput = false;
+  inEditMode = true;
+  disableInput = true;
   form: any;
   pointsContent = '';
   whatYouGetContent = '';
   termsOfUseContent = '';
+
   constructor(private PlansService: PlansService) {}
   ngOnInit(): void {
     this.getPlansById(5, 0);
@@ -26,17 +27,21 @@ export class HourlyComponent implements OnInit {
   }
 
   saveAndSubmitForm() {
-    this.inEditMode = true;
-    this.disableInput = true;
-    if (this.form.invalid) return;
-    else {
-      console.log(this.form.value);
+    console.log(this.form.valid)
+    this.inEditMode = !this.inEditMode;
+    this.disableInput = !this.disableInput;
       this.postPlansById(5, this.form.value);
-    }
+
   }
-  editForm() {
+  editForm(form:any,points:any,whatYouGetContent:any,termsOfUseContent:any) {
     this.inEditMode = false;
     this.disableInput = false;
+    this.form.patchValue({
+      description:form.description,
+      points:points,
+      whatYouGet:whatYouGetContent,
+      termsOfUse:termsOfUseContent
+    })
   }
 
   content(e: any, type: string) {
@@ -61,6 +66,7 @@ export class HourlyComponent implements OnInit {
 
   getPlansById(planType: number, id: number) {
     this.PlansService.getPlansById(planType, id).subscribe((data: any) => {
+
       this.pointsContent =data.data.plan.points ;
       this.whatYouGetContent=data.data.plan.whatYouGet
       this.termsOfUseContent =data.data.plan.termsOfUse

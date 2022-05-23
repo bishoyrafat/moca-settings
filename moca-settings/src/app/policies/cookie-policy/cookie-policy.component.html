@@ -2,16 +2,17 @@
   [hasEdit]="hasEdit"
   [hasReset]="false"
   [hasAdd]="hasAdd"
-  (edit)="edit()"
+  (edit)="edit('inEditMode')"
   (save)="saveAndSubmit()"
+
 >
   <form action="" [formGroup]="form">
     <app-rich-text-field
     [customClass]="'custom-richText'"
-      [disabled]="isInputRequired"
+      [disabled]="!inEditMode"
       (bodyContent)="content($event)"
       [content]="bodyContent"
+      [hideToolbar]="!inEditMode"
     ></app-rich-text-field>
   </form>
 </app-body-template>
-

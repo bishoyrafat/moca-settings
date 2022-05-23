@@ -12,6 +12,8 @@ export class CookiePolicyComponent implements OnInit {
   isInputRequired = false;
   hasEdit = false;
   hasAdd = true;
+  inEditMode=false
+
   bodyContent:string
   constructor(private PoliciesService: PoliciesService) {}
 
@@ -38,8 +40,10 @@ export class CookiePolicyComponent implements OnInit {
     this.helper();
   }
 
-  edit() {
+  edit(inEditMode:any) {
     this.helper();
+    if(inEditMode)
+    this.inEditMode=!this.inEditMode
   }
   getPolicyById(PolicyTypes:number,id: number) {
     this.PoliciesService.getPoliciesById(PolicyTypes,id).subscribe((data: any) => {
