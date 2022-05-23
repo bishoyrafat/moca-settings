@@ -2,7 +2,7 @@
   (save)="saveAndSubmitForm()"
   (delete)="closeFaqs()"
   [hasAdd]="inFaqsMode"
-  [hasReset]="faqsEditMode && !listMode"
+  [hasReset]="(faqsEditMode && !listMode) || !listMode"
 
 >
   <div *ngIf="!inFaqsMode">
@@ -16,7 +16,7 @@
   <!-- ***************************** -->
   <!-- Add faqs  -->
   <!-- ***************************** -->
-  <form [formGroup]="form">
+  <form [formGroup]="faqsForm">
     <div *ngIf="inFaqsMode">
       <app-dropdown-material [expansionHeader]="'Add FAQs'">
         <!-- <div class="w-25 mb-4">
@@ -34,9 +34,6 @@
           <select
             formControlName="categoryId"
             class="form-control"
-            name=""
-            id=""
-            [innerText]=""
           >
             <option *ngFor="let group of groups" [value]="group.id">
               {{ group.name }}
@@ -48,7 +45,7 @@
           <app-input-field
             labelText="Question"
             inputPlaceholder="Add Question"
-            [control]="form.get('question')"
+            [control]="faqsForm.get('question')"
           ></app-input-field>
         </div>
         <app-rich-text-field
@@ -93,7 +90,6 @@
   <!-- drag and drop -->
   <!--  question asnd answer -->
   <!-- ***************************** -->
-
   <div
     cdkDropList
     [cdkDropListData]="groups"
@@ -115,8 +111,8 @@
         [expansionHeader]="group.name"
         [deleteImgSrc]="'../../../assets/images/delete-whiite.svg'"
         [editImgSrc]="'../../../assets/images/edit-white.svg'"
-        (editBtn)="editBtn(group.name, group.id)"
-        (deleteBtn)="deleteBtn(group.id)"
+        (editBtn)="editCategory(group.name, group.id)"
+        (deleteBtn)="deleteCategory(group.id)"
       >
         <!-- Nested question asnd answer -->
 

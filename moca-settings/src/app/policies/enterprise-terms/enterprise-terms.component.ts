@@ -34,7 +34,6 @@ export class EnterpriseTermsComponent implements OnInit {
   saveAndSubmit() {
     if (this.form.invalid) return;
     else {
-      console.log(this.form.value);
       this.postPolicyById(4,this.form.value.description);
     }
     this.helper();
@@ -45,7 +44,6 @@ export class EnterpriseTermsComponent implements OnInit {
   }
   getPolicyById(PolicyTypes:number,id: number) {
     this.PoliciesService.getPoliciesById(PolicyTypes,id).subscribe((data: any) => {
-      console.log(data);
       this.bodyContent=data.data.description
     });
   }
@@ -55,7 +53,6 @@ export class EnterpriseTermsComponent implements OnInit {
       lobSpaceTypeId: 1,
       description: body,
     }).subscribe((data: any) => {
-      console.log(data);
     });
   }
 }

@@ -34,7 +34,6 @@ export class HourlyComponent implements OnInit {
   saveAndSubmit() {
     if (this.form.invalid) return;
     else {
-      console.log(this.form.value);
       this.updateTopUpById(1,this.form.value.description)
     }
     this.helper();
@@ -46,7 +45,6 @@ export class HourlyComponent implements OnInit {
 
   getTopUpById(topUpType: number, id: number) {
     this.TopUpService.getTopUpById(topUpType, id).subscribe((data: any) => {
-      console.log(data)
       this.contentBody=data.data.termsOfUse
     });
   }

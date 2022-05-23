@@ -44,7 +44,6 @@ export class CancellationPolicyComponent implements OnInit {
   }
   getPolicyById(id: number,PolicyTypes:any) {
     this.PoliciesService.getPoliciesById(id,PolicyTypes).subscribe((data: any) => {
-      console.log(data.data);
       this.bodyContent=data.data.description
     });
   }
@@ -54,7 +53,6 @@ export class CancellationPolicyComponent implements OnInit {
       lobSpaceTypeId: null,
       description: body,
     }).subscribe((data: any) => {
-      console.log(data);
     });
   }
 }

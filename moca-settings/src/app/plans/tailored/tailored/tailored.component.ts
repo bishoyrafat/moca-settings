@@ -53,13 +53,11 @@ export class TailoredComponent implements OnInit {
       lobSpaceTypeId: 0,
       ...body,
     }).subscribe((data: any) => {
-      console.log(data);
     });
   }
 
   getPlansById(planType: number, id: number) {
     this.PlansService.getPlansById(planType, id).subscribe((data: any) => {
-      console.log(data.data.plan);
       this.pointsContent = data.data.plan.points;
       this.whatYouGetContent = data.data.plan.whatYouGet;
       this.termsOfUseContent = data.data.plan.termsOfUse;

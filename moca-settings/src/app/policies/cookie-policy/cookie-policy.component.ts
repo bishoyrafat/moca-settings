@@ -33,7 +33,6 @@ export class CookiePolicyComponent implements OnInit {
   saveAndSubmit() {
     if (this.form.invalid) return;
     else {
-      console.log(this.form.value);
       this.postPolicyById(6,this.form.value.description);
     }
     this.helper();
@@ -44,7 +43,6 @@ export class CookiePolicyComponent implements OnInit {
   }
   getPolicyById(PolicyTypes:number,id: number) {
     this.PoliciesService.getPoliciesById(PolicyTypes,id).subscribe((data: any) => {
-      console.log(data);
       this.bodyContent=data.data.description
     });
   }
@@ -54,7 +52,6 @@ export class CookiePolicyComponent implements OnInit {
       lobSpaceTypeId: 1,
       description: body,
     }).subscribe((data: any) => {
-      console.log(data);
     });
   }
 }

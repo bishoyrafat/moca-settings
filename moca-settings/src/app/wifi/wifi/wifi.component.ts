@@ -46,7 +46,6 @@ export class WifiComponent implements OnInit {
 
   getWifi() {
     this.WifiService.getWifi().subscribe((data: any) => {
-      console.log(data);
       this.wifiBody = data.data.description;
     });
   }
@@ -55,7 +54,6 @@ export class WifiComponent implements OnInit {
     this.WifiService.postWifi({
       description: body,
     }).subscribe((data: any) => {
-      console.log(data);
     });
   }
 }

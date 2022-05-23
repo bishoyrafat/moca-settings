@@ -1,4 +1,4 @@
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   CdkDragDrop,
@@ -23,21 +23,23 @@ export class FaqsComponent implements OnInit {
   categoryId = 0;
   FaqId = 0;
   answerBody: any;
-  form: FormGroup;
+  groups: any[] = [];
+  faqsBody: any = [];
+  categoryBody: any = [];
+  faqsForm: FormGroup;
   CategoryForm: FormGroup;
   addQuestion: FormGroup;
   constructor(private FaqService: FaqService) {}
 
   ngOnInit(): void {
     this.getAllFaqs();
-    console.log('groups', this.groups);
-
-    this.form = new FormGroup({
-      categoryId: new FormControl(),
-      question: new FormControl(),
-      answer: new FormControl(),
+    // FAQS FORM
+    this.faqsForm = new FormGroup({
+      categoryId: new FormControl('', Validators.required),
+      question: new FormControl('', Validators.required),
+      answer: new FormControl('', Validators.required),
     });
-
+    //  CATEGORY FORM
     this.CategoryForm = new FormGroup({
       category: new FormControl(''),
     });
@@ -50,11 +52,12 @@ export class FaqsComponent implements OnInit {
   reloadPage() {
     setTimeout(() => {
       window.location.reload();
-    }, 500);
+    }, 1000);
   }
 
   submitAddQuestion(id: number) {
     console.log(this.addQuestion.value.question, id);
+
     this.postCategoryById(id, {
       lobSpaceTypeId: null,
       question: this.addQuestion.value.question,
@@ -64,27 +67,34 @@ export class FaqsComponent implements OnInit {
   }
 
   bodyContent(e: any) {
-    this.form.get('answer')?.setValue(e);
+    this.faqsForm.get('answer')?.setValue(e);
   }
+
+  // first check if form is valid
+  // check if in faqsEditMode to call updateQuestionById()
+  // else postCategoryById()
   saveAndSubmitForm() {
-    if (this.faqsEditMode) {
-      this.updateQuestionById(this.FaqId, {
-        categoryId: this.categoryId,
-        question: this.form.value.question,
-        answer: this.form.value.answer,
-      });
-      console.log(this.form.value);
-    } else {
-      let categoryId = this.form.value.categoryId;
-      this.postCategoryById(categoryId, {
-        lobSpaceTypeId: null,
-        question: this.form.value.question,
-        answer: this.form.value.answer,
-      });
-      console.log(this.form.value);
-      this.inFaqsMode = !this.inFaqsMode;
-      this.listMode = !this.listMode;
-      this.reloadPage();
+    if (this.faqsForm.invalid) return;
+    else {
+      if (this.faqsEditMode) {
+        this.updateQuestionById(this.FaqId, {
+          categoryId: this.categoryId,
+          question: this.faqsForm.value.question,
+          answer: this.faqsForm.value.answer,
+        });
+        console.log(this.faqsForm.value);
+      } else {
+        let categoryId = this.faqsForm.value.categoryId;
+        this.postCategoryById(categoryId, {
+          lobSpaceTypeId: null,
+          question: this.faqsForm.value.question,
+          answer: this.faqsForm.value.answer,
+        });
+        console.log(this.faqsForm.value);
+        this.inFaqsMode = !this.inFaqsMode;
+        this.listMode = !this.listMode;
+        this.reloadPage();
+      }
     }
   }
   closeFaqs() {
@@ -116,37 +126,13 @@ export class FaqsComponent implements OnInit {
       this.reloadPage();
     } else {
       this.postCategory(this.CategoryForm.value.category);
-      console.log(this.CategoryForm.value.category);
       this.inModalMode = !this.inModalMode;
       this.reloadPage();
     }
   }
+  // ************************
   // drag and drop
-
-  groups: any[] = [];
-  //   groups :any[]= [{
-  //     id: 1,
-  //     title: 'Category 1',
-  //     items: [
-  //     //   {
-  //     //     question: 'Item 1 - Group 1',
-  //     //   answer:'answer 1 - G 1'
-  //     // },
-  //     // {
-  //     //   question: 'Item 2 - Group 1',
-  //     //   answer:'answer 2 - G 1'
-  //     // },
-  //   ]
-  //   },
-  // {
-  //   name: "string2",
-  //   displayOrder: 1,
-  //   faqs: [{id: 1, question: 'how are you?', answer: 'fine', displayOrder: 1},{id: 1, question: 'how are you?', answer: 'fine', displayOrder: 1}],
-  //   id: 2,
-  // }
-  // ];
-  newBody: any = [];
-
+  // ************************
   dropItem(event: any) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -156,20 +142,19 @@ export class FaqsComponent implements OnInit {
       );
       event.container.data.forEach((element: any, index: any) => {
         element.displayOrder = index + 1;
-
-        this.newBody.push({
+        this.faqsBody.push({
           faqId: element.id,
           displayOrder: element.displayOrder,
         });
-
       });
-
       this.updateFaqsOrder({
         lobSpaceTypeId: null,
-        categoryFaqsDisplayOrderDto: {
-          categoryId: event.container.id,
-          faqsDisplayOrder: this.newBody
-        },
+        categoryFaqsDisplayOrderDto: [
+          {
+            categoryId: event.container.id,
+            faqsDisplayOrder: this.faqsBody,
+          },
+        ],
       });
     } else {
       transferArrayItem(
@@ -184,24 +169,22 @@ export class FaqsComponent implements OnInit {
   getConnectedList(): any[] {
     return this.groups.map((x: any) => `${x.id}`);
   }
-   categoryBody :any=[]
 
   dropGroup(event: any) {
     moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
-    event.container.data.forEach((el:any,index:any)=>{
+    event.container.data.forEach((el: any, index: any) => {
       el.displayOrder = index + 1;
       this.categoryBody.push({
-        id:el.id,
-        displayOrder:el.displayOrder
-      })
+        id: el.id,
+        displayOrder: el.displayOrder,
+      });
 
-      console.log(this.categoryBody)
-    })
-
-    this.updateCategoryOrder(0,this.categoryBody)
+      console.log(this.categoryBody);
+    });
+    this.updateCategoryOrder( this.categoryBody);
   }
-
-  editBtn(categoryName: any, categoryId: any) {
+  // **********************************************************
+  editCategory(categoryName: any, categoryId: any) {
     this.categoryName = categoryName;
     this.categoryId = categoryId;
     console.log('edit', categoryName, categoryId);
@@ -210,7 +193,7 @@ export class FaqsComponent implements OnInit {
     this.CategoryForm.get('category')?.setValue(categoryName);
   }
 
-  deleteBtn(id: any) {
+  deleteCategory(id: any) {
     console.log(id);
     this.deleteCategoryById(id, {
       lobSpaceTypeId: null,
@@ -226,13 +209,12 @@ export class FaqsComponent implements OnInit {
     answer: string,
     categoryId: number
   ) {
-    console.log(id, question, answer, categoryId);
     this.categoryId = categoryId;
     this.FaqId = id;
     this.inFaqsMode = !this.inFaqsMode;
     this.listMode = !this.listMode;
 
-    this.form.patchValue({
+    this.faqsForm.patchValue({
       categoryId: categoryId,
       question: question,
     });
@@ -240,6 +222,8 @@ export class FaqsComponent implements OnInit {
     this.bodyContent(answer);
     this.faqsEditMode = true;
   }
+
+  // FAQs APIs
   deleteQuestion(id: number) {
     this.deleteQuestionById(id);
     this.reloadPage();
@@ -247,7 +231,6 @@ export class FaqsComponent implements OnInit {
 
   getAllFaqs() {
     this.FaqService.getAllFaqs().subscribe((data: any) => {
-      console.log(data.data.categories);
       this.groups.push(...data.data.categories);
     });
   }
@@ -257,19 +240,16 @@ export class FaqsComponent implements OnInit {
       lobSpaceTypeId: null,
       name: categoryName,
     }).subscribe((data: any) => {
-      console.log(data);
     });
   }
 
   postCategoryById(id: number, body: any) {
     this.FaqService.postCategoryById(id, body).subscribe((data: any) => {
-      console.log(data);
     });
   }
 
   deleteCategoryById(id: number, body: any) {
     this.FaqService.deleteCategoryById(id).subscribe((data: any) => {
-      console.log(data);
     });
   }
 
@@ -302,10 +282,9 @@ export class FaqsComponent implements OnInit {
     });
   }
 
-  updateCategoryOrder(id:any ,body:any){
-    this.FaqService.updateCategoryOrder(id,body).subscribe((data: any) => {
+  updateCategoryOrder(body: any) {
+    this.FaqService.updateCategoryOrder(body).subscribe((data: any) => {
       console.log(data);
     });
   }
-
 }

@@ -46,8 +46,8 @@ export class FaqService {
   }
 
 
-  updateCategoryOrder(id:number ,body:any){
-    return this.http.put(this.url + `Categories/LobSpaceType/${id}`, body);
+  updateCategoryOrder(body:any){
+    return this.http.put(this.url + `Categories/LobSpaceType/`, body);
   }
 
 
