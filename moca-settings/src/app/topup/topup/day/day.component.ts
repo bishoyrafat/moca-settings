@@ -1,6 +1,8 @@
 import { TopUpService } from './../../topUp.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-day',
@@ -13,7 +15,7 @@ export class DayComponent implements OnInit {
   hasEdit = true;
   hasAdd = false;
   contentBody: any;
-  constructor(private TopUpService: TopUpService) {}
+  constructor(private TopUpService: TopUpService,private ToastrService:ToastrService) {}
 
   ngOnInit() {
     this.getTopUpById(2, 0);
@@ -55,6 +57,8 @@ export class DayComponent implements OnInit {
       termsOfUse: body,
       lobSpaceTypeId: 0,
     }).subscribe((data: any) => {
+      this.ToastrService.success('Update done Successfuly')
+
     });
   }
 }

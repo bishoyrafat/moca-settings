@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PoliciesService } from '../policies.service';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-user-terms',
   templateUrl: './user-terms.component.html',
@@ -14,7 +16,7 @@ export class UserTermsComponent implements OnInit {
   hasAdd = true;
   inEditMode=false
   bodyContent:string
-  constructor(private PoliciesService: PoliciesService) {}
+  constructor(private PoliciesService: PoliciesService,private ToastrService:ToastrService) {}
 
   ngOnInit() {
     this.getPolicyById(3,1);
@@ -57,7 +59,7 @@ export class UserTermsComponent implements OnInit {
       lobSpaceTypeId: 1,
       description: body,
     }).subscribe((data: any) => {
-      console.log(data);
+      this.ToastrService.success('Update done Successfuly')
     });
   }
 }

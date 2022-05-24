@@ -8,6 +8,8 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { FaqService } from '../faq.service';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-faqs',
   templateUrl: './faqs.component.html',
@@ -26,11 +28,12 @@ export class FaqsComponent implements OnInit {
   groups: any[] = [];
   faqsBody: any = [];
   categoryBody: any = [];
-  expandedCategory=true
+  expandedCategory=true;
+  disableDropdown=false;
   faqsForm: FormGroup;
   CategoryForm: FormGroup;
   addQuestion: FormGroup;
-  constructor(private FaqService: FaqService) {}
+  constructor(private FaqService: FaqService,private ToastrService:ToastrService) {}
 
   ngOnInit(): void {
     this.getAllFaqs();
@@ -53,7 +56,7 @@ export class FaqsComponent implements OnInit {
   reloadPage() {
     setTimeout(() => {
       window.location.reload();
-    }, 1000);
+    }, 2000);
   }
 
   submitAddQuestion(id: number) {
@@ -186,6 +189,10 @@ export class FaqsComponent implements OnInit {
   }
   // **********************************************************
   editCategory(categoryName: any, categoryId: any) {
+    this.disableDropdown=true
+    setTimeout(() => {
+      this.disableDropdown=false
+    }, 500);
     this.categoryName = categoryName;
     this.categoryId = categoryId;
     console.log('edit', categoryName, categoryId);
@@ -193,9 +200,8 @@ export class FaqsComponent implements OnInit {
     this.categoryEditMode = true;
     this.CategoryForm.get('category')?.setValue(categoryName);
   }
-
   deleteCategory(id: any) {
-    console.log(id);
+    this.disableDropdown=!this.disableDropdown
     this.deleteCategoryById(id, {
       lobSpaceTypeId: null,
       deleteRelatedFaqs: true,
@@ -226,6 +232,7 @@ export class FaqsComponent implements OnInit {
 
   // FAQs APIs
   deleteQuestion(id: number) {
+    this.disableDropdown=!this.disableDropdown
     this.deleteQuestionById(id);
     this.reloadPage();
   }
@@ -246,11 +253,15 @@ export class FaqsComponent implements OnInit {
 
   postCategoryById(id: number, body: any) {
     this.FaqService.postCategoryById(id, body).subscribe((data: any) => {
+      this.ToastrService.success('Update done Successfuly')
+
     });
   }
 
   deleteCategoryById(id: number, body: any) {
     this.FaqService.deleteCategoryById(id).subscribe((data: any) => {
+      this.ToastrService.success('Delete done Successfuly')
+
     });
   }
 
@@ -259,13 +270,13 @@ export class FaqsComponent implements OnInit {
       lobSpaceTypeId: null,
       name: body,
     }).subscribe((data: any) => {
-      console.log(data);
+      this.ToastrService.success('Update done Successfuly')
     });
   }
 
   deleteQuestionById(id: Number) {
     this.FaqService.deleteQuestionById(id).subscribe((data: any) => {
-      console.log(data);
+      this.ToastrService.success('Delete done Successfuly')
     });
   }
   updateQuestionById(id: number, body: any) {
@@ -273,19 +284,19 @@ export class FaqsComponent implements OnInit {
       lobSpaceTypeId: null,
       ...body,
     }).subscribe((data: any) => {
-      console.log(data);
+      this.ToastrService.success('Update done Successfuly')
     });
   }
 
   updateFaqsOrder(body: any) {
     this.FaqService.updateFaqsOrder(body).subscribe((data: any) => {
-      console.log(data);
+      this.ToastrService.success('Update done Successfuly')
     });
   }
 
   updateCategoryOrder(body: any) {
     this.FaqService.updateCategoryOrder(body).subscribe((data: any) => {
-      console.log(data);
+      this.ToastrService.success('Update done Successfuly')
     });
   }
 }

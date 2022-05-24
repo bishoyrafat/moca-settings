@@ -1,6 +1,7 @@
 import { PlansService } from './../../plans.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tailored',
@@ -15,7 +16,7 @@ export class TailoredComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
 
-  constructor(private PlansService: PlansService) {}
+  constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
     this.getPlansById(6, 0);
     this.form = new FormGroup({
@@ -61,6 +62,8 @@ export class TailoredComponent implements OnInit {
       "lobSpaceTypeId": 0,
       ...body
     }).subscribe((data: any) => {
+      this.ToastrService.success('Update done Successfuly')
+
     });
   }
 

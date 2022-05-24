@@ -15,6 +15,7 @@ export class DropdownMaterialComponent implements OnInit {
   @Input() deleteImgSrc = '';
   @Input() hasDot: boolean = false;
   @Input() expanded: boolean = true;
+  @Input() disableDropdown: boolean = false;
   @Output() editBtn = new EventEmitter();
   @Output() deleteBtn = new EventEmitter();
 

@@ -2,6 +2,8 @@ import { getLocaleEraNames } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { WifiService } from './wifi.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-wifi',
@@ -14,7 +16,7 @@ export class WifiComponent implements OnInit {
   hasEdit = true;
   hasAdd = false;
   wifiBody: any;
-  constructor(private WifiService: WifiService) {}
+  constructor(private WifiService: WifiService,private ToastrService:ToastrService) {}
 
   ngOnInit() {
     this.getWifi();
@@ -54,6 +56,8 @@ export class WifiComponent implements OnInit {
     this.WifiService.postWifi({
       description: body,
     }).subscribe((data: any) => {
+      this.ToastrService.success('Update done Successfuly')
+
     });
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PoliciesService } from '../policies.service';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
@@ -13,7 +15,7 @@ export class PrivacyPolicyComponent implements OnInit {
   hasAdd = true;
   inEditMode=false
   bodyContent:string
-  constructor(private PoliciesService: PoliciesService) {}
+  constructor(private PoliciesService: PoliciesService,private ToastrService:ToastrService) {}
 
   ngOnInit() {
     this.getPolicyById(2,1);
@@ -54,6 +56,8 @@ export class PrivacyPolicyComponent implements OnInit {
       lobSpaceTypeId: 1,
       description: body,
     }).subscribe((data: any) => {
+      this.ToastrService.success('Update done Successfuly')
+
     });
   }
 }

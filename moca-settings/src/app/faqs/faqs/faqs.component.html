@@ -114,6 +114,7 @@
         (editBtn)="editCategory(group.name, group.id)"
         (deleteBtn)="deleteCategory(group.id)"
         [expanded]="expandedCategory"
+        [disableDropdown]="disableDropdown"
       >
         <!-- Nested question asnd answer -->
 
@@ -155,6 +156,7 @@
               [expanded]="false"
               (editBtn)="editQuestion(item.id,item.id, item.question, item.answer,group.id)"
               (deleteBtn)="deleteQuestion(item.id)"
+              [disableDropdown]="disableDropdown"
             >
               <h6 [innerHTML]="item.answer"></h6>
             </app-dropdown-material>

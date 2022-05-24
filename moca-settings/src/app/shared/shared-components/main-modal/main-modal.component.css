@@ -12,7 +12,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   -webkit-animation: fadein 1s ease-in-out; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1s ease-in-out; /* Firefox < 16 */
   -ms-animation: fadein 1s ease-in-out; /* Internet Explorer */
@@ -30,6 +29,7 @@
   z-index: 5;
   border-radius: 10px;
   padding: 10px 20px;
+
 }
 @keyframes fadein {
   from {

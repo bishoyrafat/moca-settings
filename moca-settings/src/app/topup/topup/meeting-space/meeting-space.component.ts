@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TopUpService } from '../../topUp.service';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-meeting-space',
   templateUrl: './meeting-space.component.html',
@@ -13,7 +15,7 @@ export class MeetingSpaceComponent implements OnInit {
   hasEdit = true;
   hasAdd = false;
   contentBody: any;
-  constructor(private TopUpService: TopUpService) {}
+  constructor(private TopUpService: TopUpService,private ToastrService:ToastrService) {}
 
   ngOnInit() {
     this.getTopUpById(4,0);
@@ -55,6 +57,8 @@ export class MeetingSpaceComponent implements OnInit {
       termsOfUse: body,
       lobSpaceTypeId: 0,
     }).subscribe((data: any) => {
+      this.ToastrService.success('Update done Successfuly')
+
     });
   }
 }

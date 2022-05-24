@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PoliciesService } from '../policies.service';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-venue-account-agreement',
   templateUrl: './venue-account-agreement.component.html',
@@ -15,7 +17,7 @@ export class VenueAccountAgreementComponent implements OnInit {
   bodyContent:string
   inEditMode=false
 
-  constructor(private PoliciesService: PoliciesService) {}
+  constructor(private PoliciesService: PoliciesService,private ToastrService:ToastrService) {}
 
   ngOnInit() {
     this.getPolicyById(5,1);
@@ -58,7 +60,7 @@ export class VenueAccountAgreementComponent implements OnInit {
       lobSpaceTypeId: 1,
       description: body,
     }).subscribe((data: any) => {
-      console.log(data);
+      this.ToastrService.success('Update done Successfuly')
     });
   }
 

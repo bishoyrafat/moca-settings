@@ -1,6 +1,7 @@
 import { PlansService } from './../../plans.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-day',
   templateUrl: './day.component.html',
@@ -14,7 +15,7 @@ export class DayComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
 
-  constructor(private PlansService: PlansService) {}
+  constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
     this.getPlansById(7, 0);
     this.form = new FormGroup({
@@ -60,6 +61,8 @@ export class DayComponent implements OnInit {
       "lobSpaceTypeId": 0,
       ...body
     }).subscribe((data: any) => {
+      this.ToastrService.success('Update done Successfuly')
+
     });
   }
 
@@ -70,6 +73,7 @@ export class DayComponent implements OnInit {
       this.whatYouGetContent=data.data.plan.whatYouGet
       this.termsOfUseContent =data.data.plan.termsOfUse
       this.form.get('description').setValue(data.data.plan.description)
+
     });
   }
 }

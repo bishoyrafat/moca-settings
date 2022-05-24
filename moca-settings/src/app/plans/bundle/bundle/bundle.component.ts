@@ -1,6 +1,7 @@
 import { PlansService } from './../../plans.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bundle',
@@ -15,7 +16,7 @@ export class BundleComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
 
-  constructor(private PlansService: PlansService) {}
+  constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
     this.getPlansById(8, 0);
     this.form = new FormGroup({
@@ -61,6 +62,8 @@ export class BundleComponent implements OnInit {
       "lobSpaceTypeId": 0,
       ...body
     }).subscribe((data: any) => {
+      this.ToastrService.success('Update done Successfuly')
+
     });
   }
 

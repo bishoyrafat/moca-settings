@@ -1,6 +1,7 @@
 import { PoliciesService } from './../policies.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cancellation-policy',
@@ -14,7 +15,7 @@ export class CancellationPolicyComponent implements OnInit {
   hasAdd = false;
   bodyContent:string
   inEditMode=false
-  constructor(private PoliciesService: PoliciesService) {}
+  constructor(private PoliciesService: PoliciesService,private ToastrService:ToastrService) {}
 
   ngOnInit() {
     this.getPolicyById(1,1);
@@ -59,7 +60,7 @@ export class CancellationPolicyComponent implements OnInit {
       lobSpaceTypeId: 1,
       description: body,
     }).subscribe((data: any) => {
-      console.log(data)
+      this.ToastrService.success('Update done Successfuly')
     });
   }
 }

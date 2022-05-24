@@ -1,6 +1,7 @@
 import { PlansService } from './../../plans.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-hourly',
@@ -15,7 +16,7 @@ export class HourlyComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
 
-  constructor(private PlansService: PlansService) {}
+  constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
     this.getPlansById(5, 0);
     this.form = new FormGroup({
@@ -27,10 +28,9 @@ export class HourlyComponent implements OnInit {
   }
 
   saveAndSubmitForm() {
-    console.log(this.form.valid)
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
-      this.postPlansById(5, this.form.value);
+    this.postPlansById(5, this.form.value);
 
   }
   editForm(form:any,points:any,whatYouGetContent:any,termsOfUseContent:any) {
@@ -61,6 +61,8 @@ export class HourlyComponent implements OnInit {
       "lobSpaceTypeId": 0,
       ...body
     }).subscribe((data: any) => {
+      this.ToastrService.success('Update done Successfuly')
+
     });
   }
 
@@ -70,6 +72,7 @@ export class HourlyComponent implements OnInit {
       this.whatYouGetContent=data.data.plan.whatYouGet
       this.termsOfUseContent =data.data.plan.termsOfUse
       this.form.get('description').setValue(data.data.plan.description)
+
     });
   }
 }
