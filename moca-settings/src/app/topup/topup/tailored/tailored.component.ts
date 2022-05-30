@@ -57,7 +57,7 @@ export class TailoredComponent implements OnInit {
       termsOfUse: body,
       lobSpaceTypeId: 0,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
 
     });
   }

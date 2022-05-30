@@ -13,8 +13,8 @@ export class EnterpriseTermsComponent implements OnInit {
 
   form: FormGroup;
   isInputRequired = false;
-  hasEdit = false;
-  hasAdd = true;
+  hasEdit = true;
+  hasAdd = false;
   bodyContent:string
   inEditMode=false
 
@@ -36,30 +36,36 @@ export class EnterpriseTermsComponent implements OnInit {
     this.hasAdd = !this.hasAdd;
   }
   saveAndSubmit() {
+    console.log(this.form.value)
+    this.inEditMode=!this.inEditMode
+    this.hasAdd=false
+    this.hasEdit=true
     if (this.form.invalid) return;
     else {
-      this.postPolicyById(4,this.form.value.description);
+      console.log(this.form.value);
+      this.postPolicyById(4,this.form.value.description );
     }
-    this.helper();
   }
 
   edit(inEditMode:any) {
     this.helper();
     if(inEditMode)
-    this.inEditMode=!this.inEditMode
+    this.hasAdd=true
+    this.hasEdit=false
+    this.inEditMode = true
   }
   getPolicyById(PolicyTypes:number,id: number) {
-    this.PoliciesService.getPoliciesById(PolicyTypes,id).subscribe((data: any) => {
+    this.PoliciesService.getPoliciesById(PolicyTypes).subscribe((data: any) => {
       this.bodyContent=data.data.description
     });
   }
 
   postPolicyById(id: number, body: any) {
     this.PoliciesService.postPoliciesById(id, {
-      lobSpaceTypeId: 1,
+      lobSpaceTypeId: null,
       description: body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
 
     });
   }

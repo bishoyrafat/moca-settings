@@ -1,18 +1,19 @@
 <app-body-template
   [hasEdit]="hasEdit"
   [hasReset]="false"
-  [hasAdd]="hasAdd"
+  [hasAdd]="!hasEdit"
   (edit)="edit('inEditMode')"
   (save)="saveAndSubmit()"
-
 >
   <form action="" [formGroup]="form">
     <app-rich-text-field
-    [customClass]="'custom-richText'"
-      [disabled]="!inEditMode"
+      [customClass]="'custom-richText'"
+      [disabled]="inEditMode"
       (bodyContent)="content($event)"
       [content]="bodyContent"
-      [hideToolbar]="!inEditMode"
+      [hideToolbar]="inEditMode"
+      errMsg=""
     ></app-rich-text-field>
   </form>
+  <small class="star" *ngIf="!inEditMode"> *this field is required</small>
 </app-body-template>

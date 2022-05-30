@@ -6,13 +6,16 @@
   (edit)="edit()"
   (save)="saveAndSubmit()"
 >
-  <form action="" [formGroup]="form">
+  <form [formGroup]="form">
     <app-rich-text-field
       [hideToolbar]="hasEdit"
       [customClass]="'custom-richText'"
       [disabled]="isInputRequired"
       (bodyContent)="content($event)"
       [content]="wifiBody"
+      [errMsg]="''"
     ></app-rich-text-field>
   </form>
+  <small class="star" *ngIf="!hasEdit"> *this field is required</small>
+
 </app-body-template>

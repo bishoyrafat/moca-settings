@@ -1,10 +1,11 @@
 <div [class]="errMsg !== '' ? 'text-red' : ''" class="form-group">
-  <label class="mb-2" *ngIf="!hideLabel" for=""
+  <label class="mb-2 label-text" *ngIf="!hideLabel" for=""
     >{{ labelText }}
-    <span *ngIf="inputRequired" class="text-red">*</span>
+    <span *ngIf="inputRequired" class="star">*</span>
   </label>
   <div [class]="customClass">
     <angular-editor
+    class="rich-text-box"
       [placeholder]="'Enter text here...'"
       [(ngModel)]="content"
       [config]="editorConfig"

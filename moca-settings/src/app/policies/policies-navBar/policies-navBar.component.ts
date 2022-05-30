@@ -5,65 +5,75 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-policies-navBar',
   templateUrl: './policies-navBar.component.html',
-  styleUrls: ['./policies-navBar.component.css']
+  styleUrls: ['./policies-navBar.component.css'],
 })
 export class PoliciesNavBarComponent implements OnInit {
-  innerNavs=[
+  innerNavs = [
     {
       name: 'Cancellation Policy',
-      url: 'cancellationpolicy',
+      url: 'policies/cancellationpolicy',
       active: true,
-      visible:true
+      visible: true,
+      editMode: true,
+      child:true
+
     },
     {
       name: 'Privacy Policy',
-      url: 'privacypolicy',
-      active: true,
-      visible:true
+      url: 'policies/privacypolicy',
+      active: false,
+      visible: true,
+      editMode: true,
+            child:true
+
     },
     {
       name: 'User Terms Of Use',
-      url: 'userterms',
-      active: true,
-      visible:true
+      url: 'policies/userterms',
+      active: false,
+      visible: true,
+      editMode: true,
+            child:true
+
     },
     {
       name: 'Enterprise Terms of Use',
-      url: 'enterpriseterms',
-      active: true,
-      visible:true
+      url: 'policies/enterpriseterms',
+      active: false,
+      visible: true,
+      editMode: true,
+            child:true
+
     },
     {
       name: 'Venue Account Agreement',
-      url: 'venueaccountagreement',
-      active: true,
-      visible:true
+      url: 'policies/venueaccountagreement',
+      active: false,
+      visible: true,
+      editMode: true,
+            child:true
+
     },
     {
       name: 'Cookie Policy',
-      url: 'cookiepolicy',
-      active: true,
-      visible:true
+      url: 'policies/cookiepolicy',
+      active: false,
+      visible: true,
+      editMode: true,
+            child:true
+
     },
-
-  ]
-  constructor(private PoliciesService:PoliciesService) { }
+  ];
+  constructor(private PoliciesService: PoliciesService) {}
   ngOnInit() {
-    this.getPoliciesTypes()
+    this.getPoliciesTypes();
   }
-getPoliciesTypes(){
-  this.PoliciesService.getPoliciesTypes().subscribe((data:any)=>{
-   let x =  data.data.map((element:any) => {
-
-    ({ ...element, Active: 'false' })
-  });
-  console.log(data.DateRangePickerComponent)
-
-  })
-
-
-}
-
-
-
+  getPoliciesTypes() {
+    this.PoliciesService.getPoliciesTypes().subscribe((data: any) => {
+      let x = data.data.map((element: any) => {
+        ({ ...element, Active: 'false' });
+      });
+      console.log(data.DateRangePickerComponent);
+    });
+  }
 }

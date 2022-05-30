@@ -29,7 +29,7 @@ export class WifiComponent implements OnInit {
   }
 
   helper() {
-    this.isInputRequired = !this.isInputRequired;
+    // this.isInputRequired = !this.isInputRequired;
     this.hasEdit = !this.hasEdit;
     this.hasAdd = !this.hasAdd;
   }
@@ -40,10 +40,15 @@ export class WifiComponent implements OnInit {
       this.postWifi(this.form.value.description);
     }
     this.helper();
+    this.isInputRequired = true;
+
   }
 
   edit() {
     this.helper();
+    this.isInputRequired = false;
+
+
   }
 
   getWifi() {
@@ -56,7 +61,7 @@ export class WifiComponent implements OnInit {
     this.WifiService.postWifi({
       description: body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
 
     });
   }

@@ -12,6 +12,11 @@
       [disabled]="hasEdit"
       (bodyContent)="content($event)"
       [content]="contentBody"
+      [inputRequired]="hasEdit"
+      errMsg=""
+      [hideLabel]="true"
     ></app-rich-text-field>
   </form>
+  <small class="star" *ngIf="!hasEdit"> *this field is required</small>
+
 </app-body-template>

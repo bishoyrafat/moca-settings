@@ -17,7 +17,6 @@ import {
 export class InnerNavComponent implements OnInit, OnChanges {
   @Input() innerNavs: innernavsModel[];
   @Input() customClass: string;
-  @Input() active:string;
 
   @Output() clickedItem: EventEmitter<any> = new EventEmitter();
   constructor(private activeRoute: Router) {}
@@ -27,17 +26,34 @@ export class InnerNavComponent implements OnInit, OnChanges {
       this.innerNavs = change.innerNavs?.currentValue;
     }
     let currentRoute: any = this.activeRoute.url;
-    this.makeActive(currentRoute);
+    this.makeCurrentActive(currentRoute);
   }
   ngOnInit(): void {}
   makeActive(item: any) {
-    this.innerNavs?.forEach((element) => {
-      if (element.url === item) {
-        element.active = true;
-      } else {
-        element.active = false;
-      }
+    if (item.editMode) {
+      this.activeRoute.navigate(['/' + item.url]);
+      this.innerNavs?.forEach((element) => {
+        if (element.url === item.url) {
+          element.active = true;
+        } else {
+          element.active = false;
+        }
+      });
+    }
+  }
+  makeCurrentActive(item: any) {
+    let x = this.innerNavs.find((element) => {
+      return item.includes(element.url);
     });
+    if (x && !x.active) {
+      this.innerNavs?.forEach((element) => {
+        if (item.includes(element.url)) {
+          element.active = true;
+        } else {
+          element.active = false;
+        }
+      });
+    }
   }
   emitItem(item: innernavsModel) {
     this.clickedItem.emit(item);

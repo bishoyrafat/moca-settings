@@ -37,41 +37,42 @@ ngOnInit(): void {
 ngAfterViewInit(): void {
   this.changeDetectorRef.detectChanges();
 }
-
-
-
-
   title = 'moca-settings';
   innerNavs=[
     {
       name: 'Plans',
-      url: 'plans',
+      url: '/plans',
       active: true,
-      visible:true
+      visible:true,
+      editMode:true
     },
     {
       name: 'FAQs',
-      url: 'faqs',
-      active: true,
-      visible:true
+      url: '/faqs',
+      active: false,
+      visible:true,
+      editMode:true
     },
     {
       name: 'Top Up',
-      url: 'topup',
-      active: true,
-      visible:true
+      url: '/topup',
+      active: false,
+      visible:true,
+      editMode:true
     },
     {
       name: 'Policies',
-      url: 'policies',
-      active: true,
-      visible:true
+      url: '/policies',
+      active: false,
+      visible:true,
+      editMode:true
     },
     {
       name: 'Wifi',
-      url: 'wifi',
-      active: true,
-      visible:true
+      url: '/wifi',
+      active: false,
+      visible:true,
+      editMode:true
     }
   ]
 }

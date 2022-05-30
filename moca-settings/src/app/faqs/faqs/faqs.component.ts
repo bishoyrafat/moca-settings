@@ -253,14 +253,14 @@ export class FaqsComponent implements OnInit {
 
   postCategoryById(id: number, body: any) {
     this.FaqService.postCategoryById(id, body).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
 
     });
   }
 
   deleteCategoryById(id: number, body: any) {
     this.FaqService.deleteCategoryById(id).subscribe((data: any) => {
-      this.ToastrService.success('Delete done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
 
     });
   }
@@ -270,7 +270,7 @@ export class FaqsComponent implements OnInit {
       lobSpaceTypeId: null,
       name: body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
     });
   }
 
@@ -284,19 +284,19 @@ export class FaqsComponent implements OnInit {
       lobSpaceTypeId: null,
       ...body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
     });
   }
 
   updateFaqsOrder(body: any) {
     this.FaqService.updateFaqsOrder(body).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
     });
   }
 
   updateCategoryOrder(body: any) {
     this.FaqService.updateCategoryOrder(body).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
     });
   }
 }

@@ -11,10 +11,10 @@ import { ToastrService } from 'ngx-toastr';
 export class PrivacyPolicyComponent implements OnInit {
   form: FormGroup;
   isInputRequired = false;
-  hasEdit = false;
-  hasAdd = true;
-  inEditMode=false
+  hasEdit = true;
+  hasAdd = false;
   bodyContent:string
+  inEditMode=false
   constructor(private PoliciesService: PoliciesService,private ToastrService:ToastrService) {}
 
   ngOnInit() {
@@ -33,9 +33,12 @@ export class PrivacyPolicyComponent implements OnInit {
     this.hasAdd = !this.hasAdd;
   }
   saveAndSubmit() {
+    console.log(this.form.value)
+    this.inEditMode=!this.inEditMode
     if (this.form.invalid) return;
     else {
-      this.postPolicyById(2,this.form.value.description);
+      console.log(this.form.value);
+      this.postPolicyById(2,this.form.value.description );
     }
     this.helper();
   }
@@ -46,17 +49,17 @@ export class PrivacyPolicyComponent implements OnInit {
     this.inEditMode=!this.inEditMode
   }
   getPolicyById(PolicyTypes:number,id: number) {
-    this.PoliciesService.getPoliciesById(PolicyTypes,id).subscribe((data: any) => {
+    this.PoliciesService.getPoliciesById(PolicyTypes).subscribe((data: any) => {
       this.bodyContent=data.data.description
     });
   }
 
   postPolicyById(id: number, body: any) {
     this.PoliciesService.postPoliciesById(id, {
-      lobSpaceTypeId: 1,
+      lobSpaceTypeId: null,
       description: body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
 
     });
   }

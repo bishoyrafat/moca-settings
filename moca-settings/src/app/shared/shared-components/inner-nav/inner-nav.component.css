@@ -1,13 +1,16 @@
 .linksContainer {
   width: 100%;
   display: flex;
-  padding-left: 65px;
 }
 .links {
   display: flex;
+  justify-content: center;
 }
 .navLink {
-  margin: 10px 15px;
+  margin: 10px 4px;
+  padding: 6px 8px;
+  box-sizing: content-box;
+  text-align: center;
 }
 
 .navLink a{
@@ -18,6 +21,6 @@
   color: var(--mainPurbleColor);
 }
 .navLink.active{
-  padding-bottom: 5px;
-  border-bottom:4px solid var(--mainPurbleColor);
+  padding-bottom: 10px;
+  border-bottom:2px solid var(--mainPurbleColor);
 }

@@ -56,7 +56,7 @@ export class HourlyComponent implements OnInit {
       termsOfUse: body,
       lobSpaceTypeId: 1,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
 
     });
   }

@@ -21,7 +21,7 @@ export class RichTextFieldComponent implements OnInit, OnChanges {
   editorText = '';
   @Input() labelText: string;
   @Input() errMsg: string;
-  @Input() customClass: string;
+  @Input() customClass: string = 'rich-text-box';
   @Input() content: string = '';
   @Input() hideLabel: boolean = false;
   @Input() inputRequired: boolean = false;
@@ -31,11 +31,11 @@ export class RichTextFieldComponent implements OnInit, OnChanges {
   @Output() bodyContent: EventEmitter<any> = new EventEmitter();
   constructor() {}
 
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngOnChanges(changes: any): void {
-    this.disabled = changes.disabled?.currentValue;
+    if (changes.disabled && changes.disabled.currentValue) {
+      this.disabled = changes.disabled?.currentValue;
+    }
     this.editorConfig.editable = !this.disabled;
     this.editorConfig.showToolbar = !this.hideToolbar;
   }
@@ -43,8 +43,6 @@ export class RichTextFieldComponent implements OnInit, OnChanges {
   changeEditor() {
     this.bodyContent.emit(this.content);
   }
-
-
 
   editorConfig: AngularEditorConfig = {
     editable: !this.disabled,
@@ -62,11 +60,11 @@ export class RichTextFieldComponent implements OnInit, OnChanges {
     defaultFontName: 'Comic Sans MS',
     defaultFontSize: '',
     fonts: [
-        {class: 'arial', name: 'Arial'},
-        {class: 'times-new-roman', name: 'Times New Roman'},
-        {class: 'calibri', name: 'Calibri'},
-        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-      ],
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' },
+    ],
     customClasses: [
       {
         name: 'quote',

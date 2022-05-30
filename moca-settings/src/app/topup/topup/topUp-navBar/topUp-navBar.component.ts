@@ -3,40 +3,44 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-topUp-navBar',
   templateUrl: './topUp-navBar.component.html',
-  styleUrls: ['./topUp-navBar.component.css']
+  styleUrls: ['./topUp-navBar.component.css'],
 })
 export class TopUpNavBarComponent implements OnInit {
-  innerNavs=[
+  innerNavs = [
     {
       name: 'Day',
-      url: 'day',
+      url: 'topup/day',
       active: true,
-      visible:true
+      visible: true,
+      editMode: true,
+      child:true
     },
     {
       name: 'Hourly',
-      url: 'hourly',
-      active: true,
-      visible:true
+      url: 'topup/hourly',
+      active: false,
+      visible: true,
+      editMode: true,
+      child:true
     },
     {
       name: 'Tailored',
-      url: 'tailored',
-      active: true,
-      visible:true
+      url: 'topup/tailored',
+      active: false,
+      visible: true,
+      editMode: true,
+      child:true
     },
     {
       name: 'Meeting Space',
-      url: 'meetingspace',
-      active: true,
-      visible:true
+      url: 'topup/meetingspace',
+      active: false,
+      visible: true,
+      editMode: true,
+      child:true
     },
+  ];
+  constructor() {}
 
-
-  ]
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

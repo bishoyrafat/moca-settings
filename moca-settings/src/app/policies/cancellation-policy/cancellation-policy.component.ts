@@ -13,12 +13,15 @@ export class CancellationPolicyComponent implements OnInit {
   isInputRequired = false;
   hasEdit = true;
   hasAdd = false;
-  bodyContent:string
-  inEditMode=false
-  constructor(private PoliciesService: PoliciesService,private ToastrService:ToastrService) {}
+  bodyContent: string;
+  inEditMode = true;
+  constructor(
+    private PoliciesService: PoliciesService,
+    private ToastrService: ToastrService
+  ) {}
 
   ngOnInit() {
-    this.getPolicyById(1,1);
+    this.getPolicyById(1, 1);
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
     });
@@ -33,34 +36,39 @@ export class CancellationPolicyComponent implements OnInit {
     this.hasAdd = !this.hasAdd;
   }
   saveAndSubmit() {
-    console.log(this.form.value)
-    this.inEditMode=!this.inEditMode
+    console.log(this.form.value);
+    this.inEditMode = !this.inEditMode;
+    this.hasAdd = false;
+    this.hasEdit = true;
     if (this.form.invalid) return;
     else {
       console.log(this.form.value);
-      this.postPolicyById(1,this.form.value.description );
+      this.postPolicyById(1, this.form.value.description);
     }
-    this.helper();
   }
 
-  edit(inEditMode:any) {
+  edit(inEditMode: any) {
     this.helper();
-    if(inEditMode)
-    this.inEditMode=!this.inEditMode
+    if (inEditMode)
+    {
+      this.hasAdd = true;
+      this.hasEdit = false;
+      this.inEditMode = !inEditMode;
+    }
   }
 
-  getPolicyById(id: number,PolicyTypes:any) {
-    this.PoliciesService.getPoliciesById(id,PolicyTypes).subscribe((data: any) => {
-      this.bodyContent=data.data.description
+  getPolicyById(id: number, PolicyTypes: any) {
+    this.PoliciesService.getPoliciesById(id).subscribe((data: any) => {
+      this.bodyContent = data.data.description;
     });
   }
 
   postPolicyById(id: number, body: any) {
     this.PoliciesService.postPoliciesById(id, {
-      lobSpaceTypeId: 1,
+      lobSpaceTypeId: null,
       description: body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ');
     });
   }
 }

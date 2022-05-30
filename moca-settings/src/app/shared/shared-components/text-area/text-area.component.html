@@ -1,8 +1,8 @@
 <div>
   <div class="mb-2">
-    <label
+    <label class="label-text"
       >{{ textLabel
-      }}<span class="text-danger" *ngIf="required"> *</span></label
+      }}<span class="star" *ngIf="required"> *</span></label
     >
   </div>
   <textarea
@@ -10,11 +10,11 @@
     [formControl]="control"
     [placeholder]="placeholder"
     cols=""
-    rows="15"
+    [rows]="rows"
 
     >
   </textarea>
-  <small class="text-danger" *ngIf="control.touched && control.invalid"
+  <!-- <small class="star" *ngIf="control.touched && control.invalid"
     >* Field is required</small
-  >
+  > -->
 </div>

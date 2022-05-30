@@ -3,39 +3,47 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-plans-component',
   templateUrl: './plans-component.component.html',
-  styleUrls: ['./plans-component.component.css']
+  styleUrls: ['./plans-component.component.css'],
 })
 export class PlansComponentComponent implements OnInit {
-  innerNavs=[
+  innerNavs = [
     {
       name: 'Hourly',
-      url: 'hourly',
+      url: 'plans/hourly',
       active: true,
-      visible:true
+      visible: true,
+      editMode: true,
+      child:true
     },
     {
       name: 'Day',
-      url: 'day',
-      active: true,
-      visible:true
+      url: 'plans/day',
+      active: false,
+      visible: true,
+      editMode: true,
+      child:true
+
     },
     {
       name: 'Tailored',
-      url: 'tailored',
-      active: true,
-      visible:true
+      url: 'plans/tailored',
+      active: false,
+      visible: true,
+      editMode: true,
+      child:true
+
     },
     {
       name: 'Bundle',
-      url: 'bundle',
-      active: true,
-      visible:true
+      url: 'plans/bundle',
+      active: false,
+      visible: true,
+      editMode: true,
+      child:true
+
     },
+  ];
+  constructor() {}
 
-  ]
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -12,8 +12,8 @@ export class VenueAccountAgreementComponent implements OnInit {
 
   form: FormGroup;
   isInputRequired = false;
-  hasEdit = false;
-  hasAdd = true;
+  hasEdit = true;
+  hasAdd = false;
   bodyContent:string
   inEditMode=false
 
@@ -35,21 +35,26 @@ export class VenueAccountAgreementComponent implements OnInit {
     this.hasAdd = !this.hasAdd;
   }
   saveAndSubmit() {
+    console.log(this.form.value)
+    this.inEditMode=!this.inEditMode
+    this.hasAdd=false
+    this.hasEdit=true
     if (this.form.invalid) return;
     else {
       console.log(this.form.value);
-      this.postPolicyById(5,this.form.value.description);
+      this.postPolicyById(5,this.form.value.description );
     }
-    this.helper();
   }
 
   edit(inEditMode:any) {
     this.helper();
     if(inEditMode)
-    this.inEditMode=!this.inEditMode
+    this.hasAdd=true
+    this.hasEdit=false
+    this.inEditMode = true
   }
   getPolicyById(PolicyTypes:number,id: number) {
-    this.PoliciesService.getPoliciesById(PolicyTypes,id).subscribe((data: any) => {
+    this.PoliciesService.getPoliciesById(PolicyTypes).subscribe((data: any) => {
       console.log(data);
       this.bodyContent=data.data.description
     });
@@ -57,10 +62,10 @@ export class VenueAccountAgreementComponent implements OnInit {
 
   postPolicyById(id: number, body: any) {
     this.PoliciesService.postPoliciesById(id, {
-      lobSpaceTypeId: 1,
+      lobSpaceTypeId: null,
       description: body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
     });
   }
 

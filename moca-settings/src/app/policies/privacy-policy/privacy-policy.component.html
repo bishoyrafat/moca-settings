@@ -1,7 +1,7 @@
 <app-body-template
   [hasEdit]="hasEdit"
   [hasReset]="false"
-  [hasAdd]="hasAdd"
+  [hasAdd]="!hasEdit"
   (edit)="edit('inEditMode')"
   (save)="saveAndSubmit()"
 
@@ -13,6 +13,8 @@
       (bodyContent)="content($event)"
       [content]="bodyContent"
       [hideToolbar]="!inEditMode"
+      errMsg=""
     ></app-rich-text-field>
   </form>
+  <small class="star" *ngIf="inEditMode"> *this field is required</small>
 </app-body-template>

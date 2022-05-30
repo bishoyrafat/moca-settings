@@ -14,6 +14,7 @@ export class DayComponent implements OnInit {
   pointsContent = '';
   whatYouGetContent = '';
   termsOfUseContent = '';
+  rows=10
 
   constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
@@ -26,22 +27,30 @@ export class DayComponent implements OnInit {
     });
   }
 
-  saveAndSubmitForm() {
-    console.log(this.form.valid)
+  saveAndSubmitForm(saveMode:any) {
+    this.rows=10
+    console.log(this.form.value)
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
       this.postPlansById(7, this.form.value);
 
+
   }
-  editForm(form:any,points:any,whatYouGetContent:any,termsOfUseContent:any) {
+  editForm(form:any,points:any,whatYouGetContent:any,termsOfUseContent:any,editMode:any) {
     this.inEditMode = false;
     this.disableInput = false;
+    console.log(form,whatYouGetContent)
+
+
     this.form.patchValue({
       description:form.description,
       points:points,
       whatYouGet:whatYouGetContent,
       termsOfUse:termsOfUseContent
     })
+    if(editMode==='editMode')
+    {this.rows=14}
+
   }
 
   content(e: any, type: string) {
@@ -61,7 +70,7 @@ export class DayComponent implements OnInit {
       "lobSpaceTypeId": 0,
       ...body
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update done Successfuly')
+      this.ToastrService.success('Update Done Successfully ')
 
     });
   }

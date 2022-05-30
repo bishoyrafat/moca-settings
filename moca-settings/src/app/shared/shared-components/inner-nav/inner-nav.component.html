@@ -1,12 +1,17 @@
 <div class="linksContainer" [class]="customClass">
   <div class="links">
     <ng-container *ngFor="let item of innerNavs">
-      <ng-container *ngIf="item.visible" >
+      <ng-container *ngIf="item.visible">
         <div
-          [routerLink]="item.url"
           class="navLink pointer"
-          [class]="item.active ? active : ''"
-          (click)="makeActive(item.url); emitItem(item)"
+          [class]="
+            item.child && item.active
+              ? 'active2'
+              : !item.child && item.active
+              ? 'active'
+              : ''
+          "
+          (click)="makeActive(item); emitItem(item)"
           *ngIf="!item.editMode"
         >
           <a>
@@ -15,8 +20,14 @@
         </div>
         <div
           class="navLink pointer"
-          [class]="item.active ? active : ''"
-          (click)="makeActive(item.url); emitItem(item)"
+          [class]="
+            item.child && item.active
+              ? 'active2'
+              : !item.child && item.active
+              ? 'active'
+              : ''
+          "
+          (click)="makeActive(item); emitItem(item)"
           *ngIf="item.editMode"
         >
           <a>

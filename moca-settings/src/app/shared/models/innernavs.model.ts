@@ -6,4 +6,5 @@ export type innernavsModel={
   visible?: boolean;
   editMode?: boolean;
   clickable?:boolean;
+  child?:boolean
 }

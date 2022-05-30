@@ -17,8 +17,8 @@
   <!-- Add faqs  -->
   <!-- ***************************** -->
   <form [formGroup]="faqsForm">
-    <div *ngIf="inFaqsMode">
-      <app-dropdown-material [expansionHeader]="'Add FAQs'">
+    <div *ngIf="inFaqsMode" >
+      <app-dropdown-material [customClass]="'addFaqs'" [expansionHeader]="'Add FAQs'">
         <!-- <div class="w-25 mb-4">
           <app-select-option-field
             textLabel="Category"
@@ -29,13 +29,15 @@
         </div> -->
         <div class="form-group" class="w-25 mb-4">
           <div class="w-25 mb-2">
-            <label for="">Category</label>
+            <label class="label-text"  for="">Category</label>
           </div>
           <select
             formControlName="categoryId"
             class="form-control"
+
           >
-            <option *ngFor="let group of groups" [value]="group.id">
+          <!-- <option value="" selected disabled>Select Category</option> -->
+            <option  *ngFor="let group of groups" [value]="group.id">
               {{ group.name }}
             </option>
           </select>
@@ -117,7 +119,6 @@
         [disableDropdown]="disableDropdown"
       >
         <!-- Nested question asnd answer -->
-
         <div
           cdkDropList
           class="example-list"
@@ -132,7 +133,7 @@
           >
             <input
               *ngIf="!group.faqs[0]"
-              class="form-control text-center add-question"
+              class="form-control text-center add-question mt-3  input"
               type="text"
               placeholder="Questions Can be added here"
               formControlName="question"
@@ -146,7 +147,6 @@
           >
             <app-dropdown-material
               [expansionHeader]="item.question"
-              customClass="custom-faq"
               [customClass]="'custom-dropDown'"
               [hasDot]="true"
               [dotImgSrc]="'../../../assets/images/drag-purple.svg'"
@@ -158,7 +158,7 @@
               (deleteBtn)="deleteQuestion(item.id)"
               [disableDropdown]="disableDropdown"
             >
-              <h6 [innerHTML]="item.answer"></h6>
+              <h6 [class]="'answer'" [innerHTML]="item.answer"></h6>
             </app-dropdown-material>
           </div>
         </div>

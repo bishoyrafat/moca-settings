@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TextAreaComponent implements OnInit {
   @Input() textLabel: string;
+  @Input() rows:any;
   @Input() placeholder: string = '';
   @Input() required: boolean = false;
   @Input() control: FormControl;

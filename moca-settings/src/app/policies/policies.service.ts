@@ -13,9 +13,9 @@ export class PoliciesService {
     return this.http.get(this.url + 'PolicyTypes?LobSpaceTypeId=1&WithRelatedDescription=false');
   }
 
-  getPoliciesById(policyTypeId:number,id: number) {
+  getPoliciesById(policyTypeId:number) {
     return this.http.get(
-      this.url + `Policies/PolicyType/${policyTypeId}?LobSpaceTypeId=${id}`
+      this.url + `Policies/PolicyType/${policyTypeId}`
     );
   }
 

@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~ngx-toastr/toastr';
+@import "~ngx-toastr/toastr";
 
 :root {
   --mocaPurbleColor: #ba43ff;
@@ -47,27 +47,34 @@ body {
 html,
 body {
   height: 100%;
+  box-sizing: border-box;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+.mainNav .links{
+  margin-left: 60px !important;
 }
 
 .active {
   color: var(--mainPurbleColor);
 }
+.active2{
+     font-size: 16px !important;
+     background: hsla(266, 67%, 48%, 0.103) 0% 0% no-repeat padding-box;
+     border-radius: 5px;
+     text-align: center;
+
+
+
+}
 .active2 a {
-  width: 200px;
-  height: 34px;
-  padding: 5px 20px;
-  background: var(--unnamed-color-7028ce) 0% 0% no-repeat padding-box;
-  background: hsla(266, 67%, 48%, 0.103) 0% 0% no-repeat padding-box;
-  border-radius: 5px;
+  /* padding: 5px 20px; */
   color: var(--mainPurbleColor) !important;
+  text-align: center !important;
+
+
 }
 
 .links {
-  gap: 30px;
+  gap: 40px;
 }
 
 html,
@@ -88,42 +95,78 @@ body {
   color: var(--mainWhiteColor);
 }
 
-
 .mat-expansion-panel-body {
-  padding: 20px !important;
+  padding: 0 !important;
 }
 
+.answer{
+  padding: 20px;
+}
 
 .mat-expansion-panel-content {
   background-color: transparent;
 }
 .mat-expansion-panel {
-  margin: 20px 0 !important;
+  /* margin: 15px  0 15px 0 !important; */
+  margin: 0 !important;
 }
+
 .mat-expansion-panel-header {
-  padding: 5px 20px !important;
+  padding: 17px 40px 17px 55px !important;
   border-left: 6px solid var(--mocaPurbleColor) !important;
+  max-width: 1513px !important;
+  height: 73px !important;
+  font-size: 24px !important;
+  margin-top: 5px !important;
+
+}
+
+.addFaqs .mat-expansion-panel-header {
+  background-color: white !important;
+  color:var(--mainPurbleColor) !important;
+  box-shadow: 0px 2px 0px #74747426 !important;
+
+  border: none !important;
+}
+.addFaqs .mat-expansion-panel-header-title,
+.addFaqs .mat-expansion-indicator::after {
+  color: var(--mainPurbleColor) !important;
+}
+
+.addFaqs .mat-expansion-panel-body {
+  padding: 35px !important;
+}
+.plans .mat-expansion-panel-body {
+  padding: 20px 15px !important;
 }
 
 
 .custom-faq .mat-expansion-panel-header {
   padding: 5px 20px 5px 5px !important;
   border-left: 6px solid var(--mainPurbleColor) !important;
-}
-.custom-faq .mat-expansion-panel:not([class*="mat-elevation-z"]) {
-  box-shadow: none;
+  margin-top: 20px;
 }
 
-.custom-dropDown  .mat-expansion-panel-header-title,
-.custom-dropDown  .mat-expansion-indicator::after {
+.custom-faq .mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  box-shadow: none;
+  width: 100%;
+}
+
+
+.custom-dropDown .mat-expansion-panel-header-title,
+.custom-dropDown .mat-expansion-indicator::after {
   color: var(--secondaryGrayColor) !important;
+  width: 100% !important;
 }
 .custom-dropDown .mat-expansion-panel-header {
   background-color: var(--mainWhiteColor) !important;
   border: 1px solid #e3e3e3;
+  margin-top: 10px !important;
+
 }
 .custom-dropDown .mat-expansion-panel-header-title {
-  color: var(--mainPurbleColor) !important;
+  color: black !important;
+  font: normal normal medium 20px/28px gtMeduim;
 }
 .custom-dropDown .mat-expansion-panel-body {
   border: 1px solid #dfdfdf;
@@ -131,11 +174,15 @@ body {
   margin-top: 6px;
 }
 
-
-
 /* ******************************** */
 /* css */
 /* ******************************** */
+.rich-text-box div {
+  border-radius: 4px !important;
+}
+.star {
+  color: #f96e6e;
+}
 .colorPurple {
   color: var(--mainPurbleColor);
 }
@@ -275,6 +322,7 @@ input[type="number"] {
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
+  color: red;
 }
 
 .page-item.active .page-link {
@@ -455,8 +503,19 @@ select option {
   height: 600px !important;
   max-height: 600px !important;
 }
-/* bootstrap dropdown */
-.accordion-button:not(.collapsed)::after,
-.accordion-button::after{
-  display: none;
+ .angular-editor-placeholder {
+  color: var(--unnamed-color-000000);
+  text-align: left;
+  font: normal normal normal 20px/28px gtMeduim;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 0.5;
 }
+
+
+.label-text{
+  font: gtRegular;
+    font-size: 18px;
+  color: black;
+}
+
