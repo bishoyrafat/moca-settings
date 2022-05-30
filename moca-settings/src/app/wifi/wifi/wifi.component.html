@@ -10,7 +10,7 @@
     <app-rich-text-field
       [hideToolbar]="hasEdit"
       [customClass]="'custom-richText'"
-      [disabled]="isInputRequired"
+      [disabled]="hasEdit"
       (bodyContent)="content($event)"
       [content]="wifiBody"
       [errMsg]="''"
