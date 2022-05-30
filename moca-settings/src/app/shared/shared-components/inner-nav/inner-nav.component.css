@@ -8,9 +8,12 @@
 }
 .navLink {
   margin: 10px 4px;
-  padding: 6px 8px;
+  padding: 2px 2px;
   box-sizing: content-box;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .navLink a{

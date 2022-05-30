@@ -5,6 +5,7 @@
   [hasReset]="(faqsEditMode && !listMode) || !listMode"
 
 >
+<div class="container">
   <div *ngIf="!inFaqsMode">
     <div class="btn-container d-flex justify-content-end">
       <button class="purbleBtn mx-2" (click)="showFaqs()">Add FAQ</button>
@@ -164,5 +165,7 @@
         </div>
       </app-dropdown-material>
     </div>
+  </div>
+
   </div>
 </app-body-template>

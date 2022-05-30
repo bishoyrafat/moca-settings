@@ -61,9 +61,12 @@ body {
      background: hsla(266, 67%, 48%, 0.103) 0% 0% no-repeat padding-box;
      border-radius: 5px;
      text-align: center;
+     width: 150px !important;
+     height: 40px;
 
-
-
+}
+.plans .active2{
+background-color: red;
 }
 .active2 a {
   /* padding: 5px 20px; */

@@ -80,6 +80,7 @@ export class FaqsComponent implements OnInit {
   saveAndSubmitForm() {
     if (this.faqsForm.invalid) return;
     else {
+      this.inFaqsMode=!this.inFaqsMode
       if (this.faqsEditMode) {
         this.updateQuestionById(this.FaqId, {
           categoryId: this.categoryId,
@@ -88,6 +89,7 @@ export class FaqsComponent implements OnInit {
         });
         console.log(this.faqsForm.value);
       } else {
+        this.inFaqsMode=!this.inFaqsMode
         let categoryId = this.faqsForm.value.categoryId;
         this.postCategoryById(categoryId, {
           lobSpaceTypeId: null,
