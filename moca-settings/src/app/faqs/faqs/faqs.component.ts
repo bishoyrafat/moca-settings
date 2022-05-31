@@ -45,7 +45,7 @@ export class FaqsComponent implements OnInit {
     });
     //  CATEGORY FORM
     this.CategoryForm = new FormGroup({
-      category: new FormControl(''),
+      category: new FormControl('',Validators.required),
     });
 
     this.addQuestion = new FormGroup({
@@ -77,8 +77,9 @@ export class FaqsComponent implements OnInit {
   // first check if form is valid
   // check if in faqsEditMode to call updateQuestionById()
   // else postCategoryById()
+  checkFaqsValidality=false
   saveAndSubmitForm() {
-    if (this.faqsForm.invalid) return;
+    if (this.faqsForm.invalid) this.checkFaqsValidality=true;
     else {
       this.inFaqsMode=!this.inFaqsMode
       this.listMode=!this.listMode
@@ -123,6 +124,9 @@ export class FaqsComponent implements OnInit {
     this.inModalMode = !this.inModalMode;
   }
 
+
+
+  checkCategoryValidality=false
   submitCategory() {
     if (this.categoryEditMode) {
       console.log('after');
@@ -133,9 +137,13 @@ export class FaqsComponent implements OnInit {
       this.inModalMode = !this.inModalMode;
       this.reloadPage();
     } else {
-      this.postCategory(this.CategoryForm.value.category);
-      this.inModalMode = !this.inModalMode;
-      this.reloadPage();
+      if(this.CategoryForm.invalid) this.checkCategoryValidality=true
+else{
+  this.postCategory(this.CategoryForm.value.category);
+  this.inModalMode = !this.inModalMode;
+  this.reloadPage();
+
+}
     }
   }
   // ************************

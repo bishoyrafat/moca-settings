@@ -553,3 +553,10 @@ select option {
   font-size: 18px;
   color: black;
 }
+
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
+select.ng-invalid.ng-touched{
+  border: 1px solid red;
+}

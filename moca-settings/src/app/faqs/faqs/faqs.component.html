@@ -43,14 +43,10 @@
             </select>
             <small
               class="star"
-              *ngIf="
-                faqsForm.get('categoryId')?.touched &&
-                faqsForm.get('categoryId')?.invalid
-              "
+              *ngIf="faqsForm.get('categoryId')?.invalid && checkFaqsValidality"
               >*This field is required</small
             >
           </div>
-
           <div class="mb-4">
             <app-input-field
               labelText="Question"
@@ -59,13 +55,10 @@
               required="true"
             ></app-input-field>
             <small
-            class="star"
-            *ngIf="
-              faqsForm.get('question')?.touched &&
-              faqsForm.get('question')?.invalid
-            "
-            >*This field is required</small
-          >
+              class="star"
+              *ngIf="faqsForm.get('question')?.invalid && checkFaqsValidality"
+              >*This field is required</small
+            >
           </div>
           <app-rich-text-field
             labelText="Answer"
@@ -99,13 +92,23 @@
         [control]="form.get('category')"
       ></app-input-field> -->
           <div class="form-group p-1">
-            <label for="" class="mb-2">Category</label>
+            <label for="" class="mb-2"
+              >Category
+              <span class="star">*</span>
+            </label>
             <input
               class="form-control"
               type="text"
               formControlName="category"
             />
           </div>
+          <small
+            class="star"
+            *ngIf="
+              CategoryForm.get('category')?.invalid && checkCategoryValidality
+            "
+            >*This field is required</small
+          >
         </app-prompt-modal>
       </div>
     </form>
