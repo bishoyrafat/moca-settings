@@ -20,7 +20,7 @@ body .slick-next {
   display: flex;
 }
 .navLink {
-  margin: 10px 15px;
+  /* margin: 10px 15px; */
 }
 
 .navLink a {

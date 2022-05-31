@@ -81,6 +81,7 @@ export class FaqsComponent implements OnInit {
     if (this.faqsForm.invalid) return;
     else {
       this.inFaqsMode=!this.inFaqsMode
+      this.listMode=!this.listMode
       if (this.faqsEditMode) {
         this.updateQuestionById(this.FaqId, {
           categoryId: this.categoryId,
@@ -90,6 +91,7 @@ export class FaqsComponent implements OnInit {
         console.log(this.faqsForm.value);
       } else {
         this.inFaqsMode=!this.inFaqsMode
+        this.listMode=!this.listMode
         let categoryId = this.faqsForm.value.categoryId;
         this.postCategoryById(categoryId, {
           lobSpaceTypeId: null,
@@ -194,7 +196,7 @@ export class FaqsComponent implements OnInit {
     this.disableDropdown=true
     setTimeout(() => {
       this.disableDropdown=false
-    }, 500);
+    }, 10);
     this.categoryName = categoryName;
     this.categoryId = categoryId;
     console.log('edit', categoryName, categoryId);

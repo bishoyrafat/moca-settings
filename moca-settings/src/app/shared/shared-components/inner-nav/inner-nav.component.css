@@ -5,10 +5,11 @@
 .links {
   display: flex;
   justify-content: center;
+  /* margin-top: 10px; */
 }
 .navLink {
-  margin: 10px 4px;
-  padding: 2px 2px;
+  /* margin: 10px 4px;
+  padding: 2px 2px; */
   box-sizing: content-box;
   text-align: center;
   display: flex;
@@ -24,6 +25,7 @@
   color: var(--mainPurbleColor);
 }
 .navLink.active{
-  padding-bottom: 10px;
   border-bottom:2px solid var(--mainPurbleColor);
+  width: 70px !important;
+padding-bottom: 10px;
 }

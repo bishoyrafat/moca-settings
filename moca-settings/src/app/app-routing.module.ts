@@ -14,11 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'topup',
-    loadChildren: () => import('./topup/topup.module').then((m) => m.TopupModule),
+    loadChildren: () =>
+      import('./topup/topup.module').then((m) => m.TopupModule),
   },
   {
     path: 'policies',
-    loadChildren: () => import('./policies/policies.module').then((m) => m.PoliciesModule),
+    loadChildren: () =>
+      import('./policies/policies.module').then((m) => m.PoliciesModule),
   },
   {
     path: 'wifi',

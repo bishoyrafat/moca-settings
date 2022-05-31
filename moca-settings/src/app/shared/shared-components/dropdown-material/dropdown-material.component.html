@@ -7,10 +7,11 @@
     >
     <mat-expansion-panel-header>
       <mat-panel-title class="d-flex justify-content-between">
-        <div>
+        <div class="d-flex align-items-center py-1">
           <img *ngIf="hasDot" class="mx-2" [src]="dotImgSrc" alt="" />
           {{ expansionHeader }}
         </div>
+
         <div class="icons-container" *ngIf="hasEditable">
           <span
             ><img
@@ -27,6 +28,7 @@
               alt=""
           /></span>
         </div>
+
       </mat-panel-title>
     </mat-expansion-panel-header>
     <ng-content></ng-content>
