@@ -204,7 +204,7 @@ else{
     this.disableDropdown=true
     setTimeout(() => {
       this.disableDropdown=false
-    }, 10);
+    }, 0.0001);
     this.categoryName = categoryName;
     this.categoryId = categoryId;
     console.log('edit', categoryName, categoryId);
@@ -228,6 +228,8 @@ else{
     answer: string,
     categoryId: number
   ) {
+
+
     this.categoryId = categoryId;
     this.FaqId = id;
     this.inFaqsMode = !this.inFaqsMode;
@@ -244,6 +246,10 @@ else{
 
   // FAQs APIs
   deleteQuestion(id: number) {
+    this.disableDropdown=true
+    setTimeout(() => {
+      this.disableDropdown=false
+    }, 500);
     this.disableDropdown=!this.disableDropdown
     this.deleteQuestionById(id);
     this.reloadPage();

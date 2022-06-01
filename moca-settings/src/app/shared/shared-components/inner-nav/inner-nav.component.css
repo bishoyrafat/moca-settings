@@ -26,6 +26,6 @@
 }
 .navLink.active{
   border-bottom:2px solid var(--mainPurbleColor);
-  width: 70px !important;
+  width: 90px !important;
 padding-bottom: 10px;
 }

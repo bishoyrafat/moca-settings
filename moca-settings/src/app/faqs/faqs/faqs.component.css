@@ -10,6 +10,9 @@ mat-expansion-panel{
 }
 .input{
   height: 111px;
+  width: 100%;
+  border: 2px dashed #E3E3E3;
+  border-radius: 5px;
 }
 
 .add-question{
@@ -49,6 +52,7 @@ mat-expansion-panel{
   box-sizing: border-box;
   cursor: move;
   background: white;
+
   font-size: 14px;
   /* height: 88px; */
   /* margin: -15px 0; */
@@ -58,7 +62,7 @@ mat-expansion-panel{
 }
 
 .cdk-drag-preview {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
               0 8px 10px 1px rgba(0, 0, 0, 0.14),
@@ -67,7 +71,7 @@ mat-expansion-panel{
   border-right: 2px dashed rgba(0, 0, 0, 0.452);
   border-bottom: 2px dashed rgba(0, 0, 0, 0.452);
 
-
+padding: 0 !important;
 }
 
 .cdk-drag-placeholder {

@@ -54,26 +54,21 @@ body {
   box-sizing: border-box;
 }
 
-
-.sub-nav{
-display: flex;
-justify-content: center;
-margin: 10px 0 30px 0;
+.sub-nav {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 30px 0;
 }
-
-
 
 .mainNav .links {
   margin-left: 75px !important;
   margin-bottom: 20px;
 }
 
-
 .active {
   color: var(--mainPurbleColor);
   margin-bottom: 10px;
 }
-
 
 .active2 {
   font-size: 16px !important;
@@ -85,7 +80,7 @@ margin: 10px 0 30px 0;
 }
 .policies .active2 {
   width: 190px !important;
-  height: 40px;
+  height: 34px;
   padding: 0 10px;
 }
 .plans .active2 {
@@ -106,7 +101,6 @@ margin: 10px 0 30px 0;
   gap: 60px;
 }
 
-
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
@@ -123,6 +117,7 @@ body {
 
 .mat-expansion-panel-body {
   padding: 0 !important;
+  margin-top: -13px !important;
 }
 
 .answer {
@@ -132,7 +127,6 @@ body {
 .mat-expansion-panel-content {
   background-color: transparent;
   font-size: 18px;
-
 }
 .mat-expansion-panel {
   /* margin: 15px  0 15px 0 !important; */
@@ -146,6 +140,7 @@ body {
   height: 73px !important;
   font-size: 24px !important;
   margin-top: 5px !important;
+  border-radius: 5px !important;
 }
 
 .addFaqs .mat-expansion-panel-header {
@@ -153,6 +148,7 @@ body {
   color: var(--mainPurbleColor) !important;
   box-shadow: 0px 2px 0px #74747426 !important;
   border: none !important;
+  margin-bottom: 12px !important;
 }
 .addFaqs .mat-expansion-panel-header-title,
 .addFaqs .mat-expansion-indicator::after {
@@ -168,10 +164,9 @@ body {
 
 .custom-faq .mat-expansion-panel-header {
   padding: 5px 20px 5px 5px !important;
-  border-left: 6px solid var(--mainPurbleColor) !important;
+  border-left: 10px solid var(--mainPurbleColor) !important;
   margin-top: 20px;
   height: 65px !important;
-
 }
 
 .custom-faq .mat-expansion-panel:not([class*="mat-elevation-z"]) {
@@ -188,19 +183,18 @@ body {
   background-color: var(--mainWhiteColor) !important;
   border: 1px solid #e3e3e3;
   margin-top: 10px !important;
-
 }
 .custom-dropDown .mat-expansion-panel-header-title {
   color: black !important;
   /* font: normal normal medium 20px/28px gtMeduim; */
-    font-size: 20px !important;
-    padding:0 3px;
-
+  font-size: 20px !important;
+  padding: 0 3px;
+  margin:4px !important;
 }
 .custom-dropDown .mat-expansion-panel-body {
   border: 1px solid #dfdfdf;
   border-radius: 4px;
-  margin-top: 6px;
+  margin-top: 6px !important;
 }
 
 .custom-dropDown .mat-expansion-indicator::after {
@@ -208,8 +202,13 @@ body {
 }
 
 .custom-dropDown .mat-expansion-panel-content {
-padding: 1px 0
-;}
+  padding: 1px 0;
+}
+.cdk-drag.example-container{
+  padding: 0px 1px 4px 0px !important;
+
+}
+
 /* ******************************** */
 /* css */
 /* ******************************** */
@@ -554,9 +553,9 @@ select option {
   color: black;
 }
 
-input.ng-invalid.ng-touched{
+input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
-select.ng-invalid.ng-touched{
+select.ng-invalid.ng-touched {
   border: 1px solid red;
 }
