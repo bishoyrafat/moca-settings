@@ -57,7 +57,7 @@ export class RichTextFieldComponent implements OnInit, OnChanges {
     toolbarPosition: 'top',
     placeholder: 'Enter text here...',
     defaultParagraphSeparator: '',
-    defaultFontName: 'Comic Sans MS',
+    defaultFontName: 'gtRegular',
     defaultFontSize: '',
     uploadWithCredentials:true,
     fonts: [
