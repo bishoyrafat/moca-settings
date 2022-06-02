@@ -59,11 +59,14 @@ export class RichTextFieldComponent implements OnInit, OnChanges {
     defaultParagraphSeparator: '',
     defaultFontName: 'Comic Sans MS',
     defaultFontSize: '',
+    uploadWithCredentials:true,
     fonts: [
-      { class: 'arial', name: 'Arial' },
-      { class: 'times-new-roman', name: 'Times New Roman' },
-      { class: 'calibri', name: 'Calibri' },
-      { class: 'comic-sans-ms', name: 'Comic Sans MS' },
+      {class: 'gtRegular', name: 'gtRegular'},
+      {class: 'gtLight', name: 'gtLight'},
+      {class: 'gtBold', name: 'gtBold'},
+      {class: 'gtMeduim', name: 'gtMeduim'},
+      {class: 'gtOblique', name: 'gtOblique'},
+      {class: 'gtUltraBold', name: 'gtUltraBold'},
     ],
     customClasses: [
       {
@@ -92,8 +95,9 @@ export class RichTextFieldComponent implements OnInit, OnChanges {
         'subscript',
         'superscript',
         'customClasses',
-        // 'textColor',
-        // 'backgroundColor',
+        'textColor',
+        'backgroundColor',
+
       ],
     ],
   };

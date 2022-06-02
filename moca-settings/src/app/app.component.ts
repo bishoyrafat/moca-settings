@@ -21,6 +21,8 @@ constructor(
 isLoading: Subject<boolean> = this.loaderService.isLoading;
 loading: boolean;
 ngOnInit(): void {
+
+
   this.router.events.subscribe((event) => {
     if (event instanceof RouteConfigLoadStart) {
       this.loaderService.show();

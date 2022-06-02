@@ -17,15 +17,15 @@
   align-items: center;
 }
 
-.navLink a{
+.navLink a {
   text-decoration: none;
   color: #00000099;
 }
-.navLink.active a{
+.navLink.active a {
   color: var(--mainPurbleColor);
 }
-.navLink.active{
-  border-bottom:2px solid var(--mainPurbleColor);
+.navLink.active {
+  border-bottom: 2px solid var(--mainPurbleColor);
   width: 90px !important;
-padding-bottom: 10px;
+  padding-bottom: 10px;
 }

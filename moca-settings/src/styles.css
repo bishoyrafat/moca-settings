@@ -2,8 +2,8 @@
 @import "~ngx-toastr/toastr";
 
 * {
-  font-family: gtMeduim !important;
-  box-sizing: border-box;
+  /* font-family: gtMeduim !important; */
+  /* box-sizing: border-box; */
 }
 :root {
   --mocaPurbleColor: #ba43ff;
@@ -39,6 +39,14 @@
   font-family: gtMeduim;
   src: url("./assets/fonts/GT-Walsheim-Pro-Medium.ttf");
 }
+@font-face {
+  font-family: gtOblique;
+  src: url("./assets/fonts/GT-Walsheim-Pro-Ultra-Bold-Oblique.ttf");
+}
+@font-face {
+  font-family: gtUltraBold;
+  src: url("./assets/fonts/GT-Walsheim-Pro-Ultra-Bold.ttf");
+}
 html {
   scroll-behavior: smooth;
 }
@@ -67,7 +75,7 @@ body {
 
 .active {
   color: var(--mainPurbleColor);
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .active2 {
@@ -102,7 +110,7 @@ body {
 }
 
 body {
-  margin: 0;
+  /* margin: 0; */
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font: normal normal 600 16px/25px !important;
 }
@@ -159,7 +167,7 @@ body {
   padding: 35px !important;
 }
 .plans .mat-expansion-panel-body {
-  padding: 20px 15px !important;
+  padding: 40px 15px !important;
 }
 
 .custom-faq .mat-expansion-panel-header {

@@ -2,10 +2,12 @@ import { FaqsComponent } from './faqs/faqs.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [{ path: '', component: FaqsComponent }];
+const routes: Routes = [
+  { path: '', component: FaqsComponent, pathMatch: 'full' },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FaqsRoutingModule { }
+export class FaqsRoutingModule {}
