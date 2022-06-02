@@ -95,8 +95,8 @@ export class RichTextFieldComponent implements OnInit, OnChanges {
         'subscript',
         'superscript',
         'customClasses',
-        'textColor',
-        'backgroundColor',
+        // 'textColor',
+        // 'backgroundColor',
 
       ],
     ],

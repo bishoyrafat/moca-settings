@@ -2,7 +2,7 @@
 @import "~ngx-toastr/toastr";
 
 * {
-  /* font-family: gtMeduim !important; */
+  /* font-family: gtMeduim ; */
   /* box-sizing: border-box; */
 }
 :root {
@@ -111,8 +111,9 @@ body {
 
 body {
   /* margin: 0; */
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  /* font-family: Roboto, "Helvetica Neue", sans-serif; */
   font: normal normal 600 16px/25px !important;
+
 }
 
 /* ******************************** */
@@ -121,6 +122,7 @@ body {
 .mat-expansion-panel-header-title,
 .mat-expansion-indicator::after {
   color: var(--mainWhiteColor);
+
 }
 
 .mat-expansion-panel-body {
@@ -149,6 +151,8 @@ body {
   font-size: 24px !important;
   margin-top: 5px !important;
   border-radius: 5px !important;
+  font-family: gtMeduim !important;
+
 }
 
 .addFaqs .mat-expansion-panel-header {
@@ -161,6 +165,7 @@ body {
 .addFaqs .mat-expansion-panel-header-title,
 .addFaqs .mat-expansion-indicator::after {
   color: var(--mainPurbleColor) !important;
+
 }
 
 .addFaqs .mat-expansion-panel-body {
@@ -171,10 +176,12 @@ body {
 }
 
 .custom-faq .mat-expansion-panel-header {
-  padding: 5px 20px 5px 5px !important;
+  padding: 5px 35px 5px 5px !important;
   border-left: 10px solid var(--mainPurbleColor) !important;
   margin-top: 20px;
   height: 65px !important;
+  /* font: normal normal medium 24px/34px gtMeduim !important; */
+
 }
 
 .custom-faq .mat-expansion-panel:not([class*="mat-elevation-z"]) {
@@ -186,11 +193,14 @@ body {
 .custom-dropDown .mat-expansion-indicator::after {
   color: var(--secondaryGrayColor) !important;
   width: 100% !important;
+
 }
 .custom-dropDown .mat-expansion-panel-header {
   background-color: var(--mainWhiteColor) !important;
   border: 1px solid #e3e3e3;
   margin-top: 10px !important;
+  font-family: gtMeduim !important;
+
 }
 .custom-dropDown .mat-expansion-panel-header-title {
   color: black !important;
@@ -211,6 +221,8 @@ body {
 
 .custom-dropDown .mat-expansion-panel-content {
   padding: 1px 0;
+  font-family: gtRegular !important;
+
 }
 .cdk-drag.example-container{
   padding: 0px 1px 4px 0px !important;
@@ -567,3 +579,21 @@ input.ng-invalid.ng-touched {
 select.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+
+@media only screen and (max-width: 1550px) {
+  .sub-nav {
+    width: 60%;
+    margin: 10px auto;
+   }
+   .links  {
+    font-size: 10px !important;
+   }
+   .links  a{
+    font-size: 10px !important;
+   }
+}
+
+@media (min-width: 1400px){
+.container {
+    max-width: 100% !important;
+}}
