@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import {  Router, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
-import { Subject } from 'rxjs';
+import {  Router, RouteConfigLoadStart, RouteConfigLoadEnd, NavigationEnd } from '@angular/router';
+import { filter, Subject } from 'rxjs';
 import { CoreAppService } from './shared/service/core-app/coreApp.service';
 
 @Component({
@@ -21,6 +21,17 @@ constructor(
 isLoading: Subject<boolean> = this.loaderService.isLoading;
 loading: boolean;
 ngOnInit(): void {
+  this.router.events
+    .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
+    .subscribe(event => {
+      if (
+        event.id === 1 &&
+        event.url === event.urlAfterRedirects
+      ) {
+          // Your code here for when the page is refreshd
+          this.router.navigate(['/'])
+      }
+    })
 
 
   this.router.events.subscribe((event) => {
