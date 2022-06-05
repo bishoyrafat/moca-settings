@@ -117,6 +117,9 @@
     <!-- drag and drop -->
     <!--  Category -->
     <!-- ***************************** -->
+
+
+
     <div
       cdkDropList
       [cdkDropListData]="groups"
@@ -144,6 +147,17 @@
           [expanded]="expandedCategory"
         >
           <!-- Nested question asnd answer -->
+
+
+          <ng-container *ngIf="deleteCategoryModal">
+            <app-delete-modal
+              (cancelBtn)="cancelBtn()"
+              (deleteBtn)="deleteBtn(group.id)"
+            ></app-delete-modal>
+          </ng-container>
+
+
+
 
           <div
             cdkDropList
@@ -195,17 +209,23 @@
               >
                 <h6 [class]="'answer'" [innerHTML]="item.answer"></h6>
               </app-dropdown-material>
+
+
+
+          <ng-container *ngIf="deleteFaqsModal">
+            <app-delete-modal
+              (cancelBtn)="cancelBtn2()"
+              (deleteBtn)="deleteBtn2(item.id)"
+            ></app-delete-modal>
+          </ng-container>
+
+
+
             </div>
           </div>
         </app-dropdown-material>
       </div>
     </div>
-
-
-
-
-
-
 
   </div>
 </app-body-template>

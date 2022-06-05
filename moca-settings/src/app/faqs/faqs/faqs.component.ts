@@ -33,6 +33,11 @@ export class FaqsComponent implements OnInit {
   faqsForm: FormGroup;
   CategoryForm: FormGroup;
   addQuestion: FormGroup;
+  deleteCategoryModal= false
+  deleteFaqsModal= false
+  deletCategoryId = 0
+  deletFaqsId = 0
+
   constructor(
     private FaqService: FaqService,
     private ToastrService: ToastrService
@@ -216,13 +221,16 @@ export class FaqsComponent implements OnInit {
     this.categoryEditMode = true;
     this.CategoryForm.get('category')?.setValue(categoryName);
   }
+
   deleteCategory(id: any) {
-    this.disableDropdown = !this.disableDropdown;
-    this.deleteCategoryById(id, {
-      lobSpaceTypeId: null,
-      deleteRelatedFaqs: true,
-    });
-    this.reloadPage();
+    this.deletCategoryId = id
+    this.deleteCategoryModal=!this.deleteCategoryModal
+    // this.disableDropdown = !this.disableDropdown;
+    // this.deleteCategoryById(id, {
+    //   lobSpaceTypeId: null,
+    //   deleteRelatedFaqs: true,
+    // });
+    // this.reloadPage();
   }
 
   editQuestion(
@@ -253,14 +261,48 @@ export class FaqsComponent implements OnInit {
     this.faqsEditMode = true;
   }
 
-  // FAQs APIs
-  deleteQuestion(id: number) {
+  cancelBtn(){
+    this.disableDropdown = true
+    this.deleteCategoryModal=!this.deleteCategoryModal
+  }
+  deleteBtn(id:any){
+    console.log(this.deletCategoryId)
+    this.disableDropdown = !this.disableDropdown;
+    this.deleteCategoryById(this.deletCategoryId, {
+      lobSpaceTypeId: null,
+      deleteRelatedFaqs: true,
+    });
+    this.reloadPage();
+   }
+
+
+  cancelBtn2(){
+    console.log('c')
+    this.deleteFaqsModal=true
+  }
+  deleteBtn2(id:any){
     this.disableDropdown = true
     setTimeout(() => {
       this.disableDropdown = false;
     }, 500);
-    this.deleteQuestionById(id);
+    this.deleteQuestionById(this.deletFaqsId);
     this.reloadPage();
+
+   }
+
+
+
+
+  // FAQs APIs
+  deleteQuestion(id: number) {
+    this.deletFaqsId=id
+    this.deleteFaqsModal=!this.deleteFaqsModal
+    // this.disableDropdown = true
+    // setTimeout(() => {
+    //   this.disableDropdown = false;
+    // }, 500);
+    // this.deleteQuestionById(this.deletFaqsId);
+    // this.reloadPage();
   }
 
   nonCategorized: any = {};
