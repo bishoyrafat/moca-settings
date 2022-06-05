@@ -5,9 +5,12 @@
   [hasAdd]="hasAdd"
   (edit)="edit()"
   (save)="saveAndSubmit()"
+
+
 >
   <form [formGroup]="form">
     <app-rich-text-field
+    [customClass]="'wifi'"
       [hideToolbar]="hasEdit"
       [customClass]="'custom-richText'"
       [disabled]="hasEdit"

@@ -4,6 +4,8 @@
   [hasAdd]="hasAdd"
   (edit)="edit()"
   (save)="saveAndSubmit()"
+
+
 >
   <form action="" [formGroup]="form">
     <app-rich-text-field
@@ -15,6 +17,7 @@
       [inputRequired]="hasEdit"
       errMsg=""
       [hideLabel]="true"
+
     ></app-rich-text-field>
   </form>
   <small class="star" *ngIf="!hasEdit"> *this field is required</small>
