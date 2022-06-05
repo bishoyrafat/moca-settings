@@ -15,6 +15,13 @@ export class FaqService {
     );
   }
 
+  getAllNonCategoriesFaqs() {
+    return this.http.get(
+      this.url + 'Categories?WithFaqs=true&WithNonCategorizedFaqs=true'
+    );
+  }
+
+
   postCategory(body: any) {
     return this.http.post(this.url + 'Categories', body);
   }

@@ -29,7 +29,7 @@ ngOnInit(): void {
         event.url === event.urlAfterRedirects
       ) {
           // Your code here for when the page is refreshd
-          this.router.navigate(['/'])
+          // this.router.navigate(['/'])
       }
     })
 

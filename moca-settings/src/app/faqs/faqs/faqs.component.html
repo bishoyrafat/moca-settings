@@ -132,6 +132,7 @@
       >
         <app-dropdown-material
           [hasDot]="true"
+          [disableDropdown]="disableDropdown"
           [dotImgSrc]="'../../../assets/images/drag-white.svg'"
           customClass="custom-faq"
           [hasEditable]="true"
@@ -141,11 +142,10 @@
           (editBtn)="editCategory(group.name, group.id)"
           (deleteBtn)="deleteCategory(group.id)"
           [expanded]="expandedCategory"
-          [disableDropdown]="disableDropdown"
         >
           <!-- Nested question asnd answer -->
-          <div
 
+          <div
             cdkDropList
             class="example-list"
             id="{{ group.id }}"
@@ -159,7 +159,7 @@
             >
               <input
                 *ngIf="!group.faqs[0]"
-                class=" text-center add-question mt-3 input"
+                class="text-center add-question mt-3 input"
                 type="text"
                 placeholder="Questions Can be added here"
                 formControlName="question"
@@ -173,6 +173,7 @@
             >
               <app-dropdown-material
                 [expansionHeader]="item.question"
+                [disableDropdown]="disableDropdown"
                 [customClass]="'custom-dropDown'"
                 [hasDot]="true"
                 [dotImgSrc]="'../../../assets/images/drag-purple.svg'"
@@ -180,18 +181,17 @@
                 [deleteImgSrc]="'../../../assets/images/deleteIcon.svg'"
                 [editImgSrc]="'../../../assets/images/edit-purple.svg'"
                 [expanded]="false"
-                [disableDropdown]="disableDropdown"
                 (editBtn)="
                   editQuestion(
                     item.id,
                     item.id,
                     item.question,
                     item.answer,
-                    group.id
+                    group.id,
+                    item.faqs
                   )
                 "
                 (deleteBtn)="deleteQuestion(item.id)"
-                [disableDropdown]="disableDropdown"
               >
                 <h6 [class]="'answer'" [innerHTML]="item.answer"></h6>
               </app-dropdown-material>
@@ -200,5 +200,12 @@
         </app-dropdown-material>
       </div>
     </div>
+
+
+
+
+
+
+
   </div>
 </app-body-template>
