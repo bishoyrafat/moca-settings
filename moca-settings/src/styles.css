@@ -612,7 +612,10 @@ select.ng-invalid.ng-touched {
     font-size: 10px !important;
    }
    .links  a{
-    font-size: 10px !important;
+    font-size: 15px !important;
+   }
+   .navLink{
+     padding: 5px 0;
    }
 }
 
