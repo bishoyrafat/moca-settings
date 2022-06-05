@@ -139,19 +139,19 @@ export class FaqsComponent implements OnInit {
   checkCategoryValidality = false;
   submitCategory() {
     if (this.categoryEditMode) {
-      console.log('after');
+      console.log(this.deletCategoryId);
       this.updateCategoryById(
         this.categoryId,
         this.CategoryForm.get('category')?.value
       );
       this.inModalMode = !this.inModalMode;
-      this.reloadPage();
+      // this.reloadPage();
     } else {
       if (this.CategoryForm.invalid) this.checkCategoryValidality = true;
       else {
         this.postCategory(this.CategoryForm.value.category);
         this.inModalMode = !this.inModalMode;
-        this.reloadPage();
+        // this.reloadPage();
       }
     }
   }
@@ -287,7 +287,6 @@ export class FaqsComponent implements OnInit {
     }, 500);
     this.deleteQuestionById(this.deletFaqsId);
     this.reloadPage();
-
    }
 
 
@@ -312,7 +311,7 @@ export class FaqsComponent implements OnInit {
         displayOrder: data.data.categories.length - 1,
         faqs: data.data.nonCategorizedFaqs,
         id: 0,
-        name: 'Noncategorized Questions',
+        name: 'Miscellaneous',
       };
 
       this.groups.push(...data.data.categories, this.nonCategorized);
