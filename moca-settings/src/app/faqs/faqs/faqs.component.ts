@@ -30,6 +30,7 @@ export class FaqsComponent implements OnInit {
   categoryBody: any = [];
   expandedCategory = true;
   disableDropdown = false;
+  editable:boolean;
   faqsForm: FormGroup;
   CategoryForm: FormGroup;
   addQuestion: FormGroup;
@@ -223,8 +224,13 @@ export class FaqsComponent implements OnInit {
   }
 
   deleteCategory(id: any) {
+    this.disableDropdown = true
+    setTimeout(() => {
+      this.disableDropdown = false
+    }, 100);
     this.deletCategoryId = id
     this.deleteCategoryModal=!this.deleteCategoryModal
+
     // this.disableDropdown = !this.disableDropdown;
     // this.deleteCategoryById(id, {
     //   lobSpaceTypeId: null,
@@ -262,7 +268,6 @@ export class FaqsComponent implements OnInit {
   }
 
   cancelBtn(){
-    this.disableDropdown = true
     this.deleteCategoryModal=!this.deleteCategoryModal
   }
   deleteBtn(id:any){
@@ -277,8 +282,9 @@ export class FaqsComponent implements OnInit {
 
 
   cancelBtn2(){
+
     console.log('c')
-    this.deleteFaqsModal=true
+    this.deleteFaqsModal=!this.deleteFaqsModal
   }
   deleteBtn2(id:any){
     this.disableDropdown = true
@@ -296,6 +302,10 @@ export class FaqsComponent implements OnInit {
   deleteQuestion(id: number) {
     this.deletFaqsId=id
     this.deleteFaqsModal=!this.deleteFaqsModal
+    this.disableDropdown = true
+    setTimeout(() => {
+      this.disableDropdown = false
+    }, 100);
     // this.disableDropdown = true
     // setTimeout(() => {
     //   this.disableDropdown = false;
@@ -304,7 +314,7 @@ export class FaqsComponent implements OnInit {
     // this.reloadPage();
   }
 
-  nonCategorized: any = {};
+  nonCategorized: any ;
   getAllFaqs() {
     this.FaqService.getAllFaqs().subscribe((data: any) => {
       this.nonCategorized = {
@@ -314,7 +324,7 @@ export class FaqsComponent implements OnInit {
         name: 'Miscellaneous',
       };
 
-      this.groups.push(...data.data.categories, this.nonCategorized);
+      this.groups.push(...data.data.categories);
       console.log(data.data.categories);
       console.log(data.data.nonCategorizedFaqs);
       // data.data.nonCategorizedFaqs.forEach((data:any)=>{

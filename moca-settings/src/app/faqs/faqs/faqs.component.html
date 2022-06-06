@@ -30,7 +30,7 @@
             [optionsValue]="item"
           ></app-select-option-field>
         </div> -->
-          <div class="form-group" class="w-25 mb-4">
+          <div class="form-group" class="w-25 mb-4" *ngIf="categoryId">
             <div class="mb-2">
               <label class="label-text" for="">Category </label>
               <span class="star"> *</span>
@@ -118,8 +118,6 @@
     <!--  Category -->
     <!-- ***************************** -->
 
-
-
     <div
       cdkDropList
       [cdkDropListData]="groups"
@@ -145,9 +143,9 @@
           (editBtn)="editCategory(group.name, group.id)"
           (deleteBtn)="deleteCategory(group.id)"
           [expanded]="expandedCategory"
+          [editable]="group.id !== 0"
         >
           <!-- Nested question asnd answer -->
-
 
           <ng-container *ngIf="deleteCategoryModal">
             <app-delete-modal
@@ -155,9 +153,6 @@
               (deleteBtn)="deleteBtn(group.id)"
             ></app-delete-modal>
           </ng-container>
-
-
-
 
           <div
             cdkDropList
@@ -195,6 +190,7 @@
                 [deleteImgSrc]="'../../../assets/images/deleteIcon.svg'"
                 [editImgSrc]="'../../../assets/images/edit-purple.svg'"
                 [expanded]="false"
+                [editable]="true"
                 (editBtn)="
                   editQuestion(
                     item.id,
@@ -209,23 +205,102 @@
               >
                 <h6 [class]="'answer'" [innerHTML]="item.answer"></h6>
               </app-dropdown-material>
-
-
-
-          <ng-container *ngIf="deleteFaqsModal">
-            <app-delete-modal
-              (cancelBtn)="cancelBtn2()"
-              (deleteBtn)="deleteBtn2(item.id)"
-            ></app-delete-modal>
-          </ng-container>
-
-
-
+              <ng-container *ngIf="deleteFaqsModal">
+                <app-delete-modal
+                  (cancelBtn)="cancelBtn2()"
+                  (deleteBtn)="deleteBtn2(item.id)"
+                ></app-delete-modal>
+              </ng-container>
             </div>
           </div>
         </app-dropdown-material>
       </div>
     </div>
 
+    <div *ngIf="nonCategorized" class="example-container">
+      <app-dropdown-material
+        [hasDot]="true"
+        [disableDropdown]="disableDropdown"
+        [dotImgSrc]="'../../../assets/images/drag-white.svg'"
+        customClass="custom-faq"
+        [hasEditable]="true"
+        [expansionHeader]="nonCategorized.name"
+        [deleteImgSrc]="'../../../assets/images/delete-whiite.svg'"
+        [editImgSrc]="'../../../assets/images/edit-white.svg'"
+        (editBtn)="editCategory(nonCategorized.name, nonCategorized.id)"
+        (deleteBtn)="deleteCategory(nonCategorized.id)"
+        [expanded]="expandedCategory"
+        [editable]="nonCategorized.id !== 0"
+      >
+        <!-- Nested question asnd answer -->
+
+        <ng-container *ngIf="deleteCategoryModal">
+          <app-delete-modal
+            (cancelBtn)="cancelBtn()"
+            (deleteBtn)="deleteBtn(nonCategorized.id)"
+          ></app-delete-modal>
+        </ng-container>
+
+        <div
+          cdkDropList
+          class="example-list"
+          id="{{ nonCategorized.id }}"
+          [cdkDropListData]="nonCategorized.faqs"
+          (cdkDropListDropped)="dropItem($event)"
+          [cdkDropListConnectedTo]="getConnectedList()"
+        >
+          <form
+            [formGroup]="addQuestion"
+            (ngSubmit)="submitAddQuestion(nonCategorized.id)"
+          >
+            <input
+              *ngIf="!nonCategorized.faqs[0]"
+              class="text-center add-question mt-3 input"
+              type="text"
+              placeholder="Questions Can be added here"
+              formControlName="question"
+            />
+          </form>
+          <div
+            class="example-box"
+            *ngFor="let item of nonCategorized.faqs"
+            cdkDrag
+            [cdkDragData]="item"
+          >
+            <app-dropdown-material
+              [expansionHeader]="item.question"
+              [disableDropdown]="disableDropdown"
+              [customClass]="'custom-dropDown'"
+              [hasDot]="true"
+              [dotImgSrc]="'../../../assets/images/drag-purple.svg'"
+              [hasEditable]="true"
+              [deleteImgSrc]="'../../../assets/images/deleteIcon.svg'"
+              [editImgSrc]="'../../../assets/images/edit-purple.svg'"
+              [expanded]="false"
+              [editable]="true"
+              (editBtn)="
+                editQuestion(
+                  item.id,
+                  item.id,
+                  item.question,
+                  item.answer,
+                  nonCategorized.id,
+                  item.faqs
+                )
+              "
+              (deleteBtn)="deleteQuestion(item.id)"
+            >
+              <h6 [class]="'answer'" [innerHTML]="item.answer"></h6>
+            </app-dropdown-material>
+            <ng-container *ngIf="deleteFaqsModal">
+              <app-delete-modal
+                (cancelBtn)="cancelBtn2()"
+                (deleteBtn)="deleteBtn2(item.id)"
+              ></app-delete-modal>
+            </ng-container>
+          </div>
+        </div>
+      </app-dropdown-material>
+    </div>
   </div>
 </app-body-template>

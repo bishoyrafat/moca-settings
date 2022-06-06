@@ -9,6 +9,7 @@ export class DropdownMaterialComponent implements OnInit {
   @Input() panelOpenState = false;
   @Input() expansionHeader: string;
   @Input() hasEditable = false;
+  @Input() editable = false;
   @Input() customClass = '';
   @Input() dotImgSrc = '';
   @Input() editImgSrc = '';
