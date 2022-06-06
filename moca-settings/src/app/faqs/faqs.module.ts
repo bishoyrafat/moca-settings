@@ -5,9 +5,10 @@ import { FaqsRoutingModule } from './faqs-routing.module';
 import { FaqsComponent } from './faqs/faqs.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { EditFaqComponent } from './edit-faq/edit-faq.component';
 
 @NgModule({
-  declarations: [FaqsComponent],
+  declarations: [FaqsComponent, EditFaqComponent],
   imports: [
     CommonModule,
     FaqsRoutingModule,

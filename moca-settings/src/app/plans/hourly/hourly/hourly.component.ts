@@ -16,7 +16,8 @@ export class HourlyComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
   rows=10
-  planId=10
+  planId=5
+  // planId=10
 
   constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {

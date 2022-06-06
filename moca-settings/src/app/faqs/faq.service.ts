@@ -21,6 +21,9 @@ export class FaqService {
     );
   }
 
+  getCategoryById(id: number) {
+    return this.http.get(this.url + 'Faqs/Category/' + id);
+  }
 
   postCategory(body: any) {
     return this.http.post(this.url + 'Categories', body);
@@ -48,15 +51,11 @@ export class FaqService {
     return this.http.put(this.url + `Faqs/${id}`, body);
   }
 
-  updateFaqsOrder(body:any){
+  updateFaqsOrder(body: any) {
     return this.http.put(this.url + `Faqs`, body);
   }
 
-
-  updateCategoryOrder(body:any){
+  updateCategoryOrder(body: any) {
     return this.http.put(this.url + `Categories/LobSpaceType/`, body);
   }
-
-
-
 }

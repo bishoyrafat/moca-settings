@@ -16,7 +16,8 @@ export class BundleComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
   rows=10
-  planId=13
+  planId=8
+  // planId=13
 
   constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {

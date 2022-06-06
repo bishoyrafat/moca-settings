@@ -1,0 +1,52 @@
+<app-body-template (delete)="closeFaqs()" (save)="saveFaqs()">
+  <!-- ***************************** -->
+  <!-- Add faqs  -->
+  <!-- ***************************** -->
+  <form [formGroup]="faqsForm">
+    <div>
+      <app-dropdown-material
+        [customClass]="'addFaqs'"
+        [expansionHeader]="'Add FAQs'"
+      >
+        <div class="form-group" class="w-25 mb-4">
+          <div class="mb-2">
+            <label class="label-text" for="">Category </label>
+            <span class="star"> *</span>
+          </div>
+          <select formControlName="categoryId" class="form-control">
+            <option value="" selected disabled>Select Category</option>
+            <option *ngFor="let group of groups" [value]="group.id">
+              {{ group.name }}
+            </option>
+          </select>
+          <small
+            class="star"
+            *ngIf="faqsForm.get('categoryId')?.invalid && checkFaqsValidality"
+            >*This field is required</small
+          >
+        </div>
+        <div class="mb-4">
+          <app-input-field
+            labelText="Question"
+            inputPlaceholder="Add Question"
+            [control]="faqsForm.get('question')"
+            required="true"
+          ></app-input-field>
+          <small
+            class="star"
+            *ngIf="faqsForm.get('question')?.invalid && checkFaqsValidality"
+            >*This field is required</small
+          >
+        </div>
+        <app-rich-text-field
+          labelText="Answer"
+          errMsg=""
+          [disabled]="false"
+          (bodyContent)="bodyContent($event)"
+          [content]="answerBody"
+          [inputRequired]="true"
+        ></app-rich-text-field>
+      </app-dropdown-material>
+    </div>
+  </form>
+</app-body-template>

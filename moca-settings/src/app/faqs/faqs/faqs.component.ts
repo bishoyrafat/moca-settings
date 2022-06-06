@@ -1,3 +1,5 @@
+import { FaqService } from './../faq.service';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
@@ -7,7 +9,6 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { FaqService } from '../faq.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -16,61 +17,103 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./faqs.component.css'],
 })
 export class FaqsComponent implements OnInit {
-  inFaqsMode = false;
+  checkCategoryValidality = false;
   inModalMode = false;
-  listMode = true;
-  categoryEditMode = false;
-  faqsEditMode = false;
-  categoryName = '';
-  categoryId :any;
-  FaqId = 0;
-  answerBody: any;
-  groups: any[] = [];
-  faqsBody: any = [];
-  categoryBody: any = [];
-  expandedCategory = true;
-  disableDropdown = false;
-  editable:boolean;
-  faqsForm: FormGroup;
   CategoryForm: FormGroup;
   addQuestion: FormGroup;
-  deleteCategoryModal= false
-  deleteFaqsModal= false
-  deletCategoryId = 0
-  deletFaqsId = 0
-
+  deletFaqsId: number;
+  deleteFaqsModal: boolean=false
+  disableDropdown: boolean = false;
+  groups: any[] = [];
+  expandedCategory = true;
+  faqsBody: any[] = [];
+  categoryBody: any[] = [];
+  id: number;
+  categoryId: number;
+  displayOrder: number;
+  type: any;
+  deleteCategoryModal = false;
   constructor(
+    private route: Router,
     private FaqService: FaqService,
     private ToastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.getAllFaqs();
-    // FAQS FORM
-    this.faqsForm = new FormGroup({
-      categoryId: new FormControl('', Validators.required),
-      question: new FormControl('', Validators.required),
-      answer: new FormControl('', Validators.required),
-    });
     //  CATEGORY FORM
     this.CategoryForm = new FormGroup({
       category: new FormControl('', Validators.required),
     });
-
     this.addQuestion = new FormGroup({
       question: new FormControl(''),
     });
   }
-
+  disableDrobdown() {
+    this.disableDropdown = true;
+    setTimeout(() => {
+      this.disableDropdown = false;
+    }, 100);
+  }
   reloadPage() {
     setTimeout(() => {
       window.location.reload();
     }, 2000);
   }
+  addFaq() {
+    this.route.navigate(['faqs/editfaq', 'addfaq']);
+  }
+  addCategory() {
+    this.inModalMode = !this.inModalMode;
+  }
+
+  closeCategory() {
+    this.inModalMode = !this.inModalMode;
+  }
+  submitCategory() {
+    if (this.CategoryForm.invalid) {
+      this.checkCategoryValidality = true;
+    } else {
+      this.postCategory(this.CategoryForm.get('category')?.value);
+      this.inModalMode = !this.inModalMode;
+      console.log(this.categoryId, this.CategoryForm.get('category')?.value);
+      this.updateCategoryById(this.categoryId, {
+        lobSpaceTypeId: null,
+        name: this.CategoryForm.get('category')?.value,
+      });
+      this.reloadPage();
+    }
+  }
+
+  editQuestion(id: any, type: any) {
+    this.type = type;
+    console.log(id);
+    this.route.navigate(['faqs/editfaq', id]);
+  }
+
+  deleteQuestion(id: number) {
+    this.disableDrobdown();
+    this.deletFaqsId = id;
+    this.deleteFaqsModal=!this.deleteFaqsModal
+
+  }
+
+  editCategory(categoryName: any, categoryId: any, type: any) {
+    this.disableDrobdown();
+    this.inModalMode = !this.inModalMode;
+    this.CategoryForm.get('category')?.setValue(categoryName);
+    this.categoryId = categoryId;
+    console.log(categoryName, categoryId, type);
+  }
+
+  deleteCategory(id: any) {
+    this.deleteCategoryModal = true;
+    this.categoryId = id;
+    this.disableDrobdown();
+  }
 
   submitAddQuestion(id: number) {
     console.log(this.addQuestion.value.question, id);
-
     this.postCategoryById(id, {
       lobSpaceTypeId: null,
       question: this.addQuestion.value.question,
@@ -79,82 +122,23 @@ export class FaqsComponent implements OnInit {
     this.reloadPage();
   }
 
-  bodyContent(e: any) {
-    this.faqsForm.get('answer')?.setValue(e);
+  cancelCategoryModalBtn() {
+    this.deleteCategoryModal = !this.deleteCategoryModal;
+  }
+  deleteCategoryModalBtn(id: any) {
+    this.deleteCategoryById(this.categoryId, {
+      lobSpaceTypeId: null,
+      deleteRelatedFaqs: true,
+    });
+    this.reloadPage();
   }
 
-  // first check if form is valid
-  // check if in faqsEditMode to call updateQuestionById()
-  // else postCategoryById()
-  checkFaqsValidality = false;
-  saveAndSubmitForm() {
-    if (this.faqsForm.invalid) this.checkFaqsValidality = true;
-    else {
-      this.inFaqsMode = !this.inFaqsMode;
-      this.listMode = !this.listMode;
-      if (this.faqsEditMode) {
-        console.log(this.faqsForm.value.categoryId);
-        if(this.faqsForm.value.categoryId ===0) this.categoryId= null
-
-
-        this.updateQuestionById(this.FaqId, {
-          categoryId: this.categoryId,
-          question: this.faqsForm.value.question,
-          answer: this.faqsForm.value.answer,
-        });
-        console.log(this.faqsForm.value);
-      } else {
-        this.inFaqsMode = !this.inFaqsMode;
-        this.listMode = !this.listMode;
-        let categoryId = this.faqsForm.value.categoryId;
-        this.postCategoryById(categoryId, {
-          lobSpaceTypeId: null,
-          question: this.faqsForm.value.question,
-          answer: this.faqsForm.value.answer,
-        });
-        console.log(this.faqsForm.value);
-        this.inFaqsMode = !this.inFaqsMode;
-        this.listMode = !this.listMode;
-        this.reloadPage();
-      }
-    }
+  cancelfaqModalBtn() {
+    this.deleteCategoryModal=!this.deleteCategoryModal
   }
-  closeFaqs() {
-    this.inFaqsMode = !this.inFaqsMode;
-    this.listMode = !this.listMode;
-  }
-
-  showFaqs() {
-    this.inFaqsMode = !this.inFaqsMode;
-    this.listMode = !this.listMode;
-  }
-
-  openModal() {
-    this.inModalMode = !this.inModalMode;
-  }
-
-  closeCategory() {
-    this.inModalMode = !this.inModalMode;
-  }
-
-  checkCategoryValidality = false;
-  submitCategory() {
-    if (this.categoryEditMode) {
-      console.log(this.deletCategoryId);
-      this.updateCategoryById(
-        this.categoryId,
-        this.CategoryForm.get('category')?.value
-      );
-      this.inModalMode = !this.inModalMode;
-      // this.reloadPage();
-    } else {
-      if (this.CategoryForm.invalid) this.checkCategoryValidality = true;
-      else {
-        this.postCategory(this.CategoryForm.value.category);
-        this.inModalMode = !this.inModalMode;
-        // this.reloadPage();
-      }
-    }
+  deletefaqModalBtn() {
+    this.deleteQuestionById(this.deletFaqsId);
+    this.reloadPage();
   }
   // ************************
   // drag and drop
@@ -198,6 +182,7 @@ export class FaqsComponent implements OnInit {
 
   dropGroup(event: any) {
     moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
+
     event.container.data.forEach((el: any, index: any) => {
       el.displayOrder = index + 1;
       this.categoryBody.push({
@@ -209,112 +194,10 @@ export class FaqsComponent implements OnInit {
     });
     this.updateCategoryOrder(this.categoryBody);
   }
-  // **********************************************************
-  editCategory(categoryName: any, categoryId: any) {
-    this.disableDropdown = true;
-    setTimeout(() => {
-      this.disableDropdown = false;
-    }, 0.0001);
-    this.categoryName = categoryName;
-    this.categoryId = categoryId;
-    console.log('edit', categoryName, categoryId);
-    this.inModalMode = !this.inModalMode;
-    this.categoryEditMode = true;
-    this.CategoryForm.get('category')?.setValue(categoryName);
-  }
-
-  deleteCategory(id: any) {
-    this.disableDropdown = true
-    setTimeout(() => {
-      this.disableDropdown = false
-    }, 100);
-    this.deletCategoryId = id
-    this.deleteCategoryModal=!this.deleteCategoryModal
-
-    // this.disableDropdown = !this.disableDropdown;
-    // this.deleteCategoryById(id, {
-    //   lobSpaceTypeId: null,
-    //   deleteRelatedFaqs: true,
-    // });
-    // this.reloadPage();
-  }
-
-  editQuestion(
-    id: number,
-    categoryName: string,
-    question: string,
-    answer: string,
-    categoryId: number,
-    item: any
-  ) {
-    console.log(id, categoryName, question, answer, categoryId, item);
-    // to check if categorized or non-categorized
-    if (categoryId === 0) {
-      this.FaqId = id;
-    }
-    console.log(this.categoryId);
-    this.categoryId = categoryId;
-    this.FaqId = id;
-    this.inFaqsMode = !this.inFaqsMode;
-    this.listMode = !this.listMode;
-
-    this.faqsForm.patchValue({
-      categoryId: categoryId,
-      question: question,
-    });
-    this.answerBody = answer;
-    this.bodyContent(answer);
-    this.faqsEditMode = true;
-  }
-
-  cancelBtn(){
-    this.deleteCategoryModal=!this.deleteCategoryModal
-  }
-  deleteBtn(id:any){
-    console.log(this.deletCategoryId)
-    this.disableDropdown = !this.disableDropdown;
-    this.deleteCategoryById(this.deletCategoryId, {
-      lobSpaceTypeId: null,
-      deleteRelatedFaqs: true,
-    });
-    this.reloadPage();
-   }
-
-
-  cancelBtn2(){
-
-    console.log('c')
-    this.deleteFaqsModal=!this.deleteFaqsModal
-  }
-  deleteBtn2(id:any){
-    this.disableDropdown = true
-    setTimeout(() => {
-      this.disableDropdown = false;
-    }, 500);
-    this.deleteQuestionById(this.deletFaqsId);
-    this.reloadPage();
-   }
-
-
-
 
   // FAQs APIs
-  deleteQuestion(id: number) {
-    this.deletFaqsId=id
-    this.deleteFaqsModal=!this.deleteFaqsModal
-    this.disableDropdown = true
-    setTimeout(() => {
-      this.disableDropdown = false
-    }, 100);
-    // this.disableDropdown = true
-    // setTimeout(() => {
-    //   this.disableDropdown = false;
-    // }, 500);
-    // this.deleteQuestionById(this.deletFaqsId);
-    // this.reloadPage();
-  }
 
-  nonCategorized: any ;
+  nonCategorized: any;
   getAllFaqs() {
     this.FaqService.getAllFaqs().subscribe((data: any) => {
       this.nonCategorized = {
@@ -324,15 +207,10 @@ export class FaqsComponent implements OnInit {
         name: 'Miscellaneous',
       };
 
-      this.groups.push(...data.data.categories);
+      this.groups.push(...data.data.categories, this.nonCategorized);
       console.log(data.data.categories);
-      console.log(data.data.nonCategorizedFaqs);
-      // data.data.nonCategorizedFaqs.forEach((data:any)=>{
-      //   id:,
-      //   displayOrder:,
-      //   faqs:[{answer:'',displayOrder:''}],
-      //   name:,
-      // })
+      console.log(data.data);
+      console.log(data.data);
     });
   }
 

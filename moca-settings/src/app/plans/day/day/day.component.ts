@@ -15,7 +15,8 @@ export class DayComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
   rows=10
-  planId=11
+  planId=6
+  // planId=11
 
   constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
