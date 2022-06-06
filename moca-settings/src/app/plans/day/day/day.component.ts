@@ -18,7 +18,7 @@ export class DayComponent implements OnInit {
 
   constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
-    this.getPlansById(7, 0);
+    this.getPlansById(12, 0);
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
       points: new FormControl('', Validators.required),
@@ -32,7 +32,7 @@ export class DayComponent implements OnInit {
     console.log(this.form.value)
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
-      this.postPlansById(7, this.form.value);
+      this.postPlansById(12, this.form.value);
 
 
   }

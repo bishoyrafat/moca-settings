@@ -14,9 +14,10 @@ export class PlansService {
   }
 
   postPlansById(planType: number, body: any) {
-    return this.http.put(
-      this.url + `Plans?planTypeId=${planType}`,
-      body
-    );
+    return this.http.put(this.url + `Plans?planTypeId=${planType}`, body);
+  }
+
+  getAllPlanTypes() {
+    return this.http.get(this.url + `PlanTypes`);
   }
 }

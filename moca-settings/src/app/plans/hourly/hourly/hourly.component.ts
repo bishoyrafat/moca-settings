@@ -19,7 +19,7 @@ export class HourlyComponent implements OnInit {
 
   constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
-    this.getPlansById(5, 0);
+    this.getPlansById(10, 0);
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
       points: new FormControl('', Validators.required),
@@ -33,7 +33,7 @@ export class HourlyComponent implements OnInit {
     console.log(this.form.valid)
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
-      this.postPlansById(5, this.form.value);
+      this.postPlansById(10, this.form.value);
 
 
   }

@@ -19,7 +19,7 @@ export class BundleComponent implements OnInit {
 
   constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
-    this.getPlansById(8, 0);
+    this.getPlansById(13, 0);
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
       points: new FormControl('', Validators.required),
@@ -33,7 +33,7 @@ export class BundleComponent implements OnInit {
     console.log(this.form.valid)
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
-      this.postPlansById(8, this.form.value);
+      this.postPlansById(13, this.form.value);
 
 
   }
