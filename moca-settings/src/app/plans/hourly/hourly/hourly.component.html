@@ -1,12 +1,17 @@
 <app-body-template
   (save)="saveAndSubmitForm('saveMode')"
   (edit)="
-    editForm(form.value, pointsContent, whatYouGetContent, termsOfUseContent ,'editMode')
+    editForm(
+      form.value,
+      pointsContent,
+      whatYouGetContent,
+      termsOfUseContent,
+      'editMode'
+    )
   "
   [hasEdit]="inEditMode"
   [hasAdd]="!inEditMode"
   [hasReset]="false"
-
 >
   <form [formGroup]="form">
     <app-dropdown-material [customClass]="'plans'" expansionHeader="Plans">

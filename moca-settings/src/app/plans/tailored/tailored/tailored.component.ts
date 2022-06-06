@@ -16,10 +16,11 @@ export class TailoredComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
   rows=10
+  planId=7
 
   constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
-    this.getPlansById(11, 0);
+    this.getPlansById(this.planId, 0);
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
       points: new FormControl('', Validators.required),
@@ -33,7 +34,7 @@ export class TailoredComponent implements OnInit {
     console.log(this.form.valid)
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
-      this.postPlansById(11, this.form.value);
+      this.postPlansById(this.planId, this.form.value);
 
 
   }

@@ -15,10 +15,11 @@ export class DayComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
   rows=10
+  planId=6
 
   constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
   ngOnInit(): void {
-    this.getPlansById(12, 0);
+    this.getPlansById(this.planId, 0);
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
       points: new FormControl('', Validators.required),
@@ -32,7 +33,7 @@ export class DayComponent implements OnInit {
     console.log(this.form.value)
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
-      this.postPlansById(12, this.form.value);
+      this.postPlansById(this.planId, this.form.value);
 
 
   }
