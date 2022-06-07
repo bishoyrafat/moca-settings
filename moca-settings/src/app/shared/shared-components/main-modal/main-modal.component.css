@@ -6,12 +6,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.041); /* Black background with opacity */
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
   z-index: 5; /* Specify a stack order in case you're using a different order for other elements */
   cursor: pointer; /* Add a pointer on hover */
   display: flex;
   align-items: center;
   justify-content: center;
+
   -webkit-animation: fadein 1s ease-in-out; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1s ease-in-out; /* Firefox < 16 */
   -ms-animation: fadein 1s ease-in-out; /* Internet Explorer */
@@ -20,8 +21,8 @@
 }
 
 .jw-modal {
-  width: 500px;
-  height: 400px;
+  width: 80%;
+  height: 80%;
   max-height: 80%;
   overflow-y: auto;
   background-color: white;
@@ -29,7 +30,6 @@
   z-index: 5;
   border-radius: 10px;
   padding: 10px 20px;
-
 }
 @keyframes fadein {
   from {

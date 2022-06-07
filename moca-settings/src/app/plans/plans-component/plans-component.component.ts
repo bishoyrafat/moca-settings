@@ -7,49 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./plans-component.component.css'],
 })
 export class PlansComponentComponent implements OnInit {
-  innerNavs = [
-    {
-      name: 'Hourly',
-      url: 'plans/hourly',
-      active: true,
-      visible: true,
-      editMode: true,
-      child:true
-    },
-    {
-      name: 'Day',
-      url: 'plans/day',
-      active: false,
-      visible: true,
-      editMode: true,
-      child:true
-
-    },
-    {
-      name: 'Tailored',
-      url: 'plans/tailored',
-      active: false,
-      visible: true,
-      editMode: true,
-      child:true
-
-    },
-    {
-      name: 'Bundle',
-      url: 'plans/bundle',
-      active: false,
-      visible: true,
-      editMode: true,
-      child:true
-
-    },
-  ];
-  constructor(private PlansService :PlansService) {}
+  innerNavs:any = [];
+  constructor(private PlansService: PlansService) {}
 
   ngOnInit(): void {
-    this.PlansService.getAllPlanTypes().subscribe((data:any)=>{
-      console.log(data.data)
-      this.innerNavs.push(data.data)
-    })
+    this.PlansService.getAllPlanTypes().subscribe((data: any) => {
+      data.data.forEach((element: any, index: any) => {
+        this.innerNavs.push({
+          name: element.name,
+          url: element.url+'/'+element.id,
+          active: index === 0 ? true : false,
+          visible: true,
+          editMode: true,
+          child: true,
+        });
+      });
+    });
   }
 }

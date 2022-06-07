@@ -22,7 +22,7 @@ export class FaqsComponent implements OnInit {
   CategoryForm: FormGroup;
   addQuestion: FormGroup;
   deletFaqsId: number;
-  deleteFaqsModal: boolean=false
+  deleteFaqsModal: boolean = false;
   disableDropdown: boolean = false;
   groups: any[] = [];
   expandedCategory = true;
@@ -33,6 +33,7 @@ export class FaqsComponent implements OnInit {
   displayOrder: number;
   type: any;
   deleteCategoryModal = false;
+  selectedGroup: any;
   constructor(
     private route: Router,
     private FaqService: FaqService,
@@ -76,7 +77,6 @@ export class FaqsComponent implements OnInit {
     } else {
       this.postCategory(this.CategoryForm.get('category')?.value);
       this.inModalMode = !this.inModalMode;
-      console.log(this.categoryId, this.CategoryForm.get('category')?.value);
       this.updateCategoryById(this.categoryId, {
         lobSpaceTypeId: null,
         name: this.CategoryForm.get('category')?.value,
@@ -87,15 +87,13 @@ export class FaqsComponent implements OnInit {
 
   editQuestion(id: any, type: any) {
     this.type = type;
-    console.log(id);
     this.route.navigate(['faqs/editfaq', id]);
   }
 
   deleteQuestion(id: number) {
     this.disableDrobdown();
     this.deletFaqsId = id;
-    this.deleteFaqsModal=!this.deleteFaqsModal
-
+    this.deleteFaqsModal = !this.deleteFaqsModal;
   }
 
   editCategory(categoryName: any, categoryId: any, type: any) {
@@ -103,17 +101,16 @@ export class FaqsComponent implements OnInit {
     this.inModalMode = !this.inModalMode;
     this.CategoryForm.get('category')?.setValue(categoryName);
     this.categoryId = categoryId;
-    console.log(categoryName, categoryId, type);
   }
 
-  deleteCategory(id: any) {
+  deleteCategory(group: any) {
+    this.selectedGroup = group;
     this.deleteCategoryModal = true;
-    this.categoryId = id;
+    this.categoryId = group.id;
     this.disableDrobdown();
   }
 
   submitAddQuestion(id: number) {
-    console.log(this.addQuestion.value.question, id);
     this.postCategoryById(id, {
       lobSpaceTypeId: null,
       question: this.addQuestion.value.question,
@@ -134,7 +131,7 @@ export class FaqsComponent implements OnInit {
   }
 
   cancelfaqModalBtn() {
-    this.deleteFaqsModal=!this.deleteFaqsModal
+    this.deleteFaqsModal = !this.deleteFaqsModal;
   }
   deletefaqModalBtn() {
     this.deleteQuestionById(this.deletFaqsId);
@@ -190,7 +187,6 @@ export class FaqsComponent implements OnInit {
         displayOrder: el.displayOrder,
       });
 
-      console.log(this.categoryBody);
     });
     this.updateCategoryOrder(this.categoryBody);
   }
@@ -208,9 +204,7 @@ export class FaqsComponent implements OnInit {
       };
 
       this.groups.push(...data.data.categories, this.nonCategorized);
-      console.log(data.data.categories);
-      console.log(data.data);
-      console.log(data.data);
+     
     });
   }
 

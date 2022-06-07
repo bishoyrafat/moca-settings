@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', component: HourlyComponent, pathMatch: 'full' },
+  { path: ':id', component: HourlyComponent, pathMatch: 'full' },
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 <app-body-template>
-  <div >
+  <div>
     <div class="btn-container d-flex justify-content-end">
       <button class="purbleBtn mx-2" (click)="addFaq()">Add FAQ</button>
       <button class="outlinePurbleBtn" (click)="addCategory()">
@@ -7,135 +7,133 @@
       </button>
     </div>
   </div>
-     <!-- ***************************** -->
-    <!-- Add category modal -->
-    <!-- ***************************** -->
+
+  <!-- ***************************** -->
+  <!-- Add category modal -->
+  <!-- ***************************** -->
+  <div *ngIf="inModalMode">
     <form [formGroup]="CategoryForm">
-      <div *ngIf="inModalMode">
-        <app-prompt-modal
-          modalTitle="FAQs"
-          imgSrc="./../../../assets/images/Artwork.svg"
-          (dismissModal)="closeCategory()"
-          (modalSubmit)="submitCategory()"
-        >
-          <div class="form-group p-1">
-            <label for="" class="mb-2"
-              >Category
-              <span class="star">*</span>
-            </label>
-            <input
-              class="form-control"
-              type="text"
-              formControlName="category"
-            />
-          </div>
-          <small
-            class="star"
-            *ngIf="
-              CategoryForm.get('category')?.invalid && checkCategoryValidality
-            "
-            >*This field is required</small
-          >
-        </app-prompt-modal>
-      </div>
-    </form>
-
-        <!-- ***************************** -->
-    <!-- drag and drop -->
-    <!--  Category -->
-    <!-- ***************************** -->
-
-    <div
-      cdkDropList
-      [cdkDropListData]="groups"
-      (cdkDropListDropped)="dropGroup($event)"
-    >
-      <div
-        cdkDropListGroup
-        class="example-container"
-        *ngFor="let group of groups"
-        cdkDrag
-        [cdkDragData]="group"
+      <app-prompt-modal
+        modalTitle="FAQs"
+        imgSrc="./../../../assets/images/Artwork.svg"
+        (dismissModal)="closeCategory()"
+        (modalSubmit)="submitCategory()"
+        [customClass]="'deleteModalDimensions'"
       >
+        <div class="form-group p-1">
+          <label for="" class="mb-2"
+            >Category
+            <span class="star">*</span>
+          </label>
+          <input class="form-control" type="text" formControlName="category" />
+        </div>
+        <small
+          class="star"
+          *ngIf="
+            CategoryForm.get('category')?.invalid && checkCategoryValidality
+          "
+          >*This field is required</small
+        >
+      </app-prompt-modal>
+    </form>
+  </div>
 
-        <app-dropdown-material
-          [hasDot]="true"
-          [disableDropdown]="disableDropdown"
-          [dotImgSrc]="'../../../assets/images/drag-white.svg'"
-          customClass="custom-faq"
-          [hasEditable]="true"
-          [expansionHeader]="group.name"
-          [deleteImgSrc]="'../../../assets/images/delete-whiite.svg'"
-          [editImgSrc]="'../../../assets/images/edit-white.svg'"
-          [expanded]="expandedCategory"
-          [editable]="group.id !== 0"
-          (deleteBtn)="deleteCategory(group.id)"
-          (editBtn)="editCategory(group.name, group.id,'categoryEditMode')" >
+  <!-- ***************************** -->
+  <!-- drag and drop -->
+  <!--  Category -->
+  <!-- ***************************** -->
 
-          <!-- Nested question asnd answer -->
+  <div
+    cdkDropList
+    [cdkDropListData]="groups"
+    (cdkDropListDropped)="dropGroup($event)"
+  >
+    <div
+      cdkDropListGroup
+      class="example-container"
+      *ngFor="let group of groups"
+      cdkDrag
+      [cdkDragData]="group"
+    >
+      <app-dropdown-material
+        [hasDot]="true"
+        [disableDropdown]="disableDropdown"
+        [dotImgSrc]="'../../../assets/images/drag-white.svg'"
+        customClass="custom-faq"
+        [hasEditable]="true"
+        [expansionHeader]="group.name"
+        [deleteImgSrc]="'../../../assets/images/delete-whiite.svg'"
+        [editImgSrc]="'../../../assets/images/edit-white.svg'"
+        [expanded]="expandedCategory"
+        [editable]="group.id !== 0"
+        (deleteBtn)="deleteCategory(group)"
+        (editBtn)="editCategory(group.name, group.id, 'categoryEditMode')"
+      >
+        <!-- Nested question asnd answer -->
 
-          <ng-container *ngIf="deleteCategoryModal">
-            <app-delete-modal
-              (cancelBtn)="cancelCategoryModalBtn()"
-              (deleteBtn)="deleteCategoryModalBtn(group.id)"
-            ></app-delete-modal>
-          </ng-container>
-
-          <div
-            cdkDropList
-            class="example-list"
-            id="{{ group.id }}"
-            [cdkDropListData]="group.faqs"
-            (cdkDropListDropped)="dropItem($event)"
-            [cdkDropListConnectedTo]="getConnectedList()"
-          >
-            <form [formGroup]="addQuestion"
+        <div
+          cdkDropList
+          class="example-list"
+          id="{{ group.id }}"
+          [cdkDropListData]="group.faqs"
+          (cdkDropListDropped)="dropItem($event)"
+          [cdkDropListConnectedTo]="getConnectedList()"
+        >
+          <form
+            [formGroup]="addQuestion"
             (ngSubmit)="submitAddQuestion(group.id)"
-
+          >
+            <input
+              *ngIf="!group.faqs[0]"
+              class="text-center add-question mt-3 input"
+              type="text"
+              placeholder="Questions Can be added here"
+              formControlName="question"
+            />
+          </form>
+          <div
+            class="example-box"
+            *ngFor="let item of group.faqs"
+            cdkDrag
+            [cdkDragData]="item"
+          >
+            <app-dropdown-material
+              [expansionHeader]="item.question"
+              [disableDropdown]="disableDropdown"
+              [customClass]="'custom-dropDown'"
+              [hasDot]="true"
+              [dotImgSrc]="'../../../assets/images/drag-purple.svg'"
+              [hasEditable]="true"
+              [deleteImgSrc]="'../../../assets/images/deleteIcon.svg'"
+              [editImgSrc]="'../../../assets/images/edit-purple.svg'"
+              [expanded]="false"
+              [editable]="true"
+              (deleteBtn)="deleteQuestion(item.id)"
+              (editBtn)="editQuestion(group.id, 'questionEditMode')"
             >
-              <input
-                *ngIf="!group.faqs[0]"
-                class="text-center add-question mt-3 input"
-                type="text"
-                placeholder="Questions Can be added here"
-                formControlName="question"
-              />
-            </form>
-            <div
-              class="example-box"
-              *ngFor="let item of group.faqs"
-              cdkDrag
-              [cdkDragData]="item"
-            >
-              <app-dropdown-material
-                [expansionHeader]="item.question"
-                [disableDropdown]="disableDropdown"
-                [customClass]="'custom-dropDown'"
-                [hasDot]="true"
-                [dotImgSrc]="'../../../assets/images/drag-purple.svg'"
-                [hasEditable]="true"
-                [deleteImgSrc]="'../../../assets/images/deleteIcon.svg'"
-                [editImgSrc]="'../../../assets/images/edit-purple.svg'"
-                [expanded]="false"
-                [editable]="true"
-                (deleteBtn)="deleteQuestion(item.id)"
-                (editBtn)="editQuestion(group.id,'questionEditMode')"
-              >
-                <h6 [class]="'answer'" [innerHTML]="item.answer"></h6>
-
-              </app-dropdown-material>
-              <ng-container *ngIf="deleteFaqsModal">
-                <app-delete-modal
-                  (cancelBtn)="cancelfaqModalBtn()"
-                  (deleteBtn)="deletefaqModalBtn()"
-                ></app-delete-modal>
-              </ng-container>
-            </div>
+              <h6 [class]="'answer'" [innerHTML]="item.answer"></h6>
+            </app-dropdown-material>
           </div>
-        </app-dropdown-material>
-      </div>
+        </div>
+      </app-dropdown-material>
     </div>
+  </div>
 
+  <ng-container *ngIf="deleteCategoryModal">
+    <app-delete-modal
+      deleteTitle="Category"
+      deleteBody="This Category"
+      (cancelBtn)="cancelCategoryModalBtn()"
+      (deleteBtn)="deleteCategoryModalBtn(selectedGroup.id)"
+    ></app-delete-modal>
+  </ng-container>
 
-
+  <ng-container *ngIf="deleteFaqsModal">
+    <app-delete-modal
+      deleteTitle="Question"
+      deleteBody="This Question"
+      (cancelBtn)="cancelfaqModalBtn()"
+      (deleteBtn)="deletefaqModalBtn()"
+    ></app-delete-modal>
+  </ng-container>
 </app-body-template>
