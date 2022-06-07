@@ -134,7 +134,7 @@ export class FaqsComponent implements OnInit {
   }
 
   cancelfaqModalBtn() {
-    this.deleteCategoryModal=!this.deleteCategoryModal
+    this.deleteFaqsModal=!this.deleteFaqsModal
   }
   deletefaqModalBtn() {
     this.deleteQuestionById(this.deletFaqsId);

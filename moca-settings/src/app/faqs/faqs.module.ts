@@ -13,7 +13,8 @@ import { EditFaqComponent } from './edit-faq/edit-faq.component';
     CommonModule,
     FaqsRoutingModule,
     SharedComponentsModule,
-    ReactiveFormsModule,DragDropModule
+    ReactiveFormsModule,
+    DragDropModule,
   ],
 })
 export class FaqsModule {}

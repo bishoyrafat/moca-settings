@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: FaqsComponent, pathMatch: 'full' },
+  { path: '', component: FaqsComponent },
   { path: 'editfaq/:id', component: EditFaqComponent},
 ];
 

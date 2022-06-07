@@ -1,3 +1,4 @@
+import { PlansService } from './../plans.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -43,7 +44,12 @@ export class PlansComponentComponent implements OnInit {
 
     },
   ];
-  constructor() {}
+  constructor(private PlansService :PlansService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.PlansService.getAllPlanTypes().subscribe((data:any)=>{
+      console.log(data.data)
+      this.innerNavs.push(data.data)
+    })
+  }
 }

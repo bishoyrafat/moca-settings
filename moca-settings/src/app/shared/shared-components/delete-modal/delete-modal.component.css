@@ -20,3 +20,9 @@
     color: #A9ADBE;
     font-size: 16px;
 }
+.btnsContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 39px;
+}
