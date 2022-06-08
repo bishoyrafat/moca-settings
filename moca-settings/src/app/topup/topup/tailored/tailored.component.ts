@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TopUpService } from '../../topUp.service';
@@ -6,19 +7,26 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-tailored',
   templateUrl: './tailored.component.html',
-  styleUrls: ['./tailored.component.css']
+  styleUrls: ['./tailored.component.css'],
 })
 export class TailoredComponent implements OnInit {
-
   form: FormGroup;
   isInputRequired = false;
   hasEdit = true;
   hasAdd = false;
   contentBody: any;
-  constructor(private TopUpService: TopUpService,private ToastrService:ToastrService) {}
+  typeId: any;
+  constructor(
+    private TopUpService: TopUpService,
+    private ToastrService: ToastrService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.getTopUpById(3, 0);
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.typeId = params.get('id')
+    });
+    this.getTopUpById(this.typeId, 0);
 
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
@@ -37,7 +45,7 @@ export class TailoredComponent implements OnInit {
     if (this.form.invalid) return;
     else {
       console.log(this.form.value);
-      this.updateTopUpById(3,this.form.value.description)
+      this.updateTopUpById(this.typeId, this.form.value.description);
     }
     this.helper();
   }
@@ -48,7 +56,7 @@ export class TailoredComponent implements OnInit {
 
   getTopUpById(topUpType: number, id: number) {
     this.TopUpService.getTopUpById(topUpType, id).subscribe((data: any) => {
-      this.contentBody=data.data.termsOfUse
+      this.contentBody = data.data.termsOfUse;
     });
   }
 
@@ -57,8 +65,7 @@ export class TailoredComponent implements OnInit {
       termsOfUse: body,
       lobSpaceTypeId: 0,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ')
-
+      this.ToastrService.success('Update Done Successfully ');
     });
   }
 }

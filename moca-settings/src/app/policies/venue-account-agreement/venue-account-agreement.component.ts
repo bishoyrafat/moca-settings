@@ -2,25 +2,33 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PoliciesService } from '../policies.service';
 import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-venue-account-agreement',
   templateUrl: './venue-account-agreement.component.html',
-  styleUrls: ['./venue-account-agreement.component.css']
+  styleUrls: ['./venue-account-agreement.component.css'],
 })
 export class VenueAccountAgreementComponent implements OnInit {
-
   form: FormGroup;
   isInputRequired = false;
   hasEdit = true;
   hasAdd = false;
-  bodyContent:string
-  inEditMode=false
+  bodyContent: string;
+  inEditMode = false;
+  typeId: any;
 
-  constructor(private PoliciesService: PoliciesService,private ToastrService:ToastrService) {}
+  constructor(
+    private PoliciesService: PoliciesService,
+    private ToastrService: ToastrService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.getPolicyById(5,1);
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.typeId = params.get('id');
+    });
+    this.getPolicyById(this.typeId, 1);
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
     });
@@ -35,28 +43,27 @@ export class VenueAccountAgreementComponent implements OnInit {
     this.hasAdd = !this.hasAdd;
   }
   saveAndSubmit() {
-    console.log(this.form.value)
-    this.inEditMode=!this.inEditMode
-    this.hasAdd=false
-    this.hasEdit=true
+    console.log(this.form.value);
+    this.inEditMode = !this.inEditMode;
+    this.hasAdd = false;
+    this.hasEdit = true;
     if (this.form.invalid) return;
     else {
       console.log(this.form.value);
-      this.postPolicyById(5,this.form.value.description );
+      this.postPolicyById(this.typeId, this.form.value.description);
     }
   }
 
-  edit(inEditMode:any) {
+  edit(inEditMode: any) {
     this.helper();
-    if(inEditMode)
-    this.hasAdd=true
-    this.hasEdit=false
-    this.inEditMode = true
+    if (inEditMode) this.hasAdd = true;
+    this.hasEdit = false;
+    this.inEditMode = true;
   }
-  getPolicyById(PolicyTypes:number,id: number) {
+  getPolicyById(PolicyTypes: number, id: number) {
     this.PoliciesService.getPoliciesById(PolicyTypes).subscribe((data: any) => {
       console.log(data);
-      this.bodyContent=data.data.description
+      this.bodyContent = data.data.description;
     });
   }
 
@@ -65,8 +72,7 @@ export class VenueAccountAgreementComponent implements OnInit {
       lobSpaceTypeId: null,
       description: body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ')
+      this.ToastrService.success('Update Done Successfully ');
     });
   }
-
 }

@@ -23,7 +23,15 @@ const routes: Routes = [
         component: CancellationPolicyComponent,
       },
       {
+        path: 'cancellationpolicy/:id',
+        component: CancellationPolicyComponent,
+      },
+      {
         path: 'privacypolicy',
+        component: PrivacyPolicyComponent,
+      },
+      {
+        path: 'privacypolicy/:id',
         component: PrivacyPolicyComponent,
       },
       {
@@ -31,7 +39,15 @@ const routes: Routes = [
         component: UserTermsComponent,
       },
       {
+        path: 'userterms/:id',
+        component: UserTermsComponent,
+      },
+      {
         path: 'enterpriseterms',
+        component: EnterpriseTermsComponent,
+      },
+      {
+        path: 'enterpriseterms/:id',
         component: EnterpriseTermsComponent,
       },
       {
@@ -39,9 +55,17 @@ const routes: Routes = [
         component: VenueAccountAgreementComponent,
       },
       {
+        path: 'venueaccountagreement/:id',
+        component: VenueAccountAgreementComponent,
+      },
+      {
         path: 'cookiepolicy',
         component: CookiePolicyComponent,
-      }
+      },
+      {
+        path: 'cookiepolicy/:id',
+        component: CookiePolicyComponent,
+      },
     ],
   },
 ];

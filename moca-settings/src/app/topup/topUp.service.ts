@@ -23,5 +23,9 @@ export class TopUpService {
     return  this.http.put(this.url + `TopUps?topUpTypeId=${topUpType}`,body)
 
   }
+  getAllTopUpTypes(){
+    return  this.http.get(this.url + 'TopUpTypes')
+
+  }
 
 }

@@ -109,7 +109,7 @@
               [expanded]="false"
               [editable]="true"
               (deleteBtn)="deleteQuestion(item.id)"
-              (editBtn)="editQuestion(group.id, 'questionEditMode')"
+              (editBtn)="editQuestion(group.id,item.id, 'questionEditMode')"
             >
               <h6 [class]="'answer'" [innerHTML]="item.answer"></h6>
             </app-dropdown-material>

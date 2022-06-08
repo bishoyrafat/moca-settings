@@ -50,6 +50,7 @@ export class FaqsComponent implements OnInit {
       question: new FormControl(''),
     });
   }
+
   disableDrobdown() {
     this.disableDropdown = true;
     setTimeout(() => {
@@ -72,22 +73,36 @@ export class FaqsComponent implements OnInit {
     this.inModalMode = !this.inModalMode;
   }
   submitCategory() {
+    console.log(this.type);
     if (this.CategoryForm.invalid) {
       this.checkCategoryValidality = true;
     } else {
-      this.postCategory(this.CategoryForm.get('category')?.value);
-      this.inModalMode = !this.inModalMode;
-      this.updateCategoryById(this.categoryId, {
-        lobSpaceTypeId: null,
-        name: this.CategoryForm.get('category')?.value,
-      });
-      this.reloadPage();
+      if (this.type === 'categoryEditMode') {
+        console.log(this.categoryId, this.CategoryForm.get('category')?.value);
+        this.updateCategoryById(this.categoryId, {
+          lobSpaceTypeId: null,
+          name: this.CategoryForm.get('category')?.value,
+        });
+        this.inModalMode = !this.inModalMode;
+      } else {
+        this.postCategory(this.CategoryForm.get('category')?.value);
+        this.inModalMode = !this.inModalMode;
+      }
     }
   }
 
-  editQuestion(id: any, type: any) {
-    this.type = type;
-    this.route.navigate(['faqs/editfaq', id]);
+  editQuestion(id: any, faqId: any, type: any) {
+    console.log(id, faqId);
+    if (id === 0) {
+      this.route.navigate(['faqs/editfaq', id], {
+        queryParams: { noncategorized: faqId },
+      });
+    } else {
+      this.type = type;
+      this.route.navigate(['faqs/editfaq', id], {
+        queryParams: { faq: faqId },
+      });
+    }
   }
 
   deleteQuestion(id: number) {
@@ -97,6 +112,9 @@ export class FaqsComponent implements OnInit {
   }
 
   editCategory(categoryName: any, categoryId: any, type: any) {
+    this.type = type;
+    console.log(categoryId);
+    this.categoryId = categoryId;
     this.disableDrobdown();
     this.inModalMode = !this.inModalMode;
     this.CategoryForm.get('category')?.setValue(categoryName);
@@ -116,7 +134,6 @@ export class FaqsComponent implements OnInit {
       question: this.addQuestion.value.question,
       answer: 'Answer can be added here...',
     });
-    this.reloadPage();
   }
 
   cancelCategoryModalBtn() {
@@ -127,7 +144,7 @@ export class FaqsComponent implements OnInit {
       lobSpaceTypeId: null,
       deleteRelatedFaqs: true,
     });
-    this.reloadPage();
+    this.deleteCategoryModal = !this.deleteCategoryModal;
   }
 
   cancelfaqModalBtn() {
@@ -135,7 +152,7 @@ export class FaqsComponent implements OnInit {
   }
   deletefaqModalBtn() {
     this.deleteQuestionById(this.deletFaqsId);
-    this.reloadPage();
+    this.deleteFaqsModal = !this.deleteFaqsModal;
   }
   // ************************
   // drag and drop
@@ -179,16 +196,18 @@ export class FaqsComponent implements OnInit {
 
   dropGroup(event: any) {
     moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
-
+    console.log(event.container.data);
     event.container.data.forEach((el: any, index: any) => {
       el.displayOrder = index + 1;
       this.categoryBody.push({
         id: el.id,
         displayOrder: el.displayOrder,
       });
-
     });
-    this.updateCategoryOrder(this.categoryBody);
+    // console.log(this.categoryBody);
+    this.updateCategoryOrder(
+      this.categoryBody.slice(0, this.categoryBody.length - 1)
+    );
   }
 
   // FAQs APIs
@@ -196,15 +215,14 @@ export class FaqsComponent implements OnInit {
   nonCategorized: any;
   getAllFaqs() {
     this.FaqService.getAllFaqs().subscribe((data: any) => {
+      console.log(data.data);
       this.nonCategorized = {
         displayOrder: data.data.categories.length - 1,
         faqs: data.data.nonCategorizedFaqs,
         id: 0,
         name: 'Miscellaneous',
       };
-
       this.groups.push(...data.data.categories, this.nonCategorized);
-     
     });
   }
 
@@ -212,53 +230,63 @@ export class FaqsComponent implements OnInit {
     this.FaqService.postCategory({
       lobSpaceTypeId: null,
       name: categoryName,
-    }).subscribe((data: any) => {});
+    }).subscribe((data: any) => {
+      this.ToastrService.success('Update Done Successfully ');
+      this.reloadPage();
+    });
   }
 
   postCategoryById(id: number, body: any) {
     this.FaqService.postCategoryById(id, body).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
+      this.reloadPage();
     });
   }
 
   deleteCategoryById(id: number, body: any) {
     this.FaqService.deleteCategoryById(id).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
+      this.reloadPage();
     });
   }
 
   updateCategoryById(id: number, body: any) {
-    this.FaqService.updateCategoryById(id, {
-      lobSpaceTypeId: null,
-      name: body,
-    }).subscribe((data: any) => {
+    this.FaqService.updateCategoryById(id, body).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
+      this.reloadPage();
     });
   }
 
   deleteQuestionById(id: Number) {
     this.FaqService.deleteQuestionById(id).subscribe((data: any) => {
       this.ToastrService.success('Delete done Successfuly');
+      this.reloadPage();
     });
   }
-  updateQuestionById(id: number, body: any) {
+  updateQuestionById(id: any, body: any) {
+    console.log(id);
+    id === undefined ? null : id;
+    console.log(id);
     this.FaqService.updateQuestionById(id, {
       lobSpaceTypeId: null,
       ...body,
     }).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
+      this.reloadPage();
     });
   }
 
   updateFaqsOrder(body: any) {
     this.FaqService.updateFaqsOrder(body).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
+      this.reloadPage();
     });
   }
 
   updateCategoryOrder(body: any) {
     this.FaqService.updateCategoryOrder(body).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
+      this.reloadPage();
     });
   }
 }

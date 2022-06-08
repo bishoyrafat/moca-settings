@@ -8,28 +8,39 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path:'',component:TopupComponent,children:[
+    path: '',
+    component: TopupComponent,
+    children: [
       {
-        path:'',redirectTo:'day'
+        path: '',
+        component: HourlyComponent,
       },
+
       {
-        path:'day',component:DayComponent
+        path: 'day/:id',
+        component: DayComponent,
       },
+
       {
-        path:'hourly',component:HourlyComponent
+        path: 'hourly/:id',
+        component: HourlyComponent,
       },
+
       {
-        path:'tailored',component:TailoredComponent
+        path: 'tailored/:id',
+        component: TailoredComponent,
       },
+
       {
-        path:'meetingspace',component:MeetingSpaceComponent
+        path: 'meetingspace/:id',
+        component: MeetingSpaceComponent,
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class TopupRoutingModule { }
+export class TopupRoutingModule {}

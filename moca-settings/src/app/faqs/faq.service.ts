@@ -21,6 +21,11 @@ export class FaqService {
     );
   }
 
+  getFaqById(id:any){
+    return this.http.get(this.url + 'Faqs/' + id);
+
+  }
+
   getCategoryById(id: number) {
     return this.http.get(this.url + 'Faqs/Category/' + id);
   }
@@ -47,7 +52,7 @@ export class FaqService {
     return this.http.delete(this.url + `Faqs/${id}`);
   }
 
-  updateQuestionById(id: number, body: any) {
+  updateQuestionById(id: any, body: any) {
     return this.http.put(this.url + `Faqs/${id}`, body);
   }
 

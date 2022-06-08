@@ -22,4 +22,8 @@ export class PoliciesService {
   postPoliciesById(id: number, body: any) {
     return this.http.post(this.url + 'Policies/PolicyType/' + id, body);
   }
+
+  getAllPoliciesTypes(){
+    return this.http.get(this.url + 'PolicyTypes?WithRelatedDescription=false')
+  }
 }

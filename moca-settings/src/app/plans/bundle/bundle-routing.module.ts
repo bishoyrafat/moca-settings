@@ -2,10 +2,13 @@ import { BundleComponent } from './bundle/bundle.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [{ path: '', component: BundleComponent }];
+const routes: Routes = [
+  { path: '', component: BundleComponent },
+  { path: ':id', component: BundleComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class BundleRoutingModule { }
+export class BundleRoutingModule {}

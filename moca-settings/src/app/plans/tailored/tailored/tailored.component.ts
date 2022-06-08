@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { PlansService } from './../../plans.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -9,18 +10,26 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./tailored.component.css'],
 })
 export class TailoredComponent implements OnInit {
- inEditMode = true;
+  inEditMode = true;
   disableInput = true;
   form: any;
   pointsContent = '';
   whatYouGetContent = '';
   termsOfUseContent = '';
-  rows=10
-  planId=7
+  rows = 10;
+  planId = 7;
   // planId=12
 
-  constructor(private PlansService: PlansService,private ToastrService:ToastrService) {}
+  constructor(
+    private PlansService: PlansService,
+    private ToastrService: ToastrService,
+    private activatedRoute: ActivatedRoute
+  ) {}
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      console.log(params.get('id'));
+    });
+
     this.getPlansById(this.planId, 0);
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
@@ -30,29 +39,33 @@ export class TailoredComponent implements OnInit {
     });
   }
 
-  saveAndSubmitForm(saveMode:any) {
-    this.rows=10
-    console.log(this.form.valid)
+  saveAndSubmitForm(saveMode: any) {
+    this.rows = 10;
+    console.log(this.form.valid);
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
-      this.postPlansById(this.planId, this.form.value);
-
-
+    this.postPlansById(this.planId, this.form.value);
   }
-  editForm(form:any,points:any,whatYouGetContent:any,termsOfUseContent:any,editMode:any) {
+  editForm(
+    form: any,
+    points: any,
+    whatYouGetContent: any,
+    termsOfUseContent: any,
+    editMode: any
+  ) {
     this.inEditMode = false;
     this.disableInput = false;
-    console.log(editMode)
-
+    console.log(editMode);
 
     this.form.patchValue({
-      description:form.description,
-      points:points,
-      whatYouGet:whatYouGetContent,
-      termsOfUse:termsOfUseContent
-    })
-    if(editMode==='editMode')    {this.rows=14}
-
+      description: form.description,
+      points: points,
+      whatYouGet: whatYouGetContent,
+      termsOfUse: termsOfUseContent,
+    });
+    if (editMode === 'editMode') {
+      this.rows = 14;
+    }
   }
   content(e: any, type: string) {
     if (type === 'points') {
@@ -68,21 +81,19 @@ export class TailoredComponent implements OnInit {
 
   postPlansById(planType: number, body: any) {
     this.PlansService.postPlansById(planType, {
-      "lobSpaceTypeId": 0,
-      ...body
+      lobSpaceTypeId: 0,
+      ...body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ')
-
+      this.ToastrService.success('Update Done Successfully ');
     });
   }
 
   getPlansById(planType: number, id: number) {
     this.PlansService.getPlansById(planType, id).subscribe((data: any) => {
-
-      this.pointsContent =data.data.plan.points ;
-      this.whatYouGetContent=data.data.plan.whatYouGet
-      this.termsOfUseContent =data.data.plan.termsOfUse
-      this.form.get('description').setValue(data.data.plan.description)
+      this.pointsContent = data.data.plan.points;
+      this.whatYouGetContent = data.data.plan.whatYouGet;
+      this.termsOfUseContent = data.data.plan.termsOfUse;
+      this.form.get('description').setValue(data.data.plan.description);
     });
   }
 }
