@@ -623,3 +623,6 @@ select.ng-invalid.ng-touched {
 .container {
     max-width: 100% !important;
 }}
+.angular-editor-textarea{
+  background-color:#8d8d8d80!important;
+}
