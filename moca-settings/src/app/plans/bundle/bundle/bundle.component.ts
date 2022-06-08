@@ -17,7 +17,7 @@ export class BundleComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
   rows = 10;
-  planId = 8;
+  planId :any
   // planId=13
 
   constructor(
@@ -27,7 +27,7 @@ export class BundleComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
-      console.log(params.get('id'));
+      this.planId = params.get('id');
     });
     this.getPlansById(this.planId, 0);
     this.form = new FormGroup({

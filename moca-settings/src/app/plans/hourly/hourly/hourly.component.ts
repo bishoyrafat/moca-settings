@@ -18,7 +18,7 @@ export class HourlyComponent implements OnInit {
   termsOfUseContent = '';
   defaultId: any;
   rows = 10;
-  planId = 5;
+  planId :any;
   // planId=10
 
   constructor(
@@ -37,9 +37,9 @@ export class HourlyComponent implements OnInit {
     });
 
 
-    // this.activatedRoute.paramMap.subscribe((params) => {
-    //   console.log(params.get('id'));
-    // });
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.planId = params.get('id');
+    });
 
 
     this.getPlansById(this.planId, 0);

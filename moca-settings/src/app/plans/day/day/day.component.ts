@@ -16,7 +16,7 @@ export class DayComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
   rows = 10;
-  planId = 6;
+  planId :any
   // planId=11
 
   constructor(
@@ -26,7 +26,7 @@ export class DayComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
-      console.log(params.get('id'));
+      this.planId = params.get('id');
     });
     this.getPlansById(this.planId, 0);
     this.form = new FormGroup({

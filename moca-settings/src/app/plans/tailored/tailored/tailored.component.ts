@@ -17,7 +17,7 @@ export class TailoredComponent implements OnInit {
   whatYouGetContent = '';
   termsOfUseContent = '';
   rows = 10;
-  planId = 7;
+  planId :any;
   // planId=12
 
   constructor(
@@ -27,7 +27,7 @@ export class TailoredComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
-      console.log(params.get('id'));
+      this.planId = params.get('id');
     });
 
     this.getPlansById(this.planId, 0);
