@@ -19,7 +19,7 @@ export class HttpRequestInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): any {
-    // this.coreService.show();
+    this.coreService.show();
 
       const authRequest = request.clone();
       return next.handle(authRequest).pipe(

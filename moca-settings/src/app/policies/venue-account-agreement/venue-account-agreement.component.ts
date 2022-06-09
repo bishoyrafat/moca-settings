@@ -43,13 +43,11 @@ export class VenueAccountAgreementComponent implements OnInit {
     this.hasAdd = !this.hasAdd;
   }
   saveAndSubmit() {
-    console.log(this.form.value);
     this.inEditMode = !this.inEditMode;
     this.hasAdd = false;
     this.hasEdit = true;
     if (this.form.invalid) return;
     else {
-      console.log(this.form.value);
       this.postPolicyById(this.typeId, this.form.value.description);
     }
   }
@@ -62,7 +60,6 @@ export class VenueAccountAgreementComponent implements OnInit {
   }
   getPolicyById(PolicyTypes: number, id: number) {
     this.PoliciesService.getPoliciesById(PolicyTypes).subscribe((data: any) => {
-      console.log(data);
       this.bodyContent = data.data.description;
     });
   }

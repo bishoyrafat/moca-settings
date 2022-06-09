@@ -73,12 +73,10 @@ export class FaqsComponent implements OnInit {
     this.inModalMode = !this.inModalMode;
   }
   submitCategory() {
-    console.log(this.type);
     if (this.CategoryForm.invalid) {
       this.checkCategoryValidality = true;
     } else {
       if (this.type === 'categoryEditMode') {
-        console.log(this.categoryId, this.CategoryForm.get('category')?.value);
         this.updateCategoryById(this.categoryId, {
           lobSpaceTypeId: null,
           name: this.CategoryForm.get('category')?.value,
@@ -92,7 +90,6 @@ export class FaqsComponent implements OnInit {
   }
 
   editQuestion(id: any, faqId: any, type: any) {
-    console.log(id, faqId);
     if (id === 0) {
       this.route.navigate(['faqs/editfaq', id], {
         queryParams: { noncategorized: faqId },
@@ -113,7 +110,6 @@ export class FaqsComponent implements OnInit {
 
   editCategory(categoryName: any, categoryId: any, type: any) {
     this.type = type;
-    console.log(categoryId);
     this.categoryId = categoryId;
     this.disableDrobdown();
     this.inModalMode = !this.inModalMode;
@@ -196,7 +192,6 @@ export class FaqsComponent implements OnInit {
 
   dropGroup(event: any) {
     moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
-    console.log(event.container.data);
     event.container.data.forEach((el: any, index: any) => {
       el.displayOrder = index + 1;
       this.categoryBody.push({
@@ -204,7 +199,6 @@ export class FaqsComponent implements OnInit {
         displayOrder: el.displayOrder,
       });
     });
-    // console.log(this.categoryBody);
     this.updateCategoryOrder(
       this.categoryBody.slice(0, this.categoryBody.length - 1)
     );
@@ -215,7 +209,6 @@ export class FaqsComponent implements OnInit {
   nonCategorized: any;
   getAllFaqs() {
     this.FaqService.getAllFaqs().subscribe((data: any) => {
-      console.log(data.data);
       this.nonCategorized = {
         displayOrder: data.data.categories.length - 1,
         faqs: data.data.nonCategorizedFaqs,
@@ -264,9 +257,7 @@ export class FaqsComponent implements OnInit {
     });
   }
   updateQuestionById(id: any, body: any) {
-    console.log(id);
     id === undefined ? null : id;
-    console.log(id);
     this.FaqService.updateQuestionById(id, {
       lobSpaceTypeId: null,
       ...body,

@@ -39,7 +39,6 @@ export class DayComponent implements OnInit {
 
   saveAndSubmitForm(saveMode: any) {
     this.rows = 10;
-    console.log(this.form.value);
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
     this.postPlansById(this.planId, this.form.value);
@@ -53,7 +52,6 @@ export class DayComponent implements OnInit {
   ) {
     this.inEditMode = false;
     this.disableInput = false;
-    console.log(form, whatYouGetContent);
 
     this.form.patchValue({
       description: form.description,

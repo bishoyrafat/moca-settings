@@ -53,7 +53,6 @@ export class HourlyComponent implements OnInit {
 
   saveAndSubmitForm(saveMode: any) {
     this.rows = 10;
-    console.log(this.form.valid);
     this.inEditMode = !this.inEditMode;
     this.disableInput = !this.disableInput;
     this.postPlansById(this.planId, this.form.value);
@@ -67,7 +66,6 @@ export class HourlyComponent implements OnInit {
   ) {
     this.inEditMode = false;
     this.disableInput = false;
-    console.log(editMode);
 
     this.form.patchValue({
       description: form.description,

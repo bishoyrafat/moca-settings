@@ -36,7 +36,6 @@ export class WifiComponent implements OnInit {
   saveAndSubmit() {
     if (this.form.invalid) return;
     else {
-      console.log(this.form.value);
       this.postWifi(this.form.value.description);
     }
     this.helper();

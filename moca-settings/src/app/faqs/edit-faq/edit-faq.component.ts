@@ -28,8 +28,6 @@ export class EditFaqComponent implements OnInit {
     this.categoryId = this.activatedRoute.snapshot.params['id'];
     this.categoryParams = this.activatedRoute.snapshot.queryParams;
 
-    console.log(this.categoryParams);
-    console.log(this.categoryId);
     this.getAllFaqs();
 
     if (this.categoryParams.noncategorized) {
@@ -37,7 +35,6 @@ export class EditFaqComponent implements OnInit {
       this.categoryId = null;
       this.faqId = this.categoryParams.noncategorized;
     } else if (this.categoryId !== 'addfaq') {
-      console.log(this.categoryParams.faq)
       this.faqId=this.categoryParams.faq
       this.getFaqById(this.categoryParams.faq);
     }
@@ -64,8 +61,6 @@ export class EditFaqComponent implements OnInit {
   }
 
   saveFaqs() {
-    console.log(this.faqsForm.value);
-    console.log(this.faqId);
     this.updateQuestionById(this.faqId, {
       categoryId: this.categoryId,
       question: this.faqsForm.value.question,
@@ -87,7 +82,6 @@ export class EditFaqComponent implements OnInit {
 
   getCategoryById(id: number) {
     this.FaqService.getCategoryById(id).subscribe((data: any) => {
-      // console.log(el);
       data.data.forEach((el: any) => {
         this.faqId = el.id;
         this.faqsForm.patchValue({
@@ -125,7 +119,6 @@ export class EditFaqComponent implements OnInit {
           return el.id == this.categoryParams.noncategorized;
         }
       );
-      console.log(nonCategorizedObject);
       this.faqsForm.patchValue({
         categoryId: 0,
       });
@@ -145,7 +138,6 @@ export class EditFaqComponent implements OnInit {
 
   getFaqById(id:any){
     this.FaqService.getFaqById(id).subscribe((data:any)=>{
-      console.log(data.data)
       this.faqsForm.get('categoryId')?.setValue(data.data.categoryId)
       this.faqsForm.get('question')?.setValue(data.data.question)
       this.faqsForm.get('answer')?.setValue(data.data.answer)

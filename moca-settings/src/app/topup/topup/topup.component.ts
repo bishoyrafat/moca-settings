@@ -14,14 +14,13 @@ export class TopupComponent {
   constructor(
     private TopUpService: TopUpService,
     private activeRouter: ActivatedRoute,
-    private router:Router
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.TopUpService.getAllTopUpTypes().subscribe((data: any) => {
       this.navs = data.data;
       this.routeToFirstElement();
-      console.log(data.data);
       data.data.forEach((element: any, index: any) => {
         this.innerNavs.push({
           name: element.name,
@@ -38,9 +37,7 @@ export class TopupComponent {
   routeToFirstElement() {
     this.activeRouter.firstChild?.params.subscribe((data) => {
       if (!data['id']) {
-        this.router.navigate([
-          'topup/hourly/' + this.navs[0].id,
-        ]);
+        this.router.navigate(['topup/hourly/' + this.navs[0].id]);
       } else {
       }
     });

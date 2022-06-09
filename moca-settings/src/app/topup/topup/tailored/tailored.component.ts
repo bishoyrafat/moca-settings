@@ -44,7 +44,6 @@ export class TailoredComponent implements OnInit {
   saveAndSubmit() {
     if (this.form.invalid) return;
     else {
-      console.log(this.form.value);
       this.updateTopUpById(this.typeId, this.form.value.description);
     }
     this.helper();

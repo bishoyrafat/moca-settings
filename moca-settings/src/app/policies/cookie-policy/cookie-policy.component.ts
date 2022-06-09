@@ -43,13 +43,11 @@ export class CookiePolicyComponent implements OnInit {
     this.hasAdd = !this.hasAdd;
   }
   saveAndSubmit() {
-    console.log(this.form.value);
     this.inEditMode = !this.inEditMode;
     this.hasAdd = false;
     this.hasEdit = true;
     if (this.form.invalid) return;
     else {
-      console.log(this.form.value);
       this.postPolicyById(this.typeId, this.form.value.description);
     }
   }
