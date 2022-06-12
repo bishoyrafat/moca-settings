@@ -1,14 +1,8 @@
 import { FaqService } from './../faq.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import {
-  CdkDragDrop,
-  CdkDragEnter,
-  CdkDragMove,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { Component, OnInit } from '@angular/core';
+import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -57,11 +51,11 @@ export class FaqsComponent implements OnInit {
       this.disableDropdown = false;
     }, 100);
   }
-  reloadPage() {
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
-  }
+  // reloadPage() {
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 2000);
+  // }
   addFaq() {
     this.route.navigate(['faqs/editfaq', 'addfaq']);
   }
@@ -155,6 +149,7 @@ export class FaqsComponent implements OnInit {
   // ************************
   dropItem(event: any) {
     if (event.previousContainer === event.container) {
+      this.faqsBody=[]
       moveItemInArray(
         event.container.data,
         event.previousIndex,
@@ -225,35 +220,35 @@ export class FaqsComponent implements OnInit {
       name: categoryName,
     }).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
-      this.reloadPage();
+      this.getAllFaqs();
     });
   }
 
   postCategoryById(id: number, body: any) {
     this.FaqService.postCategoryById(id, body).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
-      this.reloadPage();
+      this.getAllFaqs();
     });
   }
 
   deleteCategoryById(id: number, body: any) {
     this.FaqService.deleteCategoryById(id).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
-      this.reloadPage();
+      this.getAllFaqs();
     });
   }
 
   updateCategoryById(id: number, body: any) {
     this.FaqService.updateCategoryById(id, body).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
-      this.reloadPage();
+      this.getAllFaqs();
     });
   }
 
   deleteQuestionById(id: Number) {
     this.FaqService.deleteQuestionById(id).subscribe((data: any) => {
       this.ToastrService.success('Delete done Successfuly');
-      this.reloadPage();
+      this.getAllFaqs();
     });
   }
   updateQuestionById(id: any, body: any) {
@@ -263,21 +258,21 @@ export class FaqsComponent implements OnInit {
       ...body,
     }).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
-      this.reloadPage();
+      this.getAllFaqs();
     });
   }
 
   updateFaqsOrder(body: any) {
     this.FaqService.updateFaqsOrder(body).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
-      this.reloadPage();
+      this.getAllFaqs();
     });
   }
 
   updateCategoryOrder(body: any) {
     this.FaqService.updateCategoryOrder(body).subscribe((data: any) => {
       this.ToastrService.success('Update Done Successfully ');
-      this.reloadPage();
+      this.getAllFaqs();
     });
   }
 }

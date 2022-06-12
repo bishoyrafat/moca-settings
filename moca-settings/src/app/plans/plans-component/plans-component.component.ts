@@ -7,15 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./plans-component.component.css'],
 })
 export class PlansComponentComponent implements OnInit {
-  innerNavs:any = [];
-  constructor(private PlansService: PlansService) {}
+  innerNavs: any = [];
+  constructor(private plansService: PlansService) {}
 
   ngOnInit(): void {
-    this.PlansService.getAllPlanTypes().subscribe((data: any) => {
+    this.plansService.getAllPlanTypes().subscribe((data: any) => {
+      this.plansService.setPlanTypes(data.data);
+
       data.data.forEach((element: any, index: any) => {
         this.innerNavs.push({
           name: element.name,
-          url: element.url+'/'+element.id,
+          url: element.url + '/' + element.id,
           active: index === 0 ? true : false,
           visible: true,
           editMode: true,

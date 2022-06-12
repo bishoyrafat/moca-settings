@@ -1,14 +1,6 @@
 <app-body-template
-  (save)="saveAndSubmitForm('saveMode')"
-  (edit)="
-    editForm(
-      form.value,
-      pointsContent,
-      whatYouGetContent,
-      termsOfUseContent,
-      'editMode'
-    )
-  "
+  (save)="saveAndSubmitForm()"
+  (edit)="editForm()"
   [hasEdit]="inEditMode"
   [hasAdd]="!inEditMode"
   [hasReset]="false"
@@ -23,7 +15,7 @@
             [control]="form.get('description')"
             [required]="!disableInput"
             [disableInput]="disableInput"
-            [rows]="rows"
+            [rows]="!inEditMode?14:10"
           ></app-text-area>
         </div>
         <div class="col-6">
@@ -34,7 +26,7 @@
             [inputRequired]="!disableInput"
             [hideToolbar]="disableInput"
             errMsg=""
-            [content]="pointsContent"
+            [content]="form.get('points')?.value"
           ></app-rich-text-field>
         </div>
       </div>
@@ -50,7 +42,7 @@
             [inputRequired]="!disableInput"
             [hideToolbar]="disableInput"
             errMsg=""
-            [content]="whatYouGetContent"
+            [content]="form.get('whatYouGet')?.value"
           ></app-rich-text-field>
         </div>
 
@@ -62,7 +54,7 @@
             [inputRequired]="!disableInput"
             [hideToolbar]="disableInput"
             errMsg=""
-            [content]="termsOfUseContent"
+            [content]="form.get('termsOfUse')?.value"
           ></app-rich-text-field>
         </div>
       </div>
