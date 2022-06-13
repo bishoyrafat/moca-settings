@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PoliciesService } from '../policies.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { ipolicies } from 'src/app/shared/models/types/policies/policies.model';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -14,7 +15,7 @@ export class PrivacyPolicyComponent implements OnInit {
   isInputRequired = false;
   hasEdit = true;
   hasAdd = false;
-  bodyContent: string;
+  bodyContent: any | ipolicies;
   inEditMode = false;
   typeId: any;
   constructor(
@@ -28,8 +29,15 @@ export class PrivacyPolicyComponent implements OnInit {
       this.typeId = params.get('id');
     });
     this.getPolicyById(this.typeId, 1);
+    this.createForm()
+  }
+
+  createForm() {
     this.form = new FormGroup({
-      description: new FormControl('', Validators.required),
+      description: new FormControl(
+        this.bodyContent ? this.bodyContent : '',
+        Validators.required
+      ),
     });
   }
   content(e: any) {

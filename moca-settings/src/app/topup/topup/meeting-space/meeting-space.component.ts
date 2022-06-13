@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TopUpService } from '../../topUp.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { itopup } from 'src/app/shared/models/topup/topup.model';
 
 @Component({
   selector: 'app-meeting-space',
@@ -14,7 +15,7 @@ export class MeetingSpaceComponent implements OnInit {
   isInputRequired = false;
   hasEdit = true;
   hasAdd = false;
-  contentBody: any;
+  contentBody: any |itopup;
   typeId: any;
 
   constructor(
@@ -24,17 +25,21 @@ export class MeetingSpaceComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((params) => {
-      this.typeId = params.get('id')
+    this.activatedRoute.params.subscribe((params) => {
+      this.typeId = params['id'];
     });
     this.getTopUpById(this.typeId, 0);
 
-    this.form = new FormGroup({
-      description: new FormControl('', Validators.required),
-    });
+    this.createForm();
   }
   content(e: any) {
     this.form.get('description')?.setValue(e);
+  }
+
+  createForm() {
+    this.form = new FormGroup({
+      description: new FormControl('', Validators.required),
+    });
   }
 
   helper() {

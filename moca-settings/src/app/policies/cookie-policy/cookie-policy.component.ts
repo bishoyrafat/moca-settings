@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PoliciesService } from '../policies.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { ipolicies } from 'src/app/shared/models/types/policies/policies.model';
 
 @Component({
   selector: 'app-cookie-policy',
@@ -14,7 +15,7 @@ export class CookiePolicyComponent implements OnInit {
   isInputRequired = false;
   hasEdit = true;
   hasAdd = false;
-  bodyContent: string;
+  bodyContent: any | ipolicies;
   inEditMode = false;
   typeId: any;
 
@@ -29,14 +30,20 @@ export class CookiePolicyComponent implements OnInit {
       this.typeId = params.get('id')
     });
     this.getPolicyById(this.typeId, 1);
-    this.form = new FormGroup({
-      description: new FormControl('', Validators.required),
-    });
+    this.createForm()
   }
   content(e: any) {
     this.form.get('description')?.setValue(e);
   }
 
+  createForm() {
+    this.form = new FormGroup({
+      description: new FormControl(
+        this.bodyContent ? this.bodyContent : '',
+        Validators.required
+      ),
+    });
+  }
   helper() {
     this.isInputRequired = !this.isInputRequired;
     this.hasEdit = !this.hasEdit;
@@ -72,4 +79,5 @@ export class CookiePolicyComponent implements OnInit {
       this.ToastrService.success('Update Done Successfully ');
     });
   }
+
 }

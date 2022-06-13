@@ -1,9 +1,9 @@
+import { iwifi } from 'src/app/shared/models/types/wifi/wifi.model';
 import { getLocaleEraNames } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { WifiService } from './wifi.service';
 import { ToastrService } from 'ngx-toastr';
-
 
 @Component({
   selector: 'app-wifi',
@@ -15,13 +15,23 @@ export class WifiComponent implements OnInit {
   isInputRequired = false;
   hasEdit = true;
   hasAdd = false;
-  wifiBody: any;
-  constructor(private WifiService: WifiService,private ToastrService:ToastrService) {}
+  wifiBody: any | iwifi;
+  constructor(
+    private WifiService: WifiService,
+    private ToastrService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.getWifi();
+    this.createForm();
+  }
+
+  createForm() {
     this.form = new FormGroup({
-      description: new FormControl('', Validators.required),
+      description: new FormControl(
+        this.wifiBody ? this.wifiBody : '',
+        Validators.required
+      ),
     });
   }
   content(e: any) {
@@ -29,7 +39,6 @@ export class WifiComponent implements OnInit {
   }
 
   helper() {
-    // this.isInputRequired = !this.isInputRequired;
     this.hasEdit = !this.hasEdit;
     this.hasAdd = !this.hasAdd;
   }
@@ -40,14 +49,11 @@ export class WifiComponent implements OnInit {
     }
     this.helper();
     this.isInputRequired = true;
-
   }
 
   edit() {
     this.helper();
     this.isInputRequired = false;
-
-
   }
 
   getWifi() {
@@ -56,12 +62,11 @@ export class WifiComponent implements OnInit {
     });
   }
 
-  postWifi(body:any) {
+  postWifi(body: any) {
     this.WifiService.postWifi({
       description: body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ')
-
+      this.ToastrService.success('Update Done Successfully ');
     });
   }
 }

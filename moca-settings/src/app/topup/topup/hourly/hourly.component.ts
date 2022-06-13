@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TopUpService } from '../../topUp.service';
 import { ToastrService } from 'ngx-toastr';
+import { itopup } from 'src/app/shared/models/topup/topup.model';
 
 @Component({
   selector: 'app-hourly',
@@ -14,7 +15,7 @@ export class HourlyComponent implements OnInit {
   isInputRequired = false;
   hasEdit = true;
   hasAdd = false;
-  contentBody: any;
+  contentBody: any |itopup;
   typeId: any;
 
   constructor(
@@ -24,17 +25,22 @@ export class HourlyComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((params) => {
-      this.typeId = params.get('id')
+    this.activatedRoute.params.subscribe((params) => {
+      this.typeId = params['id']
     });
-    this.getTopUpById(this.typeId, 1);
 
+    this.getTopUpById(this.typeId, 1);
+    this.createForm()
+  }
+
+  content(e: any) {
+    this.form.get('description')?.setValue(e);
+  }
+
+  createForm(){
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
     });
-  }
-  content(e: any) {
-    this.form.get('description')?.setValue(e);
   }
 
   helper() {
@@ -42,6 +48,7 @@ export class HourlyComponent implements OnInit {
     this.hasEdit = !this.hasEdit;
     this.hasAdd = !this.hasAdd;
   }
+
   saveAndSubmit() {
     if (this.form.invalid) return;
     else {
@@ -64,8 +71,9 @@ export class HourlyComponent implements OnInit {
     this.TopUpService.updateTopUpById(topUpType, {
       termsOfUse: body,
       lobSpaceTypeId: 1,
-    }).subscribe((data: any) => {
+    }).subscribe(() => {
       this.ToastrService.success('Update Done Successfully ');
     });
   }
+
 }

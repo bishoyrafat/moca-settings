@@ -35,14 +35,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
 
-    // this.router.events
-    //   .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
-    //   .subscribe((event) => {
-    //     if (event.id === 1 && event.url === event.urlAfterRedirects) {
-    //       // Your code here for when the page is refreshd
-    //       // this.router.navigate(['/'])
-    //     }
-    //   });
+    this.router.events
+      .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
+      .subscribe((event) => {
+        if (event.id === 1 && event.url === event.urlAfterRedirects) {
+          // Your code here for when the page is refreshd
+          this.router.navigate(['/'])
+        }
+      });
 
     this.router.events.subscribe((event) => {
       if (event instanceof RouteConfigLoadStart) {

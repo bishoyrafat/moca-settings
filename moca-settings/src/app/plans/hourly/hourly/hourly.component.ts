@@ -3,6 +3,7 @@ import { PlansService } from './../../plans.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { iplanType } from 'src/app/shared/models/types/plans/plansType.model';
 
 @Component({
   selector: 'app-hourly',
@@ -45,6 +46,7 @@ export class HourlyComponent implements OnInit {
       this.createForm();
     });
   }
+
   createForm() {
     this.form = new FormGroup({
       description: new FormControl(
@@ -81,12 +83,13 @@ export class HourlyComponent implements OnInit {
     this.disableInput = !this.disableInput;
     this.postPlansById(this.planId, this.form.value);
   }
+
   postPlansById(planType: number, body: any) {
     this.PlansService.postPlansById(planType, {
       lobSpaceTypeId: 0,
       ...body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ');
+      this.ToastrService.success('Update Done Successfully');
     });
   }
 

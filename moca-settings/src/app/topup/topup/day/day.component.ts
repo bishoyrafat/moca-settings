@@ -3,7 +3,7 @@ import { TopUpService } from './../../topUp.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-
+import { itopup } from 'src/app/shared/models/topup/topup.model';
 @Component({
   selector: 'app-day',
   templateUrl: './day.component.html',
@@ -14,7 +14,7 @@ export class DayComponent implements OnInit {
   isInputRequired = false;
   hasEdit = true;
   hasAdd = false;
-  contentBody: any;
+  contentBody: any |itopup;
   typeId: any;
   constructor(
     private TopUpService: TopUpService,
@@ -23,15 +23,20 @@ export class DayComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((params) => {
-      this.typeId = params.get('id');
+    this.activatedRoute.params.subscribe((params) => {
+      this.typeId = params['id']
     });
     this.getTopUpById(this.typeId, 0);
 
+    this.createForm()
+  }
+
+  createForm(){
     this.form = new FormGroup({
       description: new FormControl('', Validators.required),
     });
   }
+
   content(e: any) {
     this.form.get('description')?.setValue(e);
   }
