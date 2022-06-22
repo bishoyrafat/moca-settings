@@ -1,10 +1,12 @@
 .linksContainer {
   width: 100%;
   display: flex;
+
 }
 .links {
   display: flex;
   justify-content: center;
+
   /* margin-top: 10px; */
 }
 .navLink {

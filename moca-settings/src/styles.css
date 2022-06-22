@@ -52,30 +52,27 @@ html {
 }
 
 body {
+  font: normal normal 600 16px/25px !important;
   background-color: var(--mainGrayColor) !important;
   font-family: gtMeduim !important;
 }
 
 html,
 body {
-  height: 100%;
   box-sizing: border-box;
 }
 
-.sub-nav {
-  display: flex;
-  justify-content: center;
-  margin: 10px 0 30px 0;
+.mainNav{
+  margin-bottom: 30px;
 }
 
-.mainNav .links {
-  margin-left: 75px !important;
-  margin-bottom: 20px;
+.subNav{
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
 .active {
   color: var(--mainPurbleColor);
-  /* margin-bottom: 10px; */
 }
 
 .active2 {
@@ -83,38 +80,31 @@ body {
   background: hsla(266, 67%, 48%, 0.103) 0% 0% no-repeat padding-box;
   border-radius: 5px;
   text-align: center;
-  /* width: 150px !important;
-  height: 30px; */
 }
 .policies .active2 {
   width: 190px !important;
   height: 34px;
-  /* padding: 0 10px; */
 }
-.plans .active2 {
+
+.active2 {
   height: 40px !important;
   width: 144px !important;
 }
-.topup .active2 {
-  height: 40px !important;
-  width: 144px !important;
-}
+
 .active2 a {
-  /* padding: 5px 20px; */
   color: var(--mainPurbleColor) !important;
   text-align: center !important;
 }
+
+/* custom policies navbar */
+.policies-navBar .active2{
+  width: 200px !important;
+  }
 
 .links {
   gap: 60px;
 }
 
-body {
-  /* margin: 0; */
-  /* font-family: Roboto, "Helvetica Neue", sans-serif; */
-  font: normal normal 600 16px/25px !important;
-
-}
 
 /* ******************************** */
 /* expansion panel header */
@@ -139,14 +129,12 @@ body {
   font-size: 18px;
 }
 .mat-expansion-panel {
-  /* margin: 15px  0 15px 0 !important; */
   margin: 0 !important;
 }
 
 .mat-expansion-panel-header {
   padding: 17px 40px 17px 55px !important;
   border-left: 6px solid var(--mocaPurbleColor) !important;
-  /* max-width: 1513px !important; */
   height: 73px !important;
   font-size: 24px !important;
   margin-top: 5px !important;
@@ -184,8 +172,6 @@ body {
   border-left: 10px solid var(--mainPurbleColor) !important;
   margin-top: 20px;
   height: 65px !important;
-  /* font: normal normal medium 24px/34px gtMeduim !important; */
-
 }
 
 .custom-faq .mat-expansion-panel:not([class*="mat-elevation-z"]) {
@@ -491,8 +477,8 @@ select option {
 }
 .bgPurble {
   background-color: var(--mocaPurbleColor);
-  /* color: #fff!important; */
 }
+
 .bgPurble h4,
 .bgPurble i {
   color: #fff !important;
@@ -603,26 +589,6 @@ select.ng-invalid.ng-touched {
   border: 1px solid red;
 }
 
-@media only screen and (max-width: 1550px) {
-  .sub-nav {
-    width: 60%;
-    margin: 10px auto;
-   }
-   .links  {
-    font-size: 10px !important;
-   }
-   .links  a{
-    font-size: 15px !important;
-   }
-   .navLink{
-     padding: 5px 0;
-   }
-}
-
-@media (min-width: 1400px){
-.container {
-    max-width: 100% !important;
-}}
 .angular-editor-textarea{
-  background-color:#8d8d8d80!important;
+background-color:#8d8d8d80!important;
 }

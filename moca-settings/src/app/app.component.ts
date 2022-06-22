@@ -11,6 +11,7 @@ import {
   RouteConfigLoadStart,
   RouteConfigLoadEnd,
   NavigationEnd,
+  ActivatedRoute,
 } from '@angular/router';
 import { filter, Subject } from 'rxjs';
 import { CoreAppService } from './shared/service/core-app/coreApp.service';
@@ -26,7 +27,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     private loaderService: CoreAppService,
     private router: Router,
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private PlansService: PlansService
+    private PlansService: PlansService,
+    private activatedRoute :ActivatedRoute,
+    private route :Router
   ) {}
 
   isLoading: Subject<boolean> = this.loaderService.isLoading;
@@ -40,7 +43,17 @@ export class AppComponent implements OnInit, AfterViewInit {
       .subscribe((event) => {
         if (event.id === 1 && event.url === event.urlAfterRedirects) {
           // Your code here for when the page is refreshd
-          this.router.navigate(['/'])
+                     this.router.navigate(['/'])
+
+        //   const url = this.route.url;
+        //   let x = '/' + url.split('/')[1]
+        //   console.log(x)
+        // let arr =   this.innerNavs.find((el:any)=>{
+        //     console.log(el.url)
+        //    return el.url === x
+        //   })
+        //   console.log(!arr?.active)
+        //   !arr?.active
         }
       });
 
