@@ -65,6 +65,7 @@ export class FaqsComponent implements OnInit {
 
   closeCategory() {
     this.inModalMode = !this.inModalMode;
+    this.CategoryForm.reset()
   }
   submitCategory() {
     if (this.CategoryForm.invalid) {

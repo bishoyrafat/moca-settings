@@ -40,7 +40,7 @@
         </div>
         <app-rich-text-field
           labelText="Answer"
-          errMsg=""
+          [errMsg]= "faqsForm.get('answer')?.invalid && checkFaqsValidality ? '*This field is required' :'' "
           [disabled]="false"
           (bodyContent)="bodyContent($event)"
           [content]="answerBody"
