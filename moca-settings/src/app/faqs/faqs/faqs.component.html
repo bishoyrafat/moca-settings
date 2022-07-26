@@ -109,12 +109,15 @@
               [expanded]="false"
               [editable]="true"
               (deleteBtn)="deleteQuestion(item.id)"
-              (editBtn)="editQuestion(group.id,item.id, 'questionEditMode')"
+              (editBtn)="editQuestion(group.id, item.id, 'questionEditMode')"
             >
               <h6 [class]="'answer'" [innerHTML]="item.answer"></h6>
             </app-dropdown-material>
           </div>
+
+
         </div>
+
       </app-dropdown-material>
     </div>
   </div>
@@ -128,12 +131,18 @@
     ></app-delete-modal>
   </ng-container>
 
-  <ng-container *ngIf="deleteFaqsModal">
-    <app-delete-modal
-      deleteTitle="Question"
-      deleteBody="This Question"
-      (cancelBtn)="cancelfaqModalBtn()"
-      (deleteBtn)="deletefaqModalBtn()"
-    ></app-delete-modal>
+  <ng-container *ngFor="let group of groups">
+    <ng-container *ngIf="deleteFaqsModal">
+      <app-delete-modal
+        deleteTitle="Question"
+        deleteBody="This Question"
+        (cancelBtn)="cancelfaqModalBtn()"
+        (deleteBtn)="deletefaqModalBtn(deletFaqsId)"
+      ></app-delete-modal>
+    </ng-container>
   </ng-container>
+
+
 </app-body-template>
+
+<!-- (deleteBtn)="deletefaqModalBtn(deletFaqsId)" -->

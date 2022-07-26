@@ -28,32 +28,33 @@ export class AppComponent implements OnInit, AfterViewInit {
     private router: Router,
     private readonly changeDetectorRef: ChangeDetectorRef,
     private PlansService: PlansService,
-    private activatedRoute :ActivatedRoute,
-    private route :Router
+    private activatedRoute: ActivatedRoute,
+    private route: Router
   ) {}
 
   isLoading: Subject<boolean> = this.loaderService.isLoading;
   loading: boolean;
-  defaultId:any
+  defaultId: any;
   ngOnInit(): void {
-
-
     this.router.events
       .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
       .subscribe((event) => {
         if (event.id === 1 && event.url === event.urlAfterRedirects) {
           // Your code here for when the page is refreshd
-                     this.router.navigate(['/'])
+           this.router.navigate(['/'])
 
-        //   const url = this.route.url;
-        //   let x = '/' + url.split('/')[1]
-        //   console.log(x)
-        // let arr =   this.innerNavs.find((el:any)=>{
-        //     console.log(el.url)
-        //    return el.url === x
-        //   })
-        //   console.log(!arr?.active)
-        //   !arr?.active
+          // let currentUrl = this.router.url;
+          // this.router.onSameUrlNavigation = 'reload';
+          // this.router.navigate([currentUrl]);
+          //   const url = this.route.url;
+          //   let x = '/' + url.split('/')[1]
+          //   console.log(x)
+          // let arr =   this.innerNavs.find((el:any)=>{
+          //     console.log(el.url)
+          //    return el.url === x
+          //   })
+          //   console.log(!arr?.active)
+          //   !arr?.active
         }
       });
 

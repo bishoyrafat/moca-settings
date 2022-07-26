@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ToastrService } from 'ngx-toastr';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-faqs',
@@ -32,7 +33,9 @@ export class FaqsComponent implements OnInit {
     private route: Router,
     private FaqService: FaqService,
     private ToastrService: ToastrService
-  ) {}
+  ) {
+    this.route.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit(): void {
     this.getAllFaqs();
@@ -65,7 +68,7 @@ export class FaqsComponent implements OnInit {
 
   closeCategory() {
     this.inModalMode = !this.inModalMode;
-    this.CategoryForm.reset()
+    this.CategoryForm.reset();
   }
   submitCategory() {
     if (this.CategoryForm.invalid) {
@@ -125,12 +128,18 @@ export class FaqsComponent implements OnInit {
       question: this.addQuestion.value.question,
       answer: 'Answer can be added here...',
     });
+    this.addQuestion.reset()
   }
 
   cancelCategoryModalBtn() {
     this.deleteCategoryModal = !this.deleteCategoryModal;
   }
   deleteCategoryModalBtn(id: any) {
+    const index = this.groups.findIndex((el: any) => {
+      return el.id === id;
+    });
+    this.groups.splice(index, 1);
+
     this.deleteCategoryById(this.categoryId, {
       lobSpaceTypeId: null,
       deleteRelatedFaqs: true,
@@ -141,7 +150,14 @@ export class FaqsComponent implements OnInit {
   cancelfaqModalBtn() {
     this.deleteFaqsModal = !this.deleteFaqsModal;
   }
-  deletefaqModalBtn() {
+
+  deletefaqModalBtn(id: any) {
+    this.groups.forEach((el: any) => {
+      const index = el.faqs.findIndex((object: any) => {
+        return object.id === id;
+      });
+      el.faqs.splice(index, 1);
+    });
     this.deleteQuestionById(this.deletFaqsId);
     this.deleteFaqsModal = !this.deleteFaqsModal;
   }
@@ -150,7 +166,7 @@ export class FaqsComponent implements OnInit {
   // ************************
   dropItem(event: any) {
     if (event.previousContainer === event.container) {
-      this.faqsBody=[]
+      this.faqsBody = [];
       moveItemInArray(
         event.container.data,
         event.previousIndex,
@@ -211,6 +227,7 @@ export class FaqsComponent implements OnInit {
         id: 0,
         name: 'Miscellaneous',
       };
+      this.groups = [];
       this.groups.push(...data.data.categories, this.nonCategorized);
     });
   }
@@ -220,28 +237,31 @@ export class FaqsComponent implements OnInit {
       lobSpaceTypeId: null,
       name: categoryName,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ');
+      this.ToastrService.success('Update Done Successfully');
+      this.groups = [];
       this.getAllFaqs();
     });
   }
 
   postCategoryById(id: number, body: any) {
     this.FaqService.postCategoryById(id, body).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ');
+      this.ToastrService.success('Update Done Successfully');
+      this.groups = [];
       this.getAllFaqs();
     });
   }
 
   deleteCategoryById(id: number, body: any) {
     this.FaqService.deleteCategoryById(id).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ');
+      this.ToastrService.success('Update Done Successfully');
+      this.groups = [];
       this.getAllFaqs();
     });
   }
 
   updateCategoryById(id: number, body: any) {
     this.FaqService.updateCategoryById(id, body).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ');
+      this.ToastrService.success('Update Done Successfully');
       this.getAllFaqs();
     });
   }
@@ -249,6 +269,8 @@ export class FaqsComponent implements OnInit {
   deleteQuestionById(id: Number) {
     this.FaqService.deleteQuestionById(id).subscribe((data: any) => {
       this.ToastrService.success('Delete done Successfuly');
+      this.groups = [];
+
       this.getAllFaqs();
     });
   }
@@ -258,7 +280,7 @@ export class FaqsComponent implements OnInit {
       lobSpaceTypeId: null,
       ...body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ');
+      this.ToastrService.success('Update Done Successfully');
       this.getAllFaqs();
     });
   }
