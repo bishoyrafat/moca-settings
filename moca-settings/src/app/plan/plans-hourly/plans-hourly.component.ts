@@ -69,7 +69,7 @@ export class PlansHourlyComponent implements OnInit {
   editForm() {
     this.inEditMode = false;
     this.disableInput = false;
-    this.createForm();
+    // this.createForm();
   }
 
   content(e: any, type: string) {
@@ -87,6 +87,7 @@ export class PlansHourlyComponent implements OnInit {
       lobSpaceTypeId: 0,
       ...body,
     }).subscribe((data: any) => {
+      this.getPlansById(this.planId,0)
       this.ToastrService.success('Update Done Successfully');
     });
   }

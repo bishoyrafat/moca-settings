@@ -81,12 +81,15 @@ export class PlansBundleComponent implements OnInit {
     this.disableInput = !this.disableInput;
     this.postPlansById(this.planId, this.form.value);
   }
+
+
   postPlansById(planType: number, body: any) {
     this.PlansService.postPlansById(planType, {
       lobSpaceTypeId: 0,
       ...body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ');
+      this.getPlansById(this.planId,0)
+      this.ToastrService.success('Update Done Successfully');
     });
   }
 }

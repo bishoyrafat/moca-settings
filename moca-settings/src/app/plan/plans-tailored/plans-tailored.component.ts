@@ -39,12 +39,16 @@ export class PlansTailoredComponent implements OnInit {
       this.route.navigate([planDefault.url, planDefault.id]);
     });
   }
+
+
   getPlansById(planType: number, id: number) {
     this.PlansService.getPlansById(planType, id).subscribe((data: any) => {
       this.selectedPlan = data.data.plan;
       this.createForm();
     });
   }
+
+
   createForm() {
     this.form = new FormGroup({
       description: new FormControl(
@@ -86,7 +90,8 @@ export class PlansTailoredComponent implements OnInit {
       lobSpaceTypeId: 0,
       ...body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ');
+      this.getPlansById(this.planId,0)
+      this.ToastrService.success('Update Done Successfully');
     });
   }
 

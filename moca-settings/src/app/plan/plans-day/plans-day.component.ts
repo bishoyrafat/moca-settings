@@ -85,7 +85,8 @@ export class PlansDayComponent implements OnInit {
       lobSpaceTypeId: 0,
       ...body,
     }).subscribe((data: any) => {
-      this.ToastrService.success('Update Done Successfully ');
+      this.getPlansById(this.planId,0)
+      this.ToastrService.success('Update Done Successfully');
     });
   }
 }
